@@ -1,0 +1,14 @@
+﻿Server:
+castor.db.elephantsql.com
+
+Region:
+amazon-web-services::us-east-1
+
+User & Default database:
+hacnprlp
+
+Password:
+pM6NFiOn21Z4A5cxXyTo2hgFgybluunS
+
+Url:
+postgres://hacnprlp:pM6NFiOn21Z4A5cxXyTo2hgFgybluunS@castor.db.elephantsql.com/hacnprlp
