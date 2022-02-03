@@ -5,10 +5,9 @@ const path = require("path");
 const debug = require('debug')('etsyclone:server');
 const http = require('http');
 const port = process.env.PORT || '3000';
-
 const app = express();
-app.set('port', port);
 
+app.set('port', port);
 const server = http.createServer(app);
 
 server.listen(port);
@@ -30,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use("/", indexRoute);
 app.use("/login", loginRoute);
 
+// error handler
 function onError(error) {
     if (error.syscall !== 'listen') {
         throw error;
@@ -54,6 +54,7 @@ function onError(error) {
     }
 }
 
+// console server logging
 function onListening() {
     const addr = server.address();
     const bind = typeof addr === 'string'
