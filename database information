@@ -23,6 +23,7 @@ Table for user accounts
  - password
 
 Table for saving user shopping carts
+ - cart id (pk)
  - user id (fk)
  - product id [array](fk)
  - quantity [array]
@@ -32,13 +33,17 @@ Table for saving products
  - user id (fk)
  - name
  - description
+ - size
+ - color
  - price
  - image
  - category
 
 Table for saving reviews
  - user id (fk)
- - product id (pk)
+ - product id (fk)
+ - review id (pk)
  - review text
  - date written
  - rating
+
