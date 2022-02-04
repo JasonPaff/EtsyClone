@@ -34,6 +34,7 @@ Table for saving products
  - description
  - price
  - image
+ - category
 
 Table for saving reviews
  - user id (fk)
