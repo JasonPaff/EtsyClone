@@ -8,6 +8,17 @@ const http = require('http');
 const port = process.env.PORT || '3000';
 const app = express();
 
+const session = require('express-session')
+app.use(session({
+    secret: 'tacocat',
+    saveUninitialized: true,
+    resave: true
+}))
+
+const indexRoute = require('./routes/index.js');
+const loginRoute = require('./routes/login.js');
+const dashboardRoute = require('./routes/dashboard.js')
+
 app.set('port', port);
 const server = http.createServer(app);
 server.listen(port);
@@ -28,6 +39,7 @@ app.use("/login", require('./routes/login.js'));
 app.use("/cart", require('./routes/cart.js'));
 app.use("/product", require('./routes/product.js'));
 app.use("/login", require('./routes/login.js'));
+app.use("/dashboard", dashboardRoute);
 
 // error handler
 function onError(error) {
