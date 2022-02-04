@@ -8,9 +8,6 @@ const http = require('http');
 const port = process.env.PORT || '3000';
 const app = express();
 
-const indexRoute = require('./routes/index.js');
-const loginRoute = require('./routes/login.js');
-
 app.set('port', port);
 const server = http.createServer(app);
 server.listen(port);
@@ -26,8 +23,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use("/", indexRoute);
-app.use("/login", loginRoute);
+app.use("/", require('./routes/index.js'));
+app.use("/login", require('./routes/login.js'));
+app.use("/cart", require('./routes/cart.js'));
 
 // error handler
 function onError(error) {
