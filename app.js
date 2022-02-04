@@ -10,6 +10,7 @@ const app = express();
 
 const indexRoute = require('./routes/index.js');
 const loginRoute = require('./routes/login.js');
+const dashboardRoute = require('./routes/dashboard.js')
 
 app.set('port', port);
 const server = http.createServer(app);
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use("/", indexRoute);
 app.use("/login", loginRoute);
+app.use("/dashboard", dashboardRoute);
 
 // error handler
 function onError(error) {
