@@ -37,6 +37,7 @@ app.use("/product", require('./routes/product.js'));
 app.use("/store", require('./routes/store.js'));
 app.use("/stores", require('./routes/stores.js'));
 app.use("/dashboard", require('./routes/dashboard.js'));
+app.use("/search", require('./routes/search.js'));
 
 // error handler
 function onError(error) {
