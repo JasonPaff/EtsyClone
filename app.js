@@ -15,10 +15,6 @@ app.use(session({
     resave: true
 }))
 
-const indexRoute = require('./routes/index.js');
-const loginRoute = require('./routes/login.js');
-const dashboardRoute = require('./routes/dashboard.js')
-
 app.set('port', port);
 const server = http.createServer(app);
 server.listen(port);
@@ -35,11 +31,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use("/", require('./routes/index.js'));
-app.use("/login", require('./routes/login.js'));
 app.use("/cart", require('./routes/cart.js'));
-app.use("/product", require('./routes/product.js'));
 app.use("/login", require('./routes/login.js'));
-app.use("/dashboard", dashboardRoute);
+app.use("/product", require('./routes/product.js'));
+app.use("/store", require('./routes/store.js'));
+app.use("/stores", require('./routes/stores.js'));
+app.use("/dashboard", require('./routes/dashboard.js'));
 
 // error handler
 function onError(error) {
