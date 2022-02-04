@@ -8,6 +8,13 @@ const http = require('http');
 const port = process.env.PORT || '3000';
 const app = express();
 
+const session = require('express-session')
+app.use(session({
+    secret: 'tacocat',
+    saveUninitialized: true,
+    resave: true
+}))
+
 const indexRoute = require('./routes/index.js');
 const loginRoute = require('./routes/login.js');
 const dashboardRoute = require('./routes/dashboard.js')
