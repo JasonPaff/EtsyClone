@@ -26,6 +26,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use("/", require('./routes/index.js'));
 app.use("/login", require('./routes/login.js'));
 app.use("/cart", require('./routes/cart.js'));
+app.use("/product", require('./routes/product.js'));
+app.use("/register", require('./routes/register.js'));
+app.use("/login", require('./routes/login.js'));
 
 // error handler
 function onError(error) {
