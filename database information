@@ -12,3 +12,32 @@ pM6NFiOn21Z4A5cxXyTo2hgFgybluunS
 
 Url:
 postgres://hacnprlp:pM6NFiOn21Z4A5cxXyTo2hgFgybluunS@castor.db.elephantsql.com/hacnprlp
+
+
+
+POTENTIAL LAYOUT
+
+Table for user accounts
+ - user id (pk)
+ - email
+ - password
+
+Table for saving user shopping carts
+ - user id (fk)
+ - product id [array](fk)
+ - quantity [array]
+
+Table for saving products
+ - product id (pk)
+ - user id (fk)
+ - name
+ - description
+ - price
+ - image
+
+Table for saving reviews
+ - user id (fk)
+ - product id (pk)
+ - review text
+ - date written
+ - rating

@@ -1,21 +1,21 @@
 const express = require('express');
 const mustacheExpress = require('mustache-express');
 const logger = require('morgan');
+
 const path = require("path");
 const debug = require('debug')('etsyclone:server');
 const http = require('http');
 const port = process.env.PORT || '3000';
 const app = express();
 
+const indexRoute = require('./routes/index.js');
+const loginRoute = require('./routes/login.js');
+
 app.set('port', port);
 const server = http.createServer(app);
-
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
-const indexRoute = require('./routes/index.js');
-const loginRoute = require('./routes/login.js');
 
 app.engine('mustache', mustacheExpress());
 app.set('views', './views');
