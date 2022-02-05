@@ -6,14 +6,13 @@ const debug = require('debug')('etsyclone:server');
 const http = require('http');
 const port = process.env.PORT || '3000';
 const app = express();
-const bcrypt = require('bcryptjs');
 
 const session = require('express-session')
 app.use(session({
     secret: 'tacocat',
     saveUninitialized: true,
     resave: true
-}))
+}));
 
 // add not logged in flag
 session.loggedIn = false;

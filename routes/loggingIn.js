@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require('bcryptjs');
+const envConfig = require("../config/config");
 
 router.post('/', function (req, res) {
     const {OAuth2Client} = require('google-auth-library');
@@ -24,22 +26,36 @@ router.post('/', function (req, res) {
         .catch(console.error);
 })
 
+// encrypt the password
+async function encryptPassword(password){
+    const rounds = 10;
+    return await bcrypt.hash(password, rounds);
+}
+
+// compare supplied password to hash from database
+async function comparePassword(password){
+    return await bcrypt.compare(process.env.GOOGLE_PASSWORD, password);
+}
+
 // find/create the user account
 async function findOrCreateUserAccount(email) {
     const models = require('../models')
+    require('dotenv').config();
+
+    // encrypt password
+    const encryptedPassword = await encryptPassword(process.env.GOOGLE_PASSWORD);
+
 
     // find/create user account
-    const user = await models.User.findOrCreate({
+    return await models.User.findOrCreate({
         where: {
             email: email
         },
         defaults: {
             email: email,
-            password: "google"
+            password: encryptedPassword
         }
     });
-
-    return user;
 }
 
 module.exports = router
