@@ -1,7 +1,6 @@
 const express = require('express');
 const mustacheExpress = require('mustache-express');
 const logger = require('morgan');
-
 const path = require("path");
 const debug = require('debug')('etsyclone:server');
 const http = require('http');
@@ -41,6 +40,7 @@ app.use("/dashboard", require('./routes/dashboard.js'));
 app.use("/search", require('./routes/search.js'));
 app.use("/categories", require('./routes/categories.js'));
 app.use("/wishlist", require('./routes/wishlist.js'));
+app.use("/logged", require('./routes/index.js'));
 
 // error handler
 function onError(error) {
