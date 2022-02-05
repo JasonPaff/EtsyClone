@@ -31,4 +31,27 @@ router.get('/', function(req, res) {
     res.render('index', { title: 'Etsy Clone', products: products });
 });
 
+router.post('/', function(req, res) {
+    console.log(req.body);
+    const {OAuth2Client} = require('google-auth-library');
+    let CLIENT_ID = "212320166072-k9ktehlapdde4her52obv0lhatd26s1v.apps.googleusercontent.com";
+    const client = new OAuth2Client(CLIENT_ID);
+    async function verify() {
+        const ticket = await client.verifyIdToken({
+            idToken: req.body.credential,
+            audience: CLIENT_ID,
+        });
+        const payload = ticket.getPayload();
+        const email = payload.email;
+
+        console.log(email);
+
+        // TODO: check for user account with that email in the database
+        // TODO: log into the account if found or create and then log in if not found
+    }
+    verify().catch(console.error);
+
+    res.render('index', { title: 'Logged In', products: products });
+})
+
 module.exports = router
