@@ -29,8 +29,8 @@ router.get('/update-password', (req, res) => {
 })
 
 router.get('/sign-out', (req, res) => {
-    //destory session
-    //req.session.destory
+    req.session.loggedIn = false;
+    res.render('index', {title :'Etsy Clone', loggedIn: req.session.loggedIn} );
 })
 
 router.get('/view-reviews', (req, res) => {
