@@ -14,6 +14,9 @@ app.use(session({
     resave: true
 }))
 
+// add not logged in flag
+session.loggedIn = false;
+
 app.set('port', port);
 const server = http.createServer(app);
 server.listen(port);
@@ -37,10 +40,11 @@ app.use("/login", require('./routes/login.js'));
 app.use("/product", require('./routes/product.js'));
 app.use("/store", require('./routes/store.js'));
 app.use("/stores", require('./routes/stores.js'));
-app.use("/dashboard", require('./routes/dashboard.js'));
+app.use("/dashboard", authenticator, require('./routes/dashboard.js'));
 app.use("/search", require('./routes/search.js'));
 app.use("/categories", require('./routes/categories.js'));
-app.use("/wishlist", require('./routes/wishlist.js'));
+app.use("/wishlist", authenticator, require('./routes/wishlist.js'));
+app.use("/loggingIn", require('./routes/loggingIn.js'));
 
 // error handler
 function onError(error) {
@@ -75,3 +79,13 @@ function onListening() {
         : 'port ' + addr.port;
     debug('Listening on ' + bind);
 }
+
+// authenticate login status when using certain routes
+function authenticator(req, res, next) {
+    if (req.session && req.session.loggedIn)
+        next();
+    else
+        res.redirect('/login');
+};
+
+// TODO: middleware to auto login on visit based off a cookie from previous visit?
