@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dashboard</title>
-</head>
+    {{>header}}
 
 <body>
-    <h1>Dashboard</h1>
+
+    {{>navbar}}
+
     <form method="GET" action="/dashboard/add-store">
         <button>Add Store</button>
     </form>
@@ -33,6 +31,7 @@
     <form method="POST" action="/dashboard/delete-account">
         <button>Delete Account</button>
     </form>
-</body>
 
+    {{>footer}}
+</body>
 </html>
