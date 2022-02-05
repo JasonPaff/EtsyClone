@@ -11,8 +11,7 @@
     <link rel="stylesheet" href="stylesheets/main.css">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-tailwind.png">
 </head>
-<!-- TODO: center google button on mobile -->
-<!-- TODO: return user to the page they were on when they signed in -->
+
 <body class="antialiased bg-body text-body font-body">
 <div class="">
     <section class="py-1 bg-blue-800 overflow-x-hidden">
@@ -41,7 +40,7 @@
                                      data-client_id={{client_id}}
                                      data-context="signin"
                                      data-ux_mode="popup"
-                                     data-login_uri="http://localhost:3000/logged"
+                                     data-login_uri="http://localhost:3000/index"
                                      data-auto_select="true">
                                 </div>
                                 <div class="g_id_signin"
@@ -56,6 +55,7 @@
                         </div>
                         <div class="max-w-md mx-auto">
                             <h2 class="mb-10 text-xl text-white font-bold font-heading">Sign in/up with Email:</h2>
+                            <!-- EMAIL/PASSWORD LOGIN/REGISTRATION -->
                             <form action="">
                                 <input class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                        type="text" placeholder="jason@example.dev"><input
@@ -76,3 +76,7 @@
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 </body>
 </html>
+
+
+<!-- TODO: center google button on mobile -->
+<!-- TODO: return user to the page they were on when they signed in -->

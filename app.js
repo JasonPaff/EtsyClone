@@ -31,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // ROUTES
 app.use("/", require('./routes/index.js'));
+app.use("/index", require('./routes/index.js'));
 app.use("/cart", require('./routes/cart.js'));
 app.use("/login", require('./routes/login.js'));
 app.use("/product", require('./routes/product.js'));
@@ -40,7 +41,6 @@ app.use("/dashboard", require('./routes/dashboard.js'));
 app.use("/search", require('./routes/search.js'));
 app.use("/categories", require('./routes/categories.js'));
 app.use("/wishlist", require('./routes/wishlist.js'));
-app.use("/logged", require('./routes/index.js'));
 
 // error handler
 function onError(error) {
