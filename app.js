@@ -30,6 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// ROUTES
 app.use("/", require('./routes/index.js'));
 app.use("/cart", require('./routes/cart.js'));
 app.use("/login", require('./routes/login.js'));
@@ -39,6 +40,7 @@ app.use("/stores", require('./routes/stores.js'));
 app.use("/dashboard", require('./routes/dashboard.js'));
 app.use("/search", require('./routes/search.js'));
 app.use("/categories", require('./routes/categories.js'));
+app.use("/wishlist", require('./routes/wishlist.js'));
 
 // error handler
 function onError(error) {
