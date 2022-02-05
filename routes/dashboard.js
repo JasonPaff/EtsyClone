@@ -43,8 +43,4 @@ router.get('/favorites', (req, res) => {
     res.render('favorites')
 })
 
-
-
-
-
 module.exports = router
