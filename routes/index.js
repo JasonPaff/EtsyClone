@@ -27,31 +27,48 @@ const products = [{
     price: 3.99
 },];
 
-router.get('/', function(req, res) {
-    res.render('index', { title: 'Etsy Clone', products: products });
+router.get('/', function (req, res) {
+    res.render('index', {title: 'Etsy Clone', products: products});
 });
 
-router.post('/', function(req, res) {
-    console.log(req.body);
+router.post('/', function (req, res) {
     const {OAuth2Client} = require('google-auth-library');
     let CLIENT_ID = "212320166072-k9ktehlapdde4her52obv0lhatd26s1v.apps.googleusercontent.com";
     const client = new OAuth2Client(CLIENT_ID);
+    let email = "";
+
+    // verify google auth and get email
     async function verify() {
         const ticket = await client.verifyIdToken({
             idToken: req.body.credential,
             audience: CLIENT_ID,
         });
         const payload = ticket.getPayload();
-        const email = payload.email;
-
-        console.log(email);
-
-        // TODO: check for user account with that email in the database
-        // TODO: log into the account if found or create and then log in if not found
+        email = payload.email;
+        return email
     }
-    verify().catch(console.error);
 
-    res.render('index', { title: 'Logged In', products: products });
+    verify()
+        .then(email => findOrCreateUserAccount(email))
+        .catch(console.error);
 })
+
+// find/create the user account
+async function findOrCreateUserAccount(email) {
+    const models = require('../models')
+
+    // find/create user account
+    const user = await models.User.findOrCreate({
+        where: {
+            email: email
+        },
+        defaults: {
+            email: email,
+            password: "google"
+        }
+    });
+
+    console.log(user);
+}
 
 module.exports = router
