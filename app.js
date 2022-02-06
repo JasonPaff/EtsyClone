@@ -38,13 +38,14 @@ app.use("/index", require('./routes/index.js'));
 app.use("/cart", require('./routes/cart.js'));
 app.use("/login", require('./routes/login.js'));
 app.use("/product", require('./routes/product.js'));
+app.use("/register", require('./routes/register.js'));
 app.use("/store", require('./routes/store.js'));
 app.use("/stores", require('./routes/stores.js'));
 app.use("/dashboard", authenticator, require('./routes/dashboard.js'));
 app.use("/search", require('./routes/search.js'));
 app.use("/categories", require('./routes/categories.js'));
 app.use("/wishlist", authenticator, require('./routes/wishlist.js'));
-app.use("/loggingIn", require('./routes/loggingIn.js'));
+app.use("/loggingIn", require('./routes/googleLogin.js'));
 
 // error handler
 function onError(error) {

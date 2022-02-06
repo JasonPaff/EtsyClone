@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const envConfig = require("../config/config");
 
 router.post('/', function (req, res) {
     const {OAuth2Client} = require('google-auth-library');
@@ -22,29 +21,23 @@ router.post('/', function (req, res) {
 
     verify()
         .then(email => findOrCreateUserAccount(email))
-        .then(() => { req.session.loggedIn = true; res.render('index', {title :'Etsy Clone', loggedIn: req.session.loggedIn}) })
+        .then((user) => {
+            req.session.loggedIn = true;
+            req.session.user = user;
+            res.render('index', {title :'Etsy Clone', loggedIn: req.session.loggedIn}) })
         .catch(console.error);
 })
-
-// encrypt the password
-async function encryptPassword(password){
-    const rounds = 10;
-    return await bcrypt.hash(password, rounds);
-}
-
-// compare supplied password to hash from database
-async function comparePassword(password){
-    return await bcrypt.compare(process.env.GOOGLE_PASSWORD, password);
-}
 
 // find/create the user account
 async function findOrCreateUserAccount(email) {
     const models = require('../models')
     require('dotenv').config();
 
-    // encrypt password
-    const encryptedPassword = await encryptPassword(process.env.GOOGLE_PASSWORD);
+    // TODO: allow user to create a password when a google login creates an account instead of using a default
+    //  this way they can sign in with google auto or type email/password to login
 
+    // encrypt password
+    const encryptedPassword = await bcrypt.hash(process.env.GOOGLE_PASSWORD, 5);
 
     // find/create user account
     return await models.User.findOrCreate({

@@ -1,16 +1,10 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>{{title}}</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
-    <link rel="stylesheet" href="stylesheets/tailwind/tailwind.min.css">
-    <link rel="stylesheet" href="stylesheets/main.css">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-tailwind.png">
-</head>
+
+{{>header}}
+
+<!-- TODO: center google button on mobile -->
+<!-- TODO: return user to the page they were on when they signed in -->
 
 <body class="antialiased bg-body text-body font-body">
 <div class="">
@@ -35,7 +29,7 @@
                             src="assets/elements/purple-sign-line.svg" alt="">
                         <div class="flex flex-wrap -mx-2 mb-10 pb-16 border-b border-gray-500 justify-center">
                             <!-- GOOGLE LOGIN -->
-                            <div class="w-full md:w-1/2 px-2 mb-2 md:mb-0">
+                            <div class="w-full md:w-1/2 px-2 pl-10 mb-2 md:mb-0">
                                 <div id="g_id_onload"
                                      data-client_id={{client_id}}
                                      data-context="signin"
@@ -54,29 +48,67 @@
                             </div>
                         </div>
                         <div class="max-w-md mx-auto">
-                            <h2 class="mb-10 text-xl text-white font-bold font-heading">Sign in/up with Email:</h2>
-                            <!-- EMAIL/PASSWORD LOGIN/REGISTRATION -->
-                            <form action="">
+                            <!-- LOGIN/REGISTER BUTTONS -->
+                            <div class="button-box flex item-center">
+                                <div id="btn"></div>
+                                <button type="button" class="toggle-btn text-white font-bold font-heading"
+                                        onclick="login()">Login
+                                </button>
+                                <button type="button" class="toggle-btn text-white font-bold font-heading"
+                                        onclick="register()">Register
+                                </button>
+                            </div>
+                            <!-- LOGIN/REGISTER FROM -->
+                            <form id="login" method="post" action="/login">
+                                <!-- EMAIL TEXT BOX -->
                                 <input class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                                       type="text" placeholder="jason@example.dev"><input
-                                    class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                                    type="password" placeholder="Password"><label class="flex" for="">
+                                       type="text" placeholder="jason@example.dev" name="email" required>
+                                <!-- PASSWORD TEXT BOX -->
+                                <input class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                                       type="password" placeholder="Password" name="password" required><label
+                                    class="flex" for="">
                             </label>
+                                <!-- SUBMIT BUTTOn -->
+                                <button class="mt-12 md:mt-16 bg-orange-300 hover:bg-orange-400 text-white font-bold font-heading py-5 px-8 rounded-md uppercase">
+                                    Submit
+                                </button>
+                            </form>
+                        </div>
+                        <div class="max-w-md mx-auto">
+                            <!-- LOGIN/REGISTER FROM -->
+                            <form id="register" method="post" action="/register">
+                                <!-- EMAIL TEXT BOX -->
+                                <input class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                                       type="text" placeholder="jason@example.dev" name="email" required>
+                                <!-- PASSWORD TEXT BOX -->
+                                <input class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                                       type="password" placeholder="Password" name="password" required>
+                                <!-- REPEAT PASSWORD TEXT BOX -->
+                                <input class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
+                                       type="password" placeholder="Repeat Password" name="repeatPassword" required>
+                                <label class="flex" for=""></label>
+                                <!-- SUBMIT BUTTOn -->
                                 <button class="mt-12 md:mt-16 bg-orange-300 hover:bg-orange-400 text-white font-bold font-heading py-5 px-8 rounded-md uppercase">
                                     Submit
                                 </button>
                             </form>
                         </div>
                     </div>
+                    <div>
+                        <!-- SHOW LOGIN/REGISTER ERROR -->
+                        {{#error}}
+                            <label>{{error}}</label>
+                        {{/error}}
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
 </div>
+</div>
+</section>
+</div>
+
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+{{>footer}}
 </body>
 </html>
-
-
-<!-- TODO: center google button on mobile -->
-<!-- TODO: return user to the page they were on when they signed in -->
