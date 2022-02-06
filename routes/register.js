@@ -1,8 +1,8 @@
-const express = require("express")
+const express = require("express");
 const bcrypt = require("bcryptjs");
 const models = require("../models");
 const {Op} = require("sequelize");
-const router = express.Router()
+const router = express.Router();
 
 router.post('/', function (req, res) {
     // TODO: use regex to confirm user entered a valid email address
@@ -24,7 +24,7 @@ async function handleRegistration(req, res) {
             title: 'Etsy Clone',
             loggedIn: req.session.loggedIn,
             registrationError: "Account already exists"
-        })
+        });
         // TODO: login screen reload needs to toggle to register on load so error message can be seen
         return;
     }
@@ -46,7 +46,7 @@ async function hasAccountAlready(models, Op, email) {
                 [Op.iLike]: email
             }
         }
-    })
+    });
 
     // flag whether account exists or not
     return count > 0;
@@ -64,4 +64,4 @@ async function createUserAccount(email, password) {
     });
 }
 
-module.exports = router
+module.exports = router;

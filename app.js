@@ -43,6 +43,7 @@ app.use("/store", require('./routes/store.js'));
 app.use("/stores", require('./routes/stores.js'));
 app.use("/dashboard", authenticator, require('./routes/dashboard.js'));
 app.use("/search", require('./routes/search.js'));
+app.use("/category", require('./routes/category.js'));
 app.use("/categories", require('./routes/categories.js'));
 app.use("/wishlist", authenticator, require('./routes/wishlist.js'));
 app.use("/loggingIn", require('./routes/googleLogin.js'));

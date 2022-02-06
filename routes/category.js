@@ -24,7 +24,7 @@ const products = [{
 },];
 
 router.get('/', function(req, res) {
-    res.render('store', { title: 'Etsy Clone', loggedIn: req.session.loggedIn, products: products });
+    res.render('category', { title: 'Etsy Clone', loggedIn: req.session.loggedIn, products: products });
 });
 
 module.exports = router;
