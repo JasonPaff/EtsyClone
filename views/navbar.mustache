@@ -15,7 +15,7 @@
                           stroke="black" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
                 </svg>
                 <!-- SEARCH BOX -->
-                <input class="w-full border-0 focus:ring-transparent focus:outline-none py-2" type="text"
+                <input class="w-full border-0 focus:ring-transparent focus:outline-none py-2 pr-20" type="text"
                        placeholder="Search Products">
                 <!-- SEARCH DROP DOWN -->
                 <select class="pl-6 pr-9 border-0 border-l border-gray-100 focus:border-gray-100 focus:ring-transparent focus:outline-none cursor-pointer"
@@ -27,11 +27,10 @@
             </div>
 
             <!-- SITE LINKS -->
-            <!-- TODO remove options from the right one by one as screen shrinks -->
+            <!-- TODO remove searchbar then options from the right one by one as screen shrinks -->
             <ul class="hidden xl:flex px-4 mx-auto font-semibold font-heading">
                 <li class="mr-12"><a class="hover:text-gray-600" href="/categories">Categories</a></li>
                 <li class="mr-12"><a class="hover:text-gray-600" href="/stores">Stores</a></li>
-                <li class="mr-12"><a class="hover:text-gray-600" href="#">placeholder</a></li>
                 <li class="mr-12"><a class="hover:text-gray-600" href="#">placeholder</a></li>
                 <li><a class="hover:text-gray-600" href="#">placeholder</a></li>
             </ul>
@@ -110,7 +109,7 @@
                 </svg>
             </a>
             <!-- MOBILE VIEW CART -->
-            <a class="xl:hidden flex mr-6 items-center text-gray-600" href="#">
+            <a class="xl:hidden flex mr-6 items-center text-gray-600" href="/cart">
                 <svg class="mr-2" width="23" height="23" viewbox="0 0 23 23" fill="none"
                      xmlns="http://www.w3.org/2000/svg">
                     <path d="M18.1159 8.72461H2.50427C1.99709 8.72461 1.58594 9.12704 1.58594 9.62346V21.3085C1.58594 21.8049 1.99709 22.2074 2.50427 22.2074H18.1159C18.6231 22.2074 19.0342 21.8049 19.0342 21.3085V9.62346C19.0342 9.12704 18.6231 8.72461 18.1159 8.72461Z"
@@ -152,7 +151,7 @@
                 </button>
             </div>
             <div class="flex mb-8 justify-between">
-                <!-- LOGIN -->
+                <!-- DASHBOARD -->
                 {{#loggedIn}}
                 <a class="inline-flex items-center font-semibold font-heading" href="/dashboard">
                     <svg class="mr-3" width="32" height="31" viewbox="0 0 32 31" fill="none"
@@ -167,6 +166,7 @@
                     <span>Dashboard</span>
                 </a>
                 {{/loggedIn}}
+                <!-- SIGN IN -->
                 {{^loggedIn}}
                     <a class="inline-flex items-center font-semibold font-heading" href="/login">
                         <svg class="mr-3" width="32" height="31" viewbox="0 0 32 31" fill="none"

@@ -43,7 +43,7 @@ router.post('/', function (req, res) {
     }
 
     verify()
-        .then(email => findOrCreateUserAccount(email))
+        .then(email => findOrCreateUserAccount(email, res))
         .then((user) => {
             req.session.loggedIn = true;
             req.session.user = user;
@@ -52,7 +52,7 @@ router.post('/', function (req, res) {
 });
 
 // find/create the user account
-async function findOrCreateUserAccount(email) {
+async function findOrCreateUserAccount(email, res) {
     require('dotenv').config();
 
     // TODO: allow user to create a password when a google login creates an account

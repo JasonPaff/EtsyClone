@@ -57,7 +57,7 @@ async function handleRegistration(req, res) {
     req.session.loggedIn = true;
     req.session.user = account;
 
-    res.render('index', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, products: products});
+    res.redirect('index');
 }
 
 // checks for an account existing in the database already
