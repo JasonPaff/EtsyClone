@@ -1,35 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>{{title}}</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
-    <link rel="stylesheet" href="stylesheets/tailwind/tailwind.min.css">
-    <link rel="stylesheet" href="stylesheets/main.css">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-tailwind.png">
-    <script src="javascripts/main.js"></script>
-</head>
+
+{{>header}}
+
 <body class="antialiased bg-body text-body font-body">
 <div>
 
     {{>navbar}}
 
-    <section class="py-20 bg-gray-100">
+    <section class="py-20 bg-blue-800 lg:pt-32 overflow-x-hidden">
+        <!-- BACKGROUND SWIRLS -->
+        <img class="hidden md:block absolute top-0 left-0" src="assets/elements/white-line.svg" alt="">
+        <img class="absolute top-50 left-0 mt-64" src="assets/elements/orange-line.svg" alt="">
+        <img class="absolute bottom-0 right-0 w-72" src="assets/elements/violet-line.svg" alt="">
+
         <div class="container mx-auto px-4">
-            <!-- STORE HEADING -->
+            <!-- CATEGORY HEADING -->
             <div class="w-full lg:w-auto px-4 pb-10 mb-12 xl:mb-0">
                 <h2 class="text-5xl font-bold font-heading">
-                    <span class="justify-center">page for stores</span>
+                    <span class="justify-center">product page for category</span>
                 </h2>
             </div>
 
             <div class="flex flex-wrap -mx-4 items-center justify-left">
-                {{#stores}}
-                    <!-- STORE -->
+                {{#products}}
+                    <!-- CATEGORY -->
                     <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-8">
                         <div class="p-6 bg-gray-50">
-                            <a class="block px-6 mt-6 mb-2 justify-center" href="/store">
+                            <a class="block px-6 mt-6 mb-2 justify-center" href="/product">
                                 <img class="mb-5 mx-auto h-56 w-full object-contain"
                                      src="assets/images/waterbottle.png" alt="">
                                 <h3 class="mb-2 text-xl font-bold font-heading">{{name}}</h3>
@@ -38,7 +36,7 @@
                             </a>
                         </div>
                     </div>
-                {{/stores}}
+                {{/products}}
             </div>
         </div>
     </section>

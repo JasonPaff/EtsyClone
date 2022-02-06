@@ -1,19 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>Page title</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
-    <link rel="stylesheet" href="stylesheets/tailwind/tailwind.min.css">
-    <link rel="stylesheet" href="stylesheets/main.css">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-tailwind.png">
-    <script src="javascripts/main.js"></script>
-</head>
+
+{{>header}}
+
 <body class="antialiased bg-body text-body font-body">
-<div class="">
+<div>
 
     {{>navbar}}
 
@@ -120,16 +111,8 @@
                         </div>
                         <div class="flex mb-12">
                             <div class="mr-6">
-                                <span class="block mb-4 font-bold font-heading text-gray-400 uppercase">QTY</span>
-                                <div class="inline-flex items-center px-4 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md">
-                                    <button class="py-2 hover:text-gray-700">
-                                        <svg width="12" height="2" viewbox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="0.35"><rect x="12" width="2" height="12" transform="rotate(90 12 0)" fill="currentColor"></rect></g></svg>
-                                    </button>
-                                    <input class="w-12 m-0 px-2 py-4 text-center md:text-right border-0 focus:ring-transparent focus:outline-none rounded-md" type="number" placeholder="1">
-                                    <button class="py-2 hover:text-gray-700">
-                                        <svg width="12" height="12" viewbox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><g opacity="0.35"><rect x="5" width="2" height="12" fill="currentColor"></rect><rect x="12" y="5" width="2" height="12" transform="rotate(90 12 5)" fill="currentColor"></rect></g></svg>
-                                    </button>
-                                </div>
+                                <span class="block ml-4 mb-4 font-bold font-heading text-gray-400 uppercase">QTY</span>
+                                {{>quantity}}
                             </div>
                             <div>
                                 <span class="block mb-4 font-bold font-heading text-gray-400 uppercase">Size</span>
@@ -175,5 +158,8 @@
         </div>
     </section>
 </div>
+
+    {{>footer}}
+
 </body>
 </html>
