@@ -31,7 +31,30 @@ router.get('/update-password', (req, res) => {
 router.get('/sign-out', (req, res) => {
     req.session.loggedIn = false;
     req.session.user = null;
-    res.render('index', {title :'Etsy Clone', loggedIn: req.session.loggedIn} );
+
+    // TODO: load real products from database
+    const products = [{
+        name: "test one",
+        price: 5.99,
+        sale_price: 4.99
+    }, {
+        name: "test two",
+        price: 5.99,
+    }, {
+        name: "test three",
+        price: 6.99,
+    }, {
+        name: "test four",
+        price: 7.99
+    }, {
+        name: "test five",
+        price: 8.99
+    }, {
+        name: "test six",
+        price: 3.99
+    },];
+
+    res.render('index', {title :'Etsy Clone', loggedIn: req.session.loggedIn, products: products} );
 });
 
 router.get('/view-reviews', (req, res) => {
