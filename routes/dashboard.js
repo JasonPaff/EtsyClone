@@ -30,6 +30,7 @@ router.get('/update-password', (req, res) => {
 
 router.get('/sign-out', (req, res) => {
     req.session.loggedIn = false;
+    req.session.user = null;
     res.render('index', {title :'Etsy Clone', loggedIn: req.session.loggedIn} );
 })
 
