@@ -27,15 +27,14 @@ const products = [{
 
 router.post('/', function (req, res) {
     const {OAuth2Client} = require('google-auth-library');
-    let CLIENT_ID = "212320166072-k9ktehlapdde4her52obv0lhatd26s1v.apps.googleusercontent.com";
-    const client = new OAuth2Client(CLIENT_ID);
+    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
     let email = "";
 
     // verify google auth and get email
     async function verify() {
         const ticket = await client.verifyIdToken({
             idToken: req.body.credential,
-            audience: CLIENT_ID,
+            audience: process.env.GOOGLE_CLIENT_ID,
         });
         const payload = ticket.getPayload();
         email = payload.email;
