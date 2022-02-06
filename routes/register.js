@@ -25,7 +25,7 @@ async function handleRegistration(req, res) {
             loggedIn: req.session.loggedIn,
             registrationError: "Account already exists"
         })
-        // TODO: login screen reload needs to toggle to register on load
+        // TODO: login screen reload needs to toggle to register on load so error message can be seen
         return;
     }
 
