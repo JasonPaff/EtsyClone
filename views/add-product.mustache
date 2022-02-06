@@ -12,6 +12,19 @@
 
 <body>
     <h1>Add Product</h1>
+
+    <form method="POST" action="/dashboard/add-product">
+        <input type="text" placeholder="Product Name" name="productName" required />
+        <textarea placeholder="Product Description" name="productDescription" rows="6" cols="50" required></textarea>
+        <input type="text" placeholder="Price" name="productPrice" required />
+        <input type="text" placeholder="Sale Price (optional)" name="salePrice" />
+        <input type="file" name="productImage" accept="image/*" />
+        <input type="text" name="productCategory" placeholder="Category" required />
+        <input type="text" name="productColor" placeholder="Color" />
+        <input type="text" name="productSize" placeholder="Size" />
+        <button>Add Product</button>
+    </form>
+
 </body>
 
 </html>
