@@ -68,6 +68,12 @@
                                        type="password" placeholder="Password" name="password" required><label
                                     class="flex" for="">
                             </label>
+                                <!-- SHOW LOGIN ERROR -->
+                                <div>
+                                    {{#loginError}}
+                                        <label>{{loginError}}</label>
+                                    {{/loginError}}
+                                </div>
                                 <!-- SUBMIT BUTTOn -->
                                 <button class="mt-12 md:mt-16 bg-orange-300 hover:bg-orange-400 text-white font-bold font-heading py-5 px-8 rounded-md uppercase">
                                     Submit
@@ -87,18 +93,18 @@
                                 <input class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
                                        type="password" placeholder="Repeat Password" name="repeatPassword" required>
                                 <label class="flex" for=""></label>
+                                <!-- SHOW LOGIN ERROR -->
+                                <div>
+                                    {{#registrationError}}
+                                        <label>{{registrationError}}</label>
+                                    {{/registrationError}}
+                                </div>
                                 <!-- SUBMIT BUTTOn -->
                                 <button class="mt-12 md:mt-16 bg-orange-300 hover:bg-orange-400 text-white font-bold font-heading py-5 px-8 rounded-md uppercase">
                                     Submit
                                 </button>
                             </form>
                         </div>
-                    </div>
-                    <div>
-                        <!-- SHOW LOGIN/REGISTER ERROR -->
-                        {{#error}}
-                            <label>{{error}}</label>
-                        {{/error}}
                     </div>
                 </div>
             </div>

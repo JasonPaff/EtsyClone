@@ -17,40 +17,34 @@ router.get('/', function (req, res) {
 router.post('/', function (req, res) {
 
     // TODO: use regex to confirm user entered a valid email address
-    // TODO: add verification to force password to be a certain length and contain a symbol
-    // TODO: make sure password and repeat password match
+    // TODO: use regex to confirm password is certain length and has at least 1 symbol
 
     handleLogin(req, res).catch(console.error);
 });
 
-// handle the login logic
+// handle the account login logic
 async function handleLogin(req, res) {
-    const models = require('../models')
-    const {Op} = require('sequelize')
-
     const email = req.body.email;
     const password = req.body.password;
-    const repeatPassword = req.body.repeatPassword;
 
     // confirm account matching the email exists
     const hasAccount = await hasAccountAlready(models, Op, email);
     if (!hasAccount) {
-        res.render('login', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, error: "Incorrect Email"})
+        res.render('login', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, loginError: "Incorrect Email"})
         return;
     }
 
     // get the account information
     const account = await getAccount(email);
     if (account === null) {
-        res.render('login', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, error: "No Account Exists"})
+        res.render('login', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, loginError: "No Account Exists"})
         return;
     }
 
     // compare the entered passwords hash with the database password hash
-    const newPasswordHash = await bcrypt.hash(password, 5);
     const match = await comparePasswordHashes(password, account.dataValues.password);
     if (!match) {
-        res.render('login', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, error: "Incorrect Password"})
+        res.render('login', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, loginError: "Incorrect Password"})
         return;
     }
 
@@ -86,8 +80,8 @@ async function getAccount(email) {
 }
 
 // compare supplied password to hash from database
-async function comparePasswordHashes(newPasswordHash, oldPasswordHash) {
-    return bcrypt.compare(newPasswordHash, oldPasswordHash);
+async function comparePasswordHashes(newPassword, oldPasswordHash) {
+    return bcrypt.compare(newPassword, oldPasswordHash);
 }
 
 module.exports = router;
