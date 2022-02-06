@@ -1,23 +1,22 @@
 const express = require('express');
 const mustacheExpress = require('mustache-express');
 const logger = require('morgan');
-
 const path = require("path");
 const debug = require('debug')('etsyclone:server');
 const http = require('http');
 const port = process.env.PORT || '3000';
 const app = express();
 
+// TODO: do we need to hide the secret key in the .env file? probably should to be safe
 const session = require('express-session')
 app.use(session({
     secret: 'tacocat',
     saveUninitialized: true,
     resave: true
-}))
+}));
 
-const indexRoute = require('./routes/index.js');
-const loginRoute = require('./routes/login.js');
-const dashboardRoute = require('./routes/dashboard.js')
+// add not logged in flag
+session.loggedIn = false;
 
 app.set('port', port);
 const server = http.createServer(app);
@@ -34,12 +33,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// ROUTES
 app.use("/", require('./routes/index.js'));
-app.use("/login", require('./routes/login.js'));
+app.use("/index", require('./routes/index.js'));
 app.use("/cart", require('./routes/cart.js'));
-app.use("/product", require('./routes/product.js'));
 app.use("/login", require('./routes/login.js'));
-app.use("/dashboard", dashboardRoute);
+app.use("/product", require('./routes/product.js'));
+app.use("/register", require('./routes/register.js'));
+app.use("/store", require('./routes/store.js'));
+app.use("/stores", require('./routes/stores.js'));
+app.use("/dashboard", authenticator, require('./routes/dashboard.js'));
+app.use("/search", require('./routes/search.js'));
+app.use("/category", require('./routes/category.js'));
+app.use("/categories", require('./routes/categories.js'));
+app.use("/wishlist", authenticator, require('./routes/wishlist.js'));
+app.use("/loggingIn", require('./routes/googleLogin.js'));
 
 // error handler
 function onError(error) {
@@ -74,3 +82,13 @@ function onListening() {
         : 'port ' + addr.port;
     debug('Listening on ' + bind);
 }
+
+// authenticate login status
+function authenticator(req, res, next) {
+    if (req.session && req.session.loggedIn)
+        next();
+    else
+        res.redirect('/login');
+};
+
+// TODO: middleware to auto login on visit based off a cookie from previous visit?

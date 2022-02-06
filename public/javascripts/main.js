@@ -1,4 +1,5 @@
-// Burger menus
+
+// BURGER MENU
 document.addEventListener('DOMContentLoaded', function() {
     // open
     const burger = document.querySelectorAll('.navbar-burger');
