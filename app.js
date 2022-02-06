@@ -7,6 +7,7 @@ const http = require('http');
 const port = process.env.PORT || '3000';
 const app = express();
 
+// TODO: do we need to hide the secret key in the .env file? probably should to be safe
 const session = require('express-session')
 app.use(session({
     secret: 'tacocat',
@@ -82,7 +83,7 @@ function onListening() {
     debug('Listening on ' + bind);
 }
 
-// authenticate login status when using certain routes
+// authenticate login status
 function authenticator(req, res, next) {
     if (req.session && req.session.loggedIn)
         next();
