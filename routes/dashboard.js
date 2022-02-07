@@ -44,10 +44,7 @@ router.get('/edit-store', (req, res) => {
 });
 
 router.post('/edit-store', (req, res) => {
-    // get store values from DB
-    const storeName = req.body.storeName
-    const storeDescription = req.body.storeDescription
-    const storeImage = req.body.storeImage
+
 })
 
 router.get('/add-product', (req, res) => {
