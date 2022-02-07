@@ -25,9 +25,17 @@
                                 %</span>
                         {{/onSale}}
                         <a class="block" href="/product">
+                            {{#image}}
+                                <img class="w-full h-64 object-cover"
+                                     src="{{image}}"
+                                     alt="">
+                            {{/image}}
+                            {{^image}}
                             <img class="w-full h-64 object-cover"
                                  src="assets/images/basketball.png"
-                                 alt=""></a>
+                                 alt="">
+                            {{/image}}
+                        </a>
                         <div class="px-6 pb-6 mt-8">
                             <a class="block px-6 mb-2" href="#">
                                 <h3 class="mb-2 text-xl font-bold font-heading">{{name}}</h3>
