@@ -11,8 +11,7 @@ router.post('/', function (req, res) {
     // verify google auth and get email
     async function verify() {
         const ticket = await client.verifyIdToken({
-            idToken: req.body.credential,
-            audience: process.env.GOOGLE_CLIENT_ID,
+            idToken: req.body.credential, audience: process.env.GOOGLE_CLIENT_ID,
         });
         const payload = ticket.getPayload();
         email = payload.email;
@@ -30,9 +29,8 @@ router.post('/', function (req, res) {
                 res.redirect(req.session.redirectUrl);
                 req.session.redirect = false;
                 req.session.redirectUrl = "";
-            }
-            else
-                res.redirect('index'); })
+            } else res.redirect('index');
+        })
         .catch(console.error);
 });
 
@@ -49,10 +47,8 @@ async function findOrCreateUserAccount(email, res) {
     return await models.User.findOrCreate({
         where: {
             email: email
-        },
-        defaults: {
-            email: email,
-            password: hashedPassword
+        }, defaults: {
+            email: email, password: hashedPassword
         }
     });
 }

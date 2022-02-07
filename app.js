@@ -8,16 +8,14 @@ const port = process.env.PORT || '3000';
 const app = express();
 const server = http.createServer(app);
 
-
 // TODO: do we need to hide the secret key in the .env file? probably should to be safe
 // TODO: middleware to auto login on visit based off a cookie from previous visit?
 
 const session = require('express-session')
 app.use(session({
-    secret: 'tacocat',
-    saveUninitialized: true,
-    resave: true
+    secret: 'tacocat', saveUninitialized: true, resave: true
 }));
+
 
 app.set('port', port);
 server.listen(port);
@@ -56,9 +54,7 @@ function onError(error) {
         throw error;
     }
 
-    const bind = typeof port === 'string'
-        ? 'Pipe ' + port
-        : 'Port ' + port;
+    const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
     // handle specific listen errors with friendly messages
     switch (error.code) {
@@ -78,27 +74,21 @@ function onError(error) {
 // console server logging
 function onListening() {
     const addr = server.address();
-    const bind = typeof addr === 'string'
-        ? 'pipe ' + addr
-        : 'port ' + addr.port;
+    const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
     debug('Listening on ' + bind);
 }
 
 // authenticate login status
 function authenticator(req, res, next) {
-    if (req.session.loggedIn)
-        next();
-    else {
+    if (req.session.loggedIn) next(); else {
         req.session.redirect = true;
         req.session.redirectUrl = req.baseUrl;
 
         // hack to redirect dashboards to index
-        if (req.baseUrl === "/dashboard")
-            req.session.redirectUrl = '/index';
+        if (req.baseUrl === "/dashboard") req.session.redirectUrl = '/index';
 
         // hack to redirect wishlist
-        if (req.baseUrl === 'undefined')
-            req.session.redirectUrl = '/wishlist';
+        if (req.baseUrl === 'undefined') req.session.redirectUrl = '/wishlist';
 
         res.redirect('/login');
     }

@@ -14,11 +14,11 @@ const categories = [{
     name: 'electronics',
 }];
 
-router.get('/', function(req, res) {
-    res.render('categories', { title: 'Etsy Clone', loggedIn: req.session.loggedIn, categories: categories });
+router.get('/', function (req, res) {
+    res.render('categories', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, categories: categories});
 });
 
-router.post('/', function( req, res){
+router.post('/', function (req, res) {
 
 });
 

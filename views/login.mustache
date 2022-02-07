@@ -62,16 +62,22 @@
                             <form id="login" method="post" action="/login">
                                 <!-- EMAIL TEXT BOX -->
                                 <input class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 cart nav-bg nav-border-bg focus:border-blue-300 rounded-md"
-                                       type="text" placeholder="jason@example.dev" name="email" required>
+                                       type="text" placeholder="jason@example.dev"
+                                       title="Enter email address"
+                                       required
+                                       pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}"
+                                       name="email">
                                 <!-- PASSWORD TEXT BOX -->
                                 <input class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 cart nav-bg nav-border-bg focus:border-blue-300 rounded-md"
-                                       type="password" placeholder="Password" name="password" required><label
+                                       type="password" placeholder="Password" name="password" required
+                                       title="Password must contain at least 8 character including at least 1 number"
+                                       pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"><label
                                     class="flex" for="">
                             </label>
                                 <!-- SHOW LOGIN ERROR -->
                                 <div>
                                     {{#loginError}}
-                                        <label>{{loginError}}</label>
+                                        <label class="login-error">{{loginError}}</label>
                                     {{/loginError}}
                                 </div>
                                 <!-- SUBMIT BUTTOn -->
@@ -85,18 +91,25 @@
                             <form id="register" method="post" action="/register">
                                 <!-- EMAIL TEXT BOX -->
                                 <input class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 cart nav-bg nav-border-bg focus:border-blue-300 rounded-md"
-                                       type="text" placeholder="jason@example.dev" name="email" required>
+                                       type="text" placeholder="jason@example.dev"
+                                       required
+                                       title="Enter a valid email address"
+                                       pattern="(?!(^[.-].*|[^@]*[.-]@|.*\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\/=?^_`{|}~.-]+@)(?!-.*|.*-\.)([a-zA-Z0-9-]{1,63}\.)+[a-zA-Z]{2,15}"
+                                       name="email">
                                 <!-- PASSWORD TEXT BOX -->
                                 <input class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 cart nav-bg nav-border-bg focus:border-blue-300 rounded-md"
-                                       type="password" placeholder="Password" name="password" required>
+                                       id="password"
+                                       title="Password must contain at least 8 character including at least 1 number"
+                                       type="password" placeholder="Password" name="password">
                                 <!-- REPEAT PASSWORD TEXT BOX -->
                                 <input class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 cart nav-bg nav-border-bg focus:border-blue-300 rounded-md"
+                                       id="repeatPassword"
+                                       title="Passwords must match"
                                        type="password" placeholder="Repeat Password" name="repeatPassword" required>
-                                <label class="flex" for=""></label>
                                 <!-- SHOW LOGIN ERROR -->
                                 <div>
                                     {{#registrationError}}
-                                        <label>{{registrationError}}</label>
+                                        <label class="login-error">{{registrationError}}</label>
                                     {{/registrationError}}
                                 </div>
                                 <!-- SUBMIT BUTTOn -->

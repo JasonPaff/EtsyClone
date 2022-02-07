@@ -71,3 +71,7 @@
     color: white;
     background-color: #121212;
 }
+
+.login-error {
+    color: white;
+}
