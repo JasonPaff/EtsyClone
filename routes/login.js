@@ -4,36 +4,15 @@ const models = require("../models");
 const {Op} = require("sequelize");
 const router = express.Router();
 
-// TODO: load real products from database
-const products = [{
-    name: "test one",
-    price: 5.99,
-    sale_price: 4.99
-}, {
-    name: "test two",
-    price: 5.99,
-}, {
-    name: "test three",
-    price: 6.99,
-}, {
-    name: "test four",
-    price: 7.99
-}, {
-    name: "test five",
-    price: 8.99
-}, {
-    name: "test six",
-    price: 3.99
-},];
-
 router.get('/', function (req, res) {
     if (req.session.loggedIn)
-        res.render('index', {title: 'Etsy Clone', loggedIn: req.session.loggedIn});
-    else
+        res.redirect('index');
+    else {
         res.render('login', {
             title: 'Login/Register',
-            client_id: "212320166072-k9ktehlapdde4her52obv0lhatd26s1v.apps.googleusercontent.com"
+            client_id: process.env.GOOGLE_CLIENT_ID
         });
+    }
 });
 
 router.post('/', function (req, res) {
@@ -73,7 +52,14 @@ async function handleLogin(req, res) {
     req.session.loggedIn = true;
     req.session.user = account;
 
-    res.render('index', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, products: products});
+    // go back to where we were if we redirected here to login
+    if (req.session.redirect) {
+        res.redirect(req.session.redirectUrl);
+        req.session.redirect = false;
+        req.session.redirectUrl = "";
+    }
+    else
+        res.redirect('index')
 }
 
 // checks for an account existing in the database already

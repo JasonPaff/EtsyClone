@@ -24,7 +24,17 @@ router.post('/', function (req, res) {
         .then((user) => {
             req.session.loggedIn = true;
             req.session.user = user;
-            res.redirect('index'); })
+
+            console.log(req.session.redirectUrl);
+
+            // go back to where we were if we redirected here to login
+            if (req.session.redirect) {
+                res.redirect(req.session.redirectUrl);
+                req.session.redirect = false;
+                req.session.redirectUrl = "";
+            }
+            else
+                res.redirect('index'); })
         .catch(console.error);
 });
 
