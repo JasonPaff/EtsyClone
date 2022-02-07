@@ -4,28 +4,6 @@ const models = require("../models");
 const {Op} = require("sequelize");
 const router = express.Router();
 
-// TODO: load real products from database
-const products = [{
-    name: "test one",
-    price: 5.99,
-    sale_price: 4.99
-}, {
-    name: "test two",
-    price: 5.99,
-}, {
-    name: "test three",
-    price: 6.99,
-}, {
-    name: "test four",
-    price: 7.99
-}, {
-    name: "test five",
-    price: 8.99
-}, {
-    name: "test six",
-    price: 3.99
-},];
-
 router.post('/', function (req, res) {
     // TODO: use regex to confirm user entered a valid email address
     // TODO: use regex to confirm password is certain length and has at least 1 symbol
