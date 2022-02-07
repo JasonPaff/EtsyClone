@@ -3,23 +3,19 @@ const router = express.Router();
 
 // TODO: load real categories from database
 const categories = [{
-    name: 'toys',
+    name: 'Toys',
 }, {
-    name: 'books',
+    name: 'Books',
 }, {
-    name: 'clothes',
+    name: 'Clothing',
 }, {
-    name: 'electronics',
+    name: 'Electronics',
 }, {
-    name: 'electronics',
+    name: 'Something',
 }];
 
 router.get('/', function (req, res) {
     res.render('categories', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, categories: categories});
-});
-
-router.post('/', function (req, res) {
-
 });
 
 module.exports = router;
