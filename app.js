@@ -8,6 +8,7 @@ const port = process.env.PORT || '3000';
 const app = express();
 const server = http.createServer(app);
 
+
 // TODO: do we need to hide the secret key in the .env file? probably should to be safe
 // TODO: middleware to auto login on visit based off a cookie from previous visit?
 
@@ -23,7 +24,7 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-app.engine('mustache', mustacheExpress());
+app.engine('mustache', mustacheExpress('./views/partials', '.mustache'));
 app.set('views', './views');
 app.set('view engine', 'mustache');
 
