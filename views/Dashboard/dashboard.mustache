@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 
-{{>header}}
+    {{>header}}
 
-<body>
+<body  class="cart">
 
- {{>navbar}}
+    {{>navbar}}
 
-    <h1>Dashboard</h1>
+<section>
     <form method="GET" action="/dashboard/add-store">
         <button>Add Store</button>
     </form>
@@ -32,7 +32,8 @@
     <form method="POST" action="/dashboard/delete-account">
         <button>Delete Account</button>
     </form>
-    
+</section>
+
     {{>footer}}
 </body>
 </html>
