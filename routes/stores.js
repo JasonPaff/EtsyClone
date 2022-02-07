@@ -1,23 +1,16 @@
 const express = require("express");
 const router = express.Router();
-
-// TODO: load real stores from database
-const stores = [{
-    name: "shop one",
-}, {
-    name: "shop two",
-}, {
-    name: "shop three",
-}, {
-    name: "shop four",
-}, {
-    name: "shop five",
-}, {
-    name: "shop six",
-},];
+const models = require("../models");
 
 router.get('/', function (req, res) {
-    res.render('stores', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, stores: stores});
+    getStores().then((stores) => {
+        res.render('stores', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, stores: stores});
+    }).catch(console.error);
 });
+
+// get all the stores from the database
+async function getStores() {
+    return await models.Store.findAll({})
+}
 
 module.exports = router;
