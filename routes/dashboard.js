@@ -80,11 +80,6 @@ router.post('/add-product', (req, res) => {
     }
 })
 
-router.get('/view-all-products', (req, res) => {
-    //get stuff from products table by session user id
-    res.render('dashboard/view-all-products', { title: 'Etsy Clone', loggedIn: req.session.loggedIn });
-});
-
 router.get('/update-password', (req, res) => {
     res.render('dashboard/update-password', { title: 'Etsy Clone', loggedIn: req.session.loggedIn });
 });
@@ -96,8 +91,13 @@ router.get('/sign-out', (req, res) => {
     res.redirect('index');
 });
 
-router.get('/view-reviews', (req, res) => {
-    res.render('dashboard/view-reviews', { title: 'Etsy Clone', loggedIn: req.session.loggedIn });
+router.get('/view-reviews', async (req, res) => {
+    const reviews = await models.Review.findAll({
+        where: {
+            user_id: req.session.user[0].id
+        }
+    })
+    res.render('dashboard/view-reviews', { title: 'Etsy Clone', loggedIn: req.session.loggedIn, allReviews: reviews });
 });
 
 router.post('/delete-account', (req, res) => {
@@ -107,5 +107,36 @@ router.post('/delete-account', (req, res) => {
 router.get('/favorites', (req, res) => {
     res.render('dashboard/favorites', { title: 'Etsy Clone', loggedIn: req.session.loggedIn });
 });
+
+router.post('/view-all-products', function (req, res) {
+    getStoreProducts(req, res).catch(console.error);
+});
+
+async function getStoreProducts(req, res) {
+    const products = await models.Product.findAll({
+        where: {
+            user_id: req.session.user[0].id
+        }
+    })
+    const store = await models.Store.findOne({
+        where: {
+            user_id: req.session.user[0].id
+        }
+    })
+    products.forEach(product => {
+        if (product.sale_price > 0) {
+            product.onSale = true;
+            product.salePercent = ((1 - (product.sale_price / product.price)) * 100).toFixed(2);
+        }
+    })
+    res.render('dashboard/view-all-products', {
+        title: 'Etsy Clone', loggedIn: req.session.loggedIn, products: products, store_name: store.store_name
+    });
+}
+
+async function getReviews(req, res) {
+
+}
+
 
 module.exports = router;
