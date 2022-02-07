@@ -42,3 +42,32 @@
    padding: 5px;
    overflow: hidden;
  }
+
+.nav-bg {
+    background-color: #25292f;
+    color: white;
+}
+
+.nav-border-bg {
+    border-color: #363b46;
+    color: white;
+}
+
+.picture-bg {
+    background-color: #121212;
+    color: white;
+}
+
+.search-bar {
+    background-color: #121212;
+    color: white;
+}
+
+.main-bg {
+    background-color: #081132;
+}
+
+.cart {
+    color: white;
+    background-color: #121212;
+}
