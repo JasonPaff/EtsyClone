@@ -46,32 +46,34 @@ router.get('/add-product', (req, res) => {
 });
 
 router.post('/add-product', (req, res) => {
-    const name = req.body.productName
-    const description = req.body.productDescription
-    const price = req.body.productPrice
-    const salePrice = req.body.salePrice
-    const image = req.body.productImage
-    const category = req.body.productCategory
-    const color = req.body.productColor
-    const size = req.body.productSize
-    let product = models.Product.build({
-        user_id: 5,
-        name: name,
-        description: description,
-        price: price,
-        image: image,
-        category: category,
-        size: size,
-        color: color,
-        sale_price: salePrice
-    })
-    console.log(product.save());
-
-    product.save().then(savedProduct => {
-        res.redirect('/dashboard/view-all-products')
-    }).catch(error => {
-        res.render('dashboard/add-product', { errorMessage: 'Error, unable to save product!' })
-    })
+    if (req.session.loggedIn) {
+        console.log(req.session.user[0].id)
+        const name = req.body.productName
+        const description = req.body.productDescription
+        const price = parseInt(req.body.productPrice)
+        const salePrice = parseInt(req.body.salePrice)
+        const image = req.body.productImage
+        const category = req.body.productCategory
+        const color = req.body.productColor
+        const size = req.body.productSize
+        let product = models.Product.build({
+            user_id: req.session.user[0].id,
+            name: name,
+            description: description,
+            price: price,
+            image: image,
+            category: category,
+            size: size,
+            color: color,
+            sale_price: salePrice
+        })
+        console.log(product)
+        product.save().then(savedProduct => {
+            res.redirect('/dashboard')
+        }).catch(error => {
+            res.render('dashboard/add-product', { errorMessage: 'Error, unable to save product!' })
+        })
+    }
 })
 
 router.get('/view-all-products', (req, res) => {
