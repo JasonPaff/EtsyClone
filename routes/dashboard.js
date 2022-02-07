@@ -55,6 +55,7 @@ router.post('/add-product', (req, res) => {
     const color = req.body.productColor
     const size = req.body.productSize
     let product = models.Product.build({
+        user_id: 5,
         name: name,
         description: description,
         price: price,
@@ -64,7 +65,8 @@ router.post('/add-product', (req, res) => {
         color: color,
         sale_price: salePrice
     })
-    console.log(product)
+    console.log(product.save());
+
     product.save().then(savedProduct => {
         res.redirect('/dashboard/view-all-products')
     }).catch(error => {
@@ -101,4 +103,3 @@ router.get('/favorites', (req, res) => {
 });
 
 module.exports = router;
-

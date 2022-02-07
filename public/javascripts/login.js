@@ -2,7 +2,7 @@ let loginForm = document.getElementById('login');
 let registerForm = document.getElementById('register');
 let toggleButton = document.getElementById('btn');
 
-registerForm.onsubmit = validatePasswordMatch;
+if (registerForm !== null) registerForm.onsubmit = validatePasswordMatch;
 
 // show register form
 function register(){
