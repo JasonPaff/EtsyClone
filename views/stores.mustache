@@ -30,9 +30,16 @@
                         <input type="hidden" value="{{user_id}}" name="userId"/>
                         <div class="p-6 nav-bg">
                             <!-- IMAGE -->
+                            {{#image}}
                             <input type="image" class="mb-5 mx-auto h-56 w-full object-contain"
-                                   src="assets/images/placeholder1.png"
+                                   src="{{image}}"
                                    alt="image">
+                            {{/image}}
+                            {{^image}}
+                                <input type="image" class="mb-5 mx-auto h-56 w-full object-contain"
+                                       src="assets/images/placeholder1.png"
+                                       alt="image">
+                            {{/image}}
                             <!-- NAME -->
                             <h3 class="mb-2 text-xl login-error font-bold font-heading">{{store_name}}</h3>
                             <!-- DESCRIPTION -->
