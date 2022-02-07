@@ -1,53 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <title>{{title}}</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap">
-    <link rel="stylesheet" href="stylesheets/tailwind/tailwind.min.css">
-    <link rel="stylesheet" href="stylesheets/main.css">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-tailwind.png">
-    <script src="javascripts/main.js"></script>
-</head>
-<body class="antialiased bg-body text-body font-body">
-<div>
 
-    {{>navbar}}
+{{>header}}
 
-    <section class="relative py-20 lg:pt-32 bg-blue-800 overflow-x-hidden">
-        <!-- BACKGROUND SWIRLS -->
-        <img class="hidden md:block absolute top-0 left-0" src="assets/elements/white-line.svg" alt="">
-        <img class="absolute top-50 left-0 mt-64" src="assets/elements/orange-line.svg" alt="">
-        <img class="absolute bottom-0 right-0 w-72" src="assets/elements/violet-line.svg" alt="">
+<body class="main-bg bg-body text-body font-body">
 
-        <div class="container mx-auto px-4">
-            <!-- STORE HEADING -->
-            <div class="w-full lg:w-auto px-4 pb-10 mb-12 xl:mb-0">
-                <h2 class="text-5xl font-bold font-heading">
-                    <span class="justify-center">page for stores</span>
-                </h2>
-            </div>
+{{>navbar}}
 
-            <div class="flex flex-wrap -mx-4 items-center justify-left">
-                {{#stores}}
-                    <!-- STORE -->
-                    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-8">
-                        <div class="p-6 bg-gray-800">
-                            <a class="block px-6 mt-6 mb-2 justify-center" href="/store">
-                                <img class="mb-5 mx-auto h-56 w-full object-contain"
-                                     src="assets/images/waterbottle.png" alt="">
-                                <h3 class="mb-2 text-xl font-bold font-heading">{{name}}</h3>
-                                <p class="text-lg font-bold font-heading text-blue-500">
-                                </p>
-                            </a>
-                        </div>
-                    </div>
-                {{/stores}}
-            </div>
+<section class="relative py-20 lg:pt-32 bg-blue-800 overflow-x-hidden">
+    <!-- BACKGROUND SWIRLS -->
+    <img class="hidden md:block absolute top-0 left-0" src="assets/elements/white-line.svg" alt="">
+    <img class="absolute top-50 left-0 mt-64" src="assets/elements/orange-line.svg" alt="">
+    <img class="absolute bottom-0 right-0 w-72" src="assets/elements/violet-line.svg" alt="">
+
+    <div class="relative container mx-auto px-4">
+        <!-- STORE HEADING -->
+        <div class="w-full lg:w-auto px-4 pb-10 mb-12 xl:mb-0">
+            <h2 class="text-5xl font-bold font-heading">
+                <span class="login-error">Check out these amazing stores!</span>
+            </h2>
         </div>
-    </section>
-</div>
+
+        <!-- STORE CARD -->
+        <div class="flex flex-wrap -mx-4 items-center justify-left">
+            {{#stores}}
+                <!-- STORE -->
+                <div onclick="location.href='/store';" style="cursor: pointer" class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-3 mb-8">
+                    <form method="post" action="/store">
+                        <input type="hidden" value="{{user_id}}" name="userId"/>
+                        <div class="p-6 nav-bg">
+                            <!-- IMAGE -->
+                            <input type="image" class="mb-5 mx-auto h-56 w-full object-contain" src="assets/images/placeholder1.png"
+                                   alt="image">
+                            <!-- NAME -->
+                            <h3 class="mb-2 text-xl login-error font-bold font-heading">{{store_name}}</h3>
+                            <!-- DESCRIPTION -->
+                            <p class="text-lg font-bold font-heading text-blue-300">{{store_description}}</p>
+                        </div>
+                    </form>
+                </div>
+            {{/stores}}
+        </div>
+    </div>
+</section>
 
 {{>footer}}
 </body>
