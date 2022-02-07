@@ -25,8 +25,6 @@ router.post('/', function (req, res) {
             req.session.loggedIn = true;
             req.session.user = user;
 
-            console.log(req.session.redirectUrl);
-
             // go back to where we were if we redirected here to login
             if (req.session.redirect) {
                 res.redirect(req.session.redirectUrl);
