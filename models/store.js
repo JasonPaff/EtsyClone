@@ -11,13 +11,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Store.hasMany(models.Product, { as: 'products', foreignKey: 'product_id' })
+      models.Store.hasMany(models.Product, { as: 'product', foreignKey: 'id' })
       models.Store.hasOne(models.User, { as: 'user', foreignKey: 'id' })
     }
   }
   Store.init({
+    user_id: DataTypes.INTEGER,
     store_name: DataTypes.STRING,
-    store_description: DataTypes.STRING, product_id: DataTypes.INTEGER
+    store_description: DataTypes.STRING,
+    image: DataTypes.STRING,
+    product_id: DataTypes.ARRAY(DataTypes.INTEGER)
   }, {
     sequelize,
     modelName: 'Store',

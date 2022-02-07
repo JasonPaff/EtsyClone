@@ -1,8 +1,8 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Reviews', {
-      review_id: {
+    await queryInterface.createTable('Stores', {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -10,17 +10,19 @@ module.exports = {
       },
       user_id: {
         type: Sequelize.INTEGER,
-        references: {model: 'Users', field: 'id'}
+        references: { model: 'Users', field: 'id' }
       },
-      product_id: {
-        type: Sequelize.INTEGER,
-        references: {model: 'Products', field: 'product_id'}
-      },
-      review_text: {
+      store_name: {
         type: Sequelize.STRING
       },
-      rating: {
-        type: Sequelize.INTEGER
+      store_description: {
+        type: Sequelize.STRING
+      },
+      image: {
+        type: Sequelize.STRING
+      },
+      product_id: {
+        type: Sequelize.ARRAY(Sequelize.INTEGER)
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +35,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Reviews');
+    await queryInterface.dropTable('Stores');
   }
 };
