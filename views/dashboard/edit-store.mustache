@@ -5,8 +5,23 @@
 {{>header}}
 
 <body>
-{{>navbar}}
+    {{>navbar}}
     <h1>Edit Store</h1>
+    {{#storeData}}
+    <form method="POST" action="/dashboard/edit-store">
+        <input type="text" value="{{store_name}}" name="storeName" required />
+        <div>
+            <textarea name="storeDescription" rows="6" cols="50" required>{{store_description}}</textarea>
+        </div>
+        <input type="file" name="storeImage" accept="image/*" />
+        <div>
+            <button>Submit</button>
+        </div>
+
+    </form>
+    {{/storeData}}
+
+
     {{>footer}}
 </body>
 

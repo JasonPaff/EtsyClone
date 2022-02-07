@@ -17,6 +17,7 @@ router.post('/add-store', (req, res) => {
     const description = req.body.storeDescription
     const image = req.body.storeImage
     let store = models.Store.build({
+        user_id: req.session.user[0].id,
         store_name: name,
         store_description: description,
         image: image
@@ -31,7 +32,15 @@ router.post('/add-store', (req, res) => {
 })
 
 router.get('/edit-store', (req, res) => {
-    res.render('dashboard/edit-store', { title: 'Etsy Clone', loggedIn: req.session.loggedIn });
+    models.Store.findOne({
+        where: {
+            user_id: req.session.user[0].id
+        }
+    }).then(store => {
+        const storeData = store.dataValues
+        console.log(storeData)
+        res.render('dashboard/edit-store', { data: { title: 'Etsy Clone', loggedIn: req.session.loggedIn }, storeData });
+    })
 });
 
 router.post('/edit-store', (req, res) => {
@@ -47,11 +56,10 @@ router.get('/add-product', (req, res) => {
 
 router.post('/add-product', (req, res) => {
     if (req.session.loggedIn) {
-        console.log(req.session.user[0].id)
         const name = req.body.productName
         const description = req.body.productDescription
-        const price = parseInt(req.body.productPrice)
-        const salePrice = parseInt(req.body.salePrice)
+        const price = parseFloat(req.body.productPrice).toFixed(2)
+        const salePrice = parseFloat(req.body.salePrice).toFixed(2)
         const image = req.body.productImage
         const category = req.body.productCategory
         const color = req.body.productColor
@@ -67,7 +75,6 @@ router.post('/add-product', (req, res) => {
             color: color,
             sale_price: salePrice
         })
-        console.log(product)
         product.save().then(savedProduct => {
             res.redirect('/dashboard')
         }).catch(error => {

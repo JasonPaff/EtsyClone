@@ -6,13 +6,17 @@
 
 <body>
 
-{{>navbar}}
+    {{>navbar}}
     <h1>Add Store</h1>
     <form method="POST" action="/dashboard/add-store">
         <input type="text" placeholder="Store Name" name="storeName" required />
-        <input type="type" placeholder="Store Description" name="storeDescription" required />
+        <div>
+            <textarea name="storeDescription" placeholder="Store Description" rows="6" cols="50" required></textarea>
+        </div>
         <input type="file" name="storeImage" accept="image/*" />
-        <button>Submit</button>
+        <div>
+            <button>Submit</button>
+        </div>
     </form>
     {{>footer}}
 </body>
