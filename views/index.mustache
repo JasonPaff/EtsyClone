@@ -20,7 +20,11 @@
                     <a class="block mb-10" href="/product">
                         <!-- SALE STICKER -->
                         <div class="relative">
-                            <span class="absolute bottom-0 left-0 ml-6 mb-6 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">-15.33%</span>
+                            <!-- DISCOUNT TAG -->
+                            {{#onSale}}
+                                <span class="absolute bottom-10 left-0 ml-6 mt-6 px-2 py-1 text-xs font-bold font-heading bg-gray-300 border-2 border-red-500 rounded-full text-red-500">-{{salePercent}}
+                                    %</span>
+                            {{/onSale}}
                             <img class="w-full h-96 object-cover"
                                  src="assets/images/placeholder-playing-tennis.png" alt="">
                         </div>
@@ -29,13 +33,13 @@
                             <div class="mb-2">
                                 <h3 class="mb-3 text-3xl text-white font-bold font-heading">{{name}}</h3>
                                 <p class="text-xl font-bold font-heading text-white">
-                                    {{#sale_price}}
+                                    {{#onSale}}
                                         <span>${{sale_price}}</span>
                                         <span class="text-xs text-gray-500 font-semibold font-heading line-through">${{price}}</span>
-                                    {{/sale_price}}
-                                    {{^sale_price}}
+                                    {{/onSale}}
+                                    {{^onSale}}
                                         <span>${{price}}</span>
-                                    {{/sale_price}}
+                                    {{/onSale}}
                                 </p>
                             </div>
                         </div>
