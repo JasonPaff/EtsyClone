@@ -39,7 +39,13 @@ async function getStoreProducts(req, res) {
         }
     })
 
-    products.forEach(product => product.salePercent = ((1 - (product.sale_price / product.price)) * 100).toFixed(2))
+    products.forEach(product => {
+        if (product.sale_price > 0)
+        {
+            product.onSale = true;
+            product.salePercent = ((1 - (product.sale_price / product.price)) * 100).toFixed(2);
+        }
+    } )
 
     res.render('store', {
         title: 'Etsy Clone', loggedIn: req.session.loggedIn, products: products, store_name: store.store_name

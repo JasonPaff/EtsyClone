@@ -20,7 +20,10 @@
                 <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6 lg:mb-0 pb-10">
                     <div class="relative nav-bg">
                         <!-- DISCOUNT TAG -->
-                        <span class="absolute top-0 left-0 ml-6 mt-6 px-2 py-1 text-xs font-bold font-heading bg-white border-2 border-red-500 rounded-full text-red-500">-{{salePercent}}%</span>
+                        {{#onSale}}
+                            <span class="absolute top-0 left-0 ml-6 mt-6 px-2 py-1 text-xs font-bold font-heading bg-gray-300 border-2 border-red-500 rounded-full text-red-500">-{{salePercent}}
+                                %</span>
+                        {{/onSale}}
                         <a class="block" href="/product">
                             <img class="w-full h-64 object-cover"
                                  src="assets/images/basketball.png"
@@ -29,13 +32,13 @@
                             <a class="block px-6 mb-2" href="#">
                                 <h3 class="mb-2 text-xl font-bold font-heading">{{name}}</h3>
                                 <p class="text-lg font-bold font-heading text-blue-300">
-                                    {{#sale_price}}
+                                    {{#onSale}}
                                         <span>${{sale_price}}</span>
                                         <span class="text-xs text-gray-500 font-semibold font-heading line-through">${{price}}</span>
-                                    {{/sale_price}}
-                                    {{^sale_price}}
+                                    {{/onSale}}
+                                    {{^onSale}}
                                         <span>${{price}}</span>
-                                    {{/sale_price}}
+                                    {{/onSale}}
                                 </p>
                             </a>
 
