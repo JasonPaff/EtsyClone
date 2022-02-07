@@ -6,27 +6,23 @@ const debug = require('debug')('etsyclone:server');
 const http = require('http');
 const port = process.env.PORT || '3000';
 const app = express();
+const server = http.createServer(app);
 
 // TODO: do we need to hide the secret key in the .env file? probably should to be safe
 // TODO: middleware to auto login on visit based off a cookie from previous visit?
 
 const session = require('express-session')
 app.use(session({
-    secret: 'tacocat',
-    saveUninitialized: true,
-    resave: true
+    secret: 'tacocat', saveUninitialized: true, resave: true
 }));
 
-// add not logged in flag
-session.loggedIn = false;
 
 app.set('port', port);
-const server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-app.engine('mustache', mustacheExpress());
+app.engine('mustache', mustacheExpress('./views/partials', '.mustache'));
 app.set('views', './views');
 app.set('view engine', 'mustache');
 
@@ -39,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use("/", require('./routes/index.js'));
 app.use("/index", require('./routes/index.js'));
 app.use("/cart", require('./routes/cart.js'));
+app.use("/checkout", authenticator, require('./routes/checkout.js'));
 app.use("/login", require('./routes/login.js'));
 app.use("/product", require('./routes/product.js'));
 app.use("/register", require('./routes/register.js'));
@@ -57,9 +54,7 @@ function onError(error) {
         throw error;
     }
 
-    const bind = typeof port === 'string'
-        ? 'Pipe ' + port
-        : 'Port ' + port;
+    const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
     // handle specific listen errors with friendly messages
     switch (error.code) {
@@ -79,16 +74,22 @@ function onError(error) {
 // console server logging
 function onListening() {
     const addr = server.address();
-    const bind = typeof addr === 'string'
-        ? 'pipe ' + addr
-        : 'port ' + addr.port;
+    const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
     debug('Listening on ' + bind);
 }
 
 // authenticate login status
 function authenticator(req, res, next) {
-    if (req.session && req.session.loggedIn)
-        next();
-    else
+    if (req.session.loggedIn) next(); else {
+        req.session.redirect = true;
+        req.session.redirectUrl = req.baseUrl;
+
+        // hack to redirect dashboards to index
+        if (req.baseUrl === "/dashboard") req.session.redirectUrl = '/index';
+
+        // hack to redirect wishlist
+        if (req.baseUrl === 'undefined') req.session.redirectUrl = '/wishlist';
+
         res.redirect('/login');
+    }
 }

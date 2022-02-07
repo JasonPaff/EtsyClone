@@ -16,8 +16,8 @@ const stores = [{
     name: "shop six",
 },];
 
-router.get('/', function(req, res) {
-    res.render('stores', { title: 'Etsy Clone', loggedIn: req.session.loggedIn, stores: stores });
+router.get('/', function (req, res) {
+    res.render('stores', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, stores: stores});
 });
 
 module.exports = router;

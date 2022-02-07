@@ -4,43 +4,15 @@ const models = require("../models");
 const {Op} = require("sequelize");
 const router = express.Router();
 
-// TODO: load real products from database
-const products = [{
-    name: "test one",
-    price: 5.99,
-    sale_price: 4.99
-}, {
-    name: "test two",
-    price: 5.99,
-}, {
-    name: "test three",
-    price: 6.99,
-}, {
-    name: "test four",
-    price: 7.99
-}, {
-    name: "test five",
-    price: 8.99
-}, {
-    name: "test six",
-    price: 3.99
-},];
-
 router.get('/', function (req, res) {
-    if (req.session.loggedIn)
-        res.render('index', {title: 'Etsy Clone', loggedIn: req.session.loggedIn});
-    else
+    if (req.session.loggedIn) res.redirect('index'); else {
         res.render('login', {
-            title: 'Login/Register',
-            client_id: "212320166072-k9ktehlapdde4her52obv0lhatd26s1v.apps.googleusercontent.com"
+            title: 'Login/Register', client_id: process.env.GOOGLE_CLIENT_ID
         });
+    }
 });
 
 router.post('/', function (req, res) {
-
-    // TODO: use regex to confirm user entered a valid email address
-    // TODO: use regex to confirm password is certain length and has at least 1 symbol
-
     handleLogin(req, res).catch(console.error);
 });
 
@@ -52,28 +24,40 @@ async function handleLogin(req, res) {
     // confirm account matching the email exists
     const hasAccount = await hasAccountAlready(models, Op, email);
     if (!hasAccount) {
-        res.render('login', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, loginError: "Incorrect Email"});
+        res.render('login', {
+            title: 'Etsy Clone', loggedIn: req.session.loggedIn, loginError: "Incorrect Email/Password"
+        });
         return;
     }
 
     // get the account information
     const account = await getAccount(email);
     if (account === null) {
-        res.render('login', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, loginError: "No Account Exists"});
+        res.render('login', {
+            title: 'Etsy Clone', loggedIn: req.session.loggedIn, loginError: "Incorrect Email/Password"
+        });
         return;
     }
 
     // compare the entered passwords hash with the database password hash
     const match = await comparePasswordHashes(password, account.dataValues.password);
     if (!match) {
-        res.render('login', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, loginError: "Incorrect Password"});
+        res.render('login', {
+            title: 'Etsy Clone', loggedIn: req.session.loggedIn, loginError: "Incorrect Email/Password"
+        });
         return;
     }
 
+    // flag login
     req.session.loggedIn = true;
     req.session.user = account;
 
-    res.render('index', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, products: products});
+    // return if we redirected here to log in
+    if (req.session.redirect) {
+        res.redirect(req.session.redirectUrl);
+        req.session.redirect = false;
+        req.session.redirectUrl = "";
+    } else res.redirect('index')
 }
 
 // checks for an account existing in the database already
