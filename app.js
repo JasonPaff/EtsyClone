@@ -8,6 +8,8 @@ const port = process.env.PORT || '3000';
 const app = express();
 
 // TODO: do we need to hide the secret key in the .env file? probably should to be safe
+// TODO: middleware to auto login on visit based off a cookie from previous visit?
+
 const session = require('express-session')
 app.use(session({
     secret: 'tacocat',
@@ -30,7 +32,7 @@ app.set('view engine', 'mustache');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ROUTES
@@ -89,6 +91,4 @@ function authenticator(req, res, next) {
         next();
     else
         res.redirect('/login');
-};
-
-// TODO: middleware to auto login on visit based off a cookie from previous visit?
+}
