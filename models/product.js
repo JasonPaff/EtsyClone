@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.Product.hasMany(models.Review, {as: 'reviews', foreignKey: 'review_id'})
-      models.Product.hasOne(models.User, {as: 'user', foreignKey: "id"})
+      models.Product.hasMany(models.Review, { as: 'reviews', foreignKey: 'review_id' })
+      models.Product.hasOne(models.User, { as: 'user', foreignKey: "id" })
     }
   }
   Product.init({
@@ -20,8 +20,12 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     price: DataTypes.INTEGER,
+    sale_price: DataTypes.INTEGER,
+    view_count: DataTypes.INTEGER,
     image: DataTypes.STRING,
-    category: DataTypes.STRING
+    category: DataTypes.STRING,
+    color: DataTypes.STRING,
+    size: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Product',

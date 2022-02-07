@@ -11,11 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      models.Review.hasOne(models.User, {as: 'user', foreignKey: 'id'});
+      models.Review.hasOne(models.User, { as: 'user', foreignKey: 'id' });
     }
   }
   Review.init({
     user_id: DataTypes.INTEGER,
+    product_id: DataTypes.INTEGER,
     review_text: DataTypes.STRING,
     rating: DataTypes.INTEGER
   }, {

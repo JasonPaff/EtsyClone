@@ -21,8 +21,9 @@ router.post('/add-store', (req, res) => {
         store_description: description,
         image: image
     })
+    console.log(store)
     store.save().then(savedStore => {
-        res.redirect('/dashboard/store')
+        res.redirect('/dashboard')
     }).catch(error => {
         res.render('dashboard/add-store', { errorMessage: 'Unable to save store!' })
     })
