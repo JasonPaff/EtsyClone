@@ -8,7 +8,7 @@ router.get('/', function (req, res) {
 async function getAllProducts(req, res) {
     const products = await require('../utils/dbUtils').getAllSaleProducts();
     const adjustedProducts = require('../utils/dbUtils').calculateSalePrices(products);
-    res.render('products', {title: 'Etsy Clone', cartCount: req.session.cartCount, loggedIn: req.session.loggedIn, products: adjustedProducts});
+    res.render('products', {title: 'Etsy Clone', session: req.session, products: adjustedProducts});
 }
 
 module.exports = router;
