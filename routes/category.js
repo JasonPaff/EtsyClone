@@ -1,5 +1,4 @@
 const express = require("express");
-const models = require("../models");
 const router = express.Router();
 
 router.post('/', function (req, res) {
@@ -7,16 +6,8 @@ router.post('/', function (req, res) {
 });
 
 async function getAllCategoryProducts(req, res) {
-    // TODO: only find products that have a quantity over 1
-    const products = await models.Product.findAll({
-        where : {
-            category : req.body.category
-        }
-    });
-
-    // create sale percents and flag anything that is on sale
+    const products = await require('../utils/dbUtils').getAllProductsByCategory(req.body.category);
     const adjustedProducts = require('../utils/dbUtils').calculateSalePrices(products);
-
     res.render('products', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, products: adjustedProducts});
 }
 
