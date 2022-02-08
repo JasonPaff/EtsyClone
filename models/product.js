@@ -24,7 +24,10 @@ module.exports = (sequelize, DataTypes) => {
     view_count: DataTypes.INTEGER,
     category: DataTypes.STRING,
     color: DataTypes.STRING,
-    size: DataTypes.STRING
+    size: DataTypes.STRING,
+    imageType: DataTypes.STRING,
+    imageName: DataTypes.STRING,
+    imageData: DataTypes.BLOB('long')
   }, {
     sequelize,
     modelName: 'Product',
