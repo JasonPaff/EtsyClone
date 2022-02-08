@@ -9,7 +9,7 @@
     {{>navbar}}
     <h1>Add Product</h1>
 
-    <form method="POST" action="/dashboard/add-product">
+    <form method="POST" action="/dashboard/add-product" enctype="multipart/form-data">
         <input type="text" placeholder="Product Name" name="productName" required />
         <div>
             <textarea placeholder="Product Description" name="productDescription" rows="6" cols="50"
