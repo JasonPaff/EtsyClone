@@ -29,29 +29,29 @@
                                  src="assets/images/basketball.png"
                                  alt=""></a>
                         <div class="px-6 pb-6 mt-8">
-                            <a class="block px-6 mb-2" href="#">
-                                <h3 class="mb-2 text-xl font-bold font-heading">{{name}}</h3>
-                                <p class="text-lg font-bold font-heading text-blue-300">
-                                    {{#onSale}}
-                                        <span>${{sale_price}}</span>
-                                        <span class="text-xs text-gray-500 font-semibold font-heading line-through">${{price}}</span>
-                                    {{/onSale}}
-                                    {{^onSale}}
-                                        <span>${{price}}</span>
-                                    {{/onSale}}
-                                </p>
-                            </a>
+                            <h3 class="mb-2 text-xl font-bold font-heading">{{name}}</h3>
+                            <p class="text-lg font-bold font-heading text-blue-300">
+                                {{#onSale}}
+                                    <span>${{sale_price}}</span>
+                                    <span class="text-xs text-gray-500 font-semibold font-heading line-through">${{price}}</span>
+                                {{/onSale}}
+                                {{^onSale}}
+                                    <span>${{price}}</span>
+                                {{/onSale}}
+                            </p>
 
                             <!-- ADD TO CART -->
-                            <a class="ml-auto mr-2 flex items-center justify-center w-12 h-12 bg-blue-300 hover:bg-blue-400 rounded-md"
-                               href="#">
-                                <svg width="12" height="12" viewbox="0 0 12 12" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="5" width="2" height="12" fill="white"></rect>
-                                    <rect x="12" y="5" width="2" height="12" transform="rotate(90 12 5)"
-                                          fill="white"></rect>
-                                </svg>
-                            </a>
+                            <form method="post" action="/addToCart">
+                                <button class="ml-auto mr-2 flex items-center justify-center w-12 h-12 bg-blue-300 hover:bg-blue-400 rounded-md">
+                                    <svg width="12" height="12" viewbox="0 0 12 12" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="5" width="2" height="12" fill="white"></rect>
+                                        <rect x="12" y="5" width="2" height="12" transform="rotate(90 12 5)"
+                                              fill="white"></rect>
+                                    </svg>
+                                    <input type="hidden" value="{{id}}" name="productId"/>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

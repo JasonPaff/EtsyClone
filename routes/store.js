@@ -1,5 +1,4 @@
 const express = require("express");
-const models = require("../models");
 const router = express.Router();
 
 router.post('/', function (req, res) {
@@ -8,22 +7,8 @@ router.post('/', function (req, res) {
 
 // get all the stores from the database
 async function getStoreProducts(req, res) {
-
-    // get all the products
-    const products = await models.Product.findAll({
-        where: {
-            user_id: req.body.userId
-        }
-    })
-
-    // get the store
-    const store = await models.Store.findOne({
-        where: {
-            user_id: req.body.userId
-        }
-    })
-
-    // create sale percents and flag anything that is on sale
+    const products = await require('../utils/dbUtils').getAllUserProducts(req.body.userId);
+    const store = await require('../utils/dbUtils').getUserStore(req.body.userId);
     const adjustedProducts = require('../utils/dbUtils').calculateSalePrices(products);
 
     res.render('store', {

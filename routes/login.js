@@ -50,7 +50,7 @@ async function handleLogin(req, res) {
 
     // flag login
     req.session.loggedIn = true;
-    req.session.user = account;
+    req.session.user = account[0];
 
     // return if we redirected here to log in
     if (req.session.redirect) {
