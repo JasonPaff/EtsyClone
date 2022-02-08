@@ -5,9 +5,9 @@ router.post('/', function (req, res) {
     addToCart(req).catch(console.error);
 });
 
-async function addToCart(req){
-    if(req.session.loggedIn) {
-        require('../utils/dbUtils').addProductToCart(req.body.productId, 1, req.session.user)
+async function addToCart(req) {
+    if (req.session.loggedIn) {
+        await require('../utils/dbUtils').addProductToCart(req.body.productId, 1, req.session.user)
     }
 }
 

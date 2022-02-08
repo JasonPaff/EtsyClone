@@ -78,28 +78,36 @@ async function getUserCart(user) {
 
 // adds a product to a logged-in users shopping cart
 async function addProductToCart(productId, quantity, user) {
+    // get the cart
     const cart = await getUserCart(user);
 
-    console.log(cart.toJSON());
-
+    // get the ids and quantities
     let ids = cart.dataValues.product_id;
     let quantities = cart.dataValues.quantity;
 
-    ids.push(productId);
-    quantities.push(quantity);
+    // check for existing product in the ids array, returns -1 for no match
+    const existingProductIndex= ids.findIndex(id => id == productId)
 
-    await cart.update({
-        product_id : ids,
-        quantity: quantities
-    });
+    // match found, update quantity
+    if (existingProductIndex !== -1){
+        quantities[existingProductIndex] += quantity;
+    }
+    else{ // no match, add new
+        ids.push(productId);
+        quantities.push(quantity);
+    }
 
-    await cart.set({
+    // update cart
+    models.Cart.update({
         product_id: ids,
-            quantity: quantities
+        quantity: quantities
+    }, {
+        where: {
+            user_id: user.id
+        }
     });
 
-    console.log(cart.toJSON());
-
+    // update database
     await cart.save().catch(console.error);
 }
 
