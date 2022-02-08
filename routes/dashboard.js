@@ -4,6 +4,8 @@ const models = require('../models')
 const { Op } = require('sequelize')
 // TODO: change page title for each page instead of just the default?
 
+
+
 const multer = require('multer')
 const upload = multer({ dest: './uploads/', storage: multer.memoryStorage() })
 
@@ -56,7 +58,6 @@ router.get('/add-product', (req, res) => {
 
 router.post('/add-product', upload.single('productImage'), (req, res) => {
     if (req.session.loggedIn) {
-        console.log(req.file, req.body)
         const name = req.body.productName
         const description = req.body.productDescription
         const price = parseFloat(req.body.productPrice).toFixed(2)
@@ -73,9 +74,9 @@ router.post('/add-product', upload.single('productImage'), (req, res) => {
             size: size,
             color: color,
             sale_price: salePrice,
-            imageType: req.file.mimetype,
-            imageName: req.file.originalname,
-            imageData: req.file.buffer
+            imageType: (typeof req.files !== undefined) ? req.file.mimetype : null,
+            imageName: (typeof req.files !== undefined) ? req.file.originalname : null,
+            imageData: (typeof req.files !== undefined) ? req.file.buffer : null
         })
         product.save().then(savedProduct => {
             res.redirect('/dashboard')
@@ -84,7 +85,6 @@ router.post('/add-product', upload.single('productImage'), (req, res) => {
         })
     }
 })
-
 router.get('/update-password', (req, res) => {
     res.render('dashboard/update-password', { title: 'Etsy Clone', loggedIn: req.session.loggedIn });
 });
@@ -123,14 +123,12 @@ async function getStoreProducts(req, res) {
             user_id: req.session.user.id
         }
     })
-        // console.log(products)
-        .then(products => {
-            products.map(product => {
-                const productImage = product.imageData.toString('base64')
-                product['imageData'] = productImage
-            })
-            return products
-        })
+
+    products.map(product => {
+        const productImage = product.imageData.toString('base64')
+        product['imageData'] = productImage
+    })
+
     const store = await models.Store.findOne({
         where: {
             user_id: req.session.user.id
@@ -142,7 +140,6 @@ async function getStoreProducts(req, res) {
             product.salePercent = ((1 - (product.sale_price / product.price)) * 100).toFixed(2);
         }
     })
-    console.log(products)
     res.render('dashboard/view-all-products', {
         title: 'Etsy Clone', loggedIn: req.session.loggedIn, products: products, store_name: store.store_name
     });
