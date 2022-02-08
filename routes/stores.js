@@ -1,16 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const models = require("../models");
 
 router.get('/', function (req, res) {
-    getStores().then((stores) => {
-        res.render('stores', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, stores: stores});
-    }).catch(console.error);
+    getStores(req, res).catch(console.error);
 });
 
-// get all the stores from the database
-async function getStores() {
-    return await models.Store.findAll({})
+async function getStores(req, res) {
+    const stores = await require('../utils/dbUtils').getAllStores();
+    res.render('stores', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, stores: stores});
 }
 
 module.exports = router;
