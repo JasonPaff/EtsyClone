@@ -7,7 +7,7 @@ router.get('/', function (req, res) {
 
 async function getStores(req, res) {
     const stores = await require('../utils/dbUtils').getAllStores();
-    res.render('stores', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, stores: stores});
+    res.render('stores', {title: 'Etsy Clone', cartCount: req.session.cartCount, loggedIn: req.session.loggedIn, stores: stores});
 }
 
 module.exports = router;

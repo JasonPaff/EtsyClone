@@ -8,11 +8,11 @@ const multer = require('multer')
 const upload = multer({ dest: './uploads/', storage: multer.memoryStorage() })
 
 router.get('/', (req, res) => {
-    res.render('dashboard/dashboard', { title: 'Etsy Clone', loggedIn: req.session.loggedIn });
+    res.render('dashboard/dashboard', { title: 'Etsy Clone', cartCount: req.session.cartCount, loggedIn: req.session.loggedIn });
 });
 
 router.get('/add-store', (req, res) => {
-    res.render('dashboard/add-store', { title: 'Etsy Clone', loggedIn: req.session.loggedIn });
+    res.render('dashboard/add-store', { title: 'Etsy Clone', cartCount: req.session.cartCount, loggedIn: req.session.loggedIn });
 });
 
 router.post('/add-store', (req, res) => {
@@ -42,7 +42,7 @@ router.get('/edit-store', (req, res) => {
     }).then(store => {
         const storeData = store.dataValues
         console.log(storeData)
-        res.render('dashboard/edit-store', { data: { title: 'Etsy Clone', loggedIn: req.session.loggedIn }, storeData });
+        res.render('dashboard/edit-store', { data: { title: 'Etsy Clone', cartCount: req.session.cartCount, loggedIn: req.session.loggedIn }, storeData });
     })
 });
 
@@ -51,7 +51,7 @@ router.post('/edit-store', (req, res) => {
 })
 
 router.get('/add-product', (req, res) => {
-    res.render('dashboard/add-product', { title: 'Etsy Clone', loggedIn: req.session.loggedIn });
+    res.render('dashboard/add-product', { title: 'Etsy Clone', cartCount: req.session.cartCount, loggedIn: req.session.loggedIn });
 });
 
 router.post('/add-product', upload.single('productImage'), (req, res) => {
@@ -86,7 +86,7 @@ router.post('/add-product', upload.single('productImage'), (req, res) => {
 })
 
 router.get('/update-password', (req, res) => {
-    res.render('dashboard/update-password', { title: 'Etsy Clone', loggedIn: req.session.loggedIn });
+    res.render('dashboard/update-password', { title: 'Etsy Clone', cartCount: req.session.cartCount, loggedIn: req.session.loggedIn });
 });
 
 router.get('/sign-out', (req, res) => {
@@ -102,7 +102,7 @@ router.get('/view-reviews', async (req, res) => {
             user_id: req.session.user.id
         }
     })
-    res.render('dashboard/view-reviews', { title: 'Etsy Clone', loggedIn: req.session.loggedIn, allReviews: reviews });
+    res.render('dashboard/view-reviews', { title: 'Etsy Clone', cartCount: req.session.cartCount, loggedIn: req.session.loggedIn, allReviews: reviews });
 });
 
 router.post('/delete-account', (req, res) => {
@@ -110,7 +110,7 @@ router.post('/delete-account', (req, res) => {
 });
 
 router.get('/favorites', (req, res) => {
-    res.render('dashboard/favorites', { title: 'Etsy Clone', loggedIn: req.session.loggedIn });
+    res.render('dashboard/favorites', { title: 'Etsy Clone', cartCount: req.session.cartCount, loggedIn: req.session.loggedIn });
 });
 
 router.post('/view-all-products', function (req, res) {
@@ -144,7 +144,7 @@ async function getStoreProducts(req, res) {
     })
     console.log(products)
     res.render('dashboard/view-all-products', {
-        title: 'Etsy Clone', loggedIn: req.session.loggedIn, products: products, store_name: store.store_name
+        title: 'Etsy Clone', cartCount: req.session.cartCount, loggedIn: req.session.loggedIn, products: products, store_name: store.store_name
     });
 }
 

@@ -44,9 +44,21 @@
                             </div>
                         </div>
                     </a>
+
                     <!-- ADD TO CART -->
-                    <a class="inline-block bg-orange-300 hover:bg-orange-400 text-white font-bold font-heading py-4 px-8 mb-10 rounded-md uppercase transition duration-200"
-                       href="#">Add to Cart</a>
+                    <form method="post" action="/cart/addToCart">
+                        <button class="inline-block py-4 px-8 mb-10 bg-blue-300 hover:bg-blue-400 rounded-md">
+                            <svg width="12" height="12" viewbox="0 0 12 12" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <rect x="5" width="2" height="12" fill="white"></rect>
+                                <rect x="12" y="5" width="2" height="12" transform="rotate(90 12 5)"
+                                      fill="white"></rect>
+                            </svg>
+                            <input type="hidden" value="{{id}}" name="productId"/>
+                        </button>
+                    </form>
+<!--                    <a class="inline-block bg-orange-300 hover:bg-orange-400 text-white font-bold font-heading py-4 px-8 mb-10 rounded-md uppercase transition duration-200"-->
+<!--                       href="#">Add to Cart</a>-->
                 </div>
             {{/products}}
         </div>
