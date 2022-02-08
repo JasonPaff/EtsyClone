@@ -47,7 +47,7 @@ app.use("/search", require('./routes/search.js'));
 app.use("/category", require('./routes/category.js'));
 app.use("/categories", require('./routes/categories.js'));
 app.use("/wishlist", authenticator, require('./routes/wishlist.js'));
-app.use("/loggingIn", require('./routes/googleLogin.js'));
+app.use("/googleLogin", require('./routes/googleLogin.js'));
 
 // error handler
 function onError(error) {
