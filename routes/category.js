@@ -14,16 +14,10 @@ async function getAllCategoryProducts(req, res) {
         }
     });
 
-    // create sale percents and flag as on sale
-    products.forEach(product => {
-        if (product.sale_price > 0)
-        {
-            product.onSale = true;
-            product.salePercent = ((1 - (product.sale_price / product.price)) * 100).toFixed(2);
-        }
-    } )
+    // create sale percents and flag anything that is on sale
+    const adjustedProducts = require('../utils/dbUtils').calculateSalePrices(products);
 
-    res.render('products', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, products: products});
+    res.render('products', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, products: adjustedProducts});
 }
 
 module.exports = router;

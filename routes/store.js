@@ -8,28 +8,26 @@ router.post('/', function (req, res) {
 
 // get all the stores from the database
 async function getStoreProducts(req, res) {
+
+    // get all the products
     const products = await models.Product.findAll({
         where: {
             user_id: req.body.userId
         }
     })
 
+    // get the store
     const store = await models.Store.findOne({
         where: {
             user_id: req.body.userId
         }
     })
 
-    products.forEach(product => {
-        if (product.sale_price > 0)
-        {
-            product.onSale = true;
-            product.salePercent = ((1 - (product.sale_price / product.price)) * 100).toFixed(2);
-        }
-    } )
+    // create sale percents and flag anything that is on sale
+    const adjustedProducts = require('../utils/dbUtils').calculateSalePrices(products);
 
     res.render('store', {
-        title: 'Etsy Clone', loggedIn: req.session.loggedIn, products: products, store_name: store.store_name
+        title: 'Etsy Clone', loggedIn: req.session.loggedIn, products: adjustedProducts, store_name: store.store_name
     });
 }
 
