@@ -14,7 +14,13 @@ function calculateSalePrices(products) {
 
 // returns all the products
 async function getAllProducts() {
-    return await models.Product.findAll({});
+    const products = await models.Product.findAll({});
+    products.map(product => {
+        const productImage = product.imageData.toString('base64')
+        product['imageData'] = productImage
+    });
+
+    return products;
 }
 
 // returns all the products
