@@ -22,7 +22,7 @@ router.post('/', function (req, res) {
         .then(email => findOrCreateUserAccount(email))
         .then((user) => {
             req.session.loggedIn = true;
-            req.session.user = user;
+            req.session.user = user[0];
 
             // go back to where we were if we redirected here to login
             if (req.session.redirect) {

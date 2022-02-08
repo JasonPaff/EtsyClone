@@ -17,7 +17,7 @@ router.post('/add-store', (req, res) => {
     const description = req.body.storeDescription
     const image = req.body.storeImage
     let store = models.Store.build({
-        user_id: req.session.user[0].id,
+        user_id: req.session.user.id,
         store_name: name,
         store_description: description,
         image: image
@@ -34,7 +34,7 @@ router.post('/add-store', (req, res) => {
 router.get('/edit-store', (req, res) => {
     models.Store.findOne({
         where: {
-            user_id: req.session.user[0].id
+            user_id: req.session.user.id
         }
     }).then(store => {
         const storeData = store.dataValues
@@ -62,7 +62,7 @@ router.post('/add-product', (req, res) => {
         const color = req.body.productColor
         const size = req.body.productSize
         let product = models.Product.build({
-            user_id: req.session.user[0].id,
+            user_id: req.session.user.id,
             name: name,
             description: description,
             price: price,
@@ -94,7 +94,7 @@ router.get('/sign-out', (req, res) => {
 router.get('/view-reviews', async (req, res) => {
     const reviews = await models.Review.findAll({
         where: {
-            user_id: req.session.user[0].id
+            user_id: req.session.user.id
         }
     })
     res.render('dashboard/view-reviews', { title: 'Etsy Clone', loggedIn: req.session.loggedIn, allReviews: reviews });
@@ -115,12 +115,12 @@ router.post('/view-all-products', function (req, res) {
 async function getStoreProducts(req, res) {
     const products = await models.Product.findAll({
         where: {
-            user_id: req.session.user[0].id
+            user_id: req.session.user.id
         }
     })
     const store = await models.Store.findOne({
         where: {
-            user_id: req.session.user[0].id
+            user_id: req.session.user.id
         }
     })
     products.forEach(product => {
