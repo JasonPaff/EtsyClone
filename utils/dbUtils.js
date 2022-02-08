@@ -18,8 +18,9 @@ async function getAllProducts() {
     products.map(product => {
         const productImage = product.imageData.toString('base64')
         product['imageData'] = productImage
-    })
-    return products
+    });
+
+    return products;
 }
 
 // returns all the products with a stock quantity >= 1
