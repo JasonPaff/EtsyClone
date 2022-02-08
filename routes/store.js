@@ -12,7 +12,7 @@ async function getStoreProducts(req, res) {
     const adjustedProducts = require('../utils/dbUtils').calculateSalePrices(products);
 
     res.render('store', {
-        title: 'Etsy Clone', loggedIn: req.session.loggedIn, products: adjustedProducts, store_name: store.store_name
+        title: 'Etsy Clone', cartCount: req.session.cartCount, loggedIn: req.session.loggedIn, products: adjustedProducts, store_name: store.store_name
     });
 }
 

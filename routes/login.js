@@ -52,6 +52,9 @@ async function handleLogin(req, res) {
     req.session.loggedIn = true;
     req.session.user = account[0];
 
+    // cart size for ui
+    req.session.cartCount = require('../utils/dbUtils').getCartCount(account[0]);
+
     // return if we redirected here to log in
     if (req.session.redirect) {
         res.redirect(req.session.redirectUrl);

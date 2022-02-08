@@ -48,7 +48,6 @@ app.use("/category", require('./routes/category.js'));
 app.use("/categories", require('./routes/categories.js'));
 app.use("/wishlist", authenticator, require('./routes/wishlist.js'));
 app.use("/googleLogin", require('./routes/googleLogin.js'));
-app.use("/addToCart", require('./routes/addToCart.js'));
 
 // error handler
 function onError(error) {
