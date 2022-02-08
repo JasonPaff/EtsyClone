@@ -132,19 +132,21 @@ async function addProductToCart(productId, quantity, user) {
     let quantities = cart.dataValues.quantity;
 
     // check for existing product in the ids array, returns -1 for no match
-    const existingProductIndex = ids.findIndex(id => id == productId)
+    const existingProductIndex= ids.findIndex(id => id == productId)
 
     // match found, update quantity
-    if (existingProductIndex !== -1) {
+    if (existingProductIndex !== -1){
         quantities[existingProductIndex] += quantity;
-    } else { // no match, add new
+    }
+    else{ // no match, add new
         ids.push(productId);
         quantities.push(quantity);
     }
 
     // update cart
     models.Cart.update({
-        product_id: ids, quantity: quantities
+        product_id: ids,
+        quantity: quantities
     }, {
         where: {
             user_id: user.id
@@ -221,3 +223,4 @@ module.exports.getCartCount = getCartCount;
 module.exports.getCategoriesList = getCategoriesList;
 module.exports.addProductToCart = addProductToCart;
 module.exports.removeProductFromCart = removeProductFromCart;
+module.exports.getCategoriesList = getCategoriesList;
