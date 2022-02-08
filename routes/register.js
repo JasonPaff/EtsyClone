@@ -17,7 +17,7 @@ async function handleRegistration(req, res) {
     const hasAccount = await hasAccountAlready(models, Op, email);
     if (hasAccount) {
         res.render('login', {
-            title: 'Etsy Clone', loggedIn: req.session.loggedIn, registrationError: "Account already exists"
+            title: 'Etsy Clone', session: req.session.loggedIn, registrationError: "Account already exists"
         });
         // TODO: login screen reload needs to toggle to register on load so error message can be seen
         return;

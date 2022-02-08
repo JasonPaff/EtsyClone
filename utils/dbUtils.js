@@ -25,8 +25,7 @@ async function getProduct(productId) {
 async function getAllProducts() {
     const products = await models.Product.findAll({});
     products.map(product => {
-        const productImage = product.imageData.toString('base64')
-        product['imageData'] = productImage
+        product['imageData'] = product.imageData.toString('base64')
     });
 
     return products;
@@ -144,7 +143,7 @@ async function addProductToCart(productId, quantity, user) {
     }
 
     // update cart
-    models.Cart.update({
+    await models.Cart.update({
         product_id: ids,
         quantity: quantities
     }, {
