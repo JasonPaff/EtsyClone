@@ -5,69 +5,67 @@
 
 <body class="main-bg bg-body text-body font-body">
 
-{{>navbar}}
+    {{>navbar}}
 
-<section class="relative py-20 lg:pt-32 bg-blue-800 overflow-y-hidden">
-    <!-- BACKGROUND SWIRLS -->
-    <img class="hidden md:block absolute top-0 left-0" src="assets/elements/white-line.svg" alt="">
-    <img class="absolute top-50 left-0 mt-64" src="assets/elements/orange-line.svg" alt="">
-    <img class="absolute bottom-0 right-0 w-72" src="assets/elements/violet-line.svg" alt="">
+    <section class="relative py-20 lg:pt-32 bg-blue-800 overflow-y-hidden">
+        <!-- BACKGROUND SWIRLS -->
+        <img class="hidden md:block absolute top-0 left-0" src="assets/elements/white-line.svg" alt="">
+        <img class="absolute top-50 left-0 mt-64" src="assets/elements/orange-line.svg" alt="">
+        <img class="absolute bottom-0 right-0 w-72" src="assets/elements/violet-line.svg" alt="">
 
-    <div class="relative container mx-auto px-4">
-        <h2 class="mb-16 md:mb-24 text-4xl md:text-5xl font-bold login-error font-heading">Check out these amazing products!</h2>
-        <div class="flex flex-wrap -mx-3 mb-24">
-            {{#products}}
+        <div class="relative container mx-auto px-4">
+            <h2 class="mb-16 md:mb-24 text-4xl md:text-5xl font-bold login-error font-heading">Check out these amazing
+                products!</h2>
+            <div class="flex flex-wrap -mx-3 mb-24">
+                {{#products}}
                 <div class="w-full md:w-1/2 lg:w-1/4 px-3 mb-6 lg:mb-0 pb-10">
                     <div class="relative nav-bg">
                         <!-- DISCOUNT TAG -->
                         {{#onSale}}
-                            <span class="absolute top-0 left-0 ml-6 mt-6 px-2 py-1 text-xs font-bold font-heading bg-gray-300 border-2 border-red-500 rounded-full text-red-500">-{{salePercent}}
-                                %</span>
+                        <span
+                            class="absolute top-0 left-0 ml-6 mt-6 px-2 py-1 text-xs font-bold font-heading bg-gray-300 border-2 border-red-500 rounded-full text-red-500">-{{salePercent}}
+                            %</span>
                         {{/onSale}}
                         <a class="block" href="/product">
-                            {{#image}}
-                                <img class="w-full h-64 object-cover"
-                                     src="{{image}}"
-                                     alt="">
-                            {{/image}}
-                            {{^image}}
-                            <img class="w-full h-64 object-cover"
-                                 src="assets/images/basketball.png"
-                                 alt="">
-                            {{/image}}
+                            <img class="w-full h-64 object-cover" src="data:{{imageType}};base64, {{imageData}}" alt="">
+                            <!--{{^image}}
+                            <img class="w-full h-64 object-cover" src="assets/images/basketball.png" alt="">
+                            {{/image}}-->
                         </a>
                         <div class="px-6 pb-6 mt-8">
                             <a class="block px-6 mb-2" href="#">
                                 <h3 class="mb-2 text-xl font-bold font-heading">{{name}}</h3>
                                 <p class="text-lg font-bold font-heading text-blue-300">
                                     {{#onSale}}
-                                        <span>${{sale_price}}</span>
-                                        <span class="text-xs text-gray-500 font-semibold font-heading line-through">${{price}}</span>
+                                    <span>${{sale_price}}</span>
+                                    <span
+                                        class="text-xs text-gray-500 font-semibold font-heading line-through">${{price}}</span>
                                     {{/onSale}}
                                     {{^onSale}}
-                                        <span>${{price}}</span>
+                                    <span>${{price}}</span>
                                     {{/onSale}}
                                 </p>
                             </a>
 
                             <!-- ADD TO CART -->
                             <a class="ml-auto mr-2 flex items-center justify-center w-12 h-12 bg-blue-300 hover:bg-blue-400 rounded-md"
-                               href="#">
+                                href="#">
                                 <svg width="12" height="12" viewbox="0 0 12 12" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <rect x="5" width="2" height="12" fill="white"></rect>
-                                    <rect x="12" y="5" width="2" height="12" transform="rotate(90 12 5)"
-                                          fill="white"></rect>
+                                    <rect x="12" y="5" width="2" height="12" transform="rotate(90 12 5)" fill="white">
+                                    </rect>
                                 </svg>
                             </a>
                         </div>
                     </div>
                 </div>
-            {{/products}}
+                {{/products}}
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-{{>footer}}
+    {{>footer}}
 </body>
+
 </html>

@@ -1,6 +1,7 @@
 ﻿const express = require("express");
 const router = express.Router();
 
+
 router.get('/', function (req, res) {
     getAllProducts(req, res).catch(console.error);
 });
@@ -8,7 +9,7 @@ router.get('/', function (req, res) {
 async function getAllProducts(req, res) {
     const products = await require('../utils/dbUtils').getAllProducts();
     const adjustedProducts = require('../utils/dbUtils').calculateSalePrices(products);
-    res.render('products', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, products: adjustedProducts});
+    res.render('products', { title: 'Etsy Clone', loggedIn: req.session.loggedIn, products: adjustedProducts });
 }
 
 module.exports = router;
