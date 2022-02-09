@@ -43,6 +43,7 @@ router.post('/add-store', upload.single('storeImage'), (req, res) => {
         store_description: req.body.storeDescription
     }
 
+    // checks to see if an image was attached
     if (req.file) {
         storeAdded.imageType = req.file.mimetype
         storeAdded.image = req.file.originalname
@@ -74,6 +75,7 @@ router.post('/edit-store/:id', upload.single('storeImage'), (req, res) => {
         store_description: req.body.storeDescription
     }
 
+    // checks to see if an image was attached
     if (req.file) {
         storeEdited.imageType = req.file.mimetype
         storeEdited.image = req.file.originalname
@@ -107,6 +109,7 @@ router.post('/add-product', upload.single('productImage'), (req, res) => {
         size: req.body.productSize
     }
 
+    // checks to see if an image was attached
     if (req.file) {
         productAdded.imageType = req.file.mimetype
         productAdded.imageName = req.file.originalname
@@ -121,6 +124,50 @@ router.post('/add-product', upload.single('productImage'), (req, res) => {
         })
 })
 
+router.post('/edit-product', (req, res) => {
+    const productId = req.body.id
+    console.log(productId)
+    models.Product.findOne({
+        where: {
+            id: parseInt(req.body.id)
+        }
+    }).then(product => {
+        const productData = product.dataValues
+        console.log(productData)
+        res.render('dashboard/edit-product', { data: { title: 'Etsy Clone', session: req.session }, productData });
+    })
+})
+
+router.post('/edit-product/:id', upload.single('productImage'), (req, res) => {
+    const productEdited = {
+        name: req.body.productName,
+        description: req.body.productDescription,
+        price: parseFloat(req.body.productPrice).toFixed(2),
+        sale_price: parseFloat(req.body.salePrice).toFixed(2),
+        category: req.body.productCategory,
+        color: req.body.productColor,
+        size: req.body.productSize
+    }
+
+    // checks to see if an image was attached
+    if (req.file) {
+        productEdited.imageType = req.file.mimetype
+        productEdited.imageName = req.file.originalname
+        productEdited.imageData = req.file.buffer.toString('base64')
+    }
+
+    models.Product.update(productEdited, {
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(() => {
+            res.redirect('/dashboard')
+        }).catch(error => {
+            res.render('dashboard/add-product', { errorMessage: 'Error, unable to save product!' })
+        })
+})
+
 router.get('/update-password', (req, res) => {
     res.render('dashboard/update-password', { title: 'Etsy Clone', session: req.session });
 });
@@ -128,8 +175,7 @@ router.get('/update-password', (req, res) => {
 router.get('/sign-out', (req, res) => {
     req.session.loggedIn = false;
     req.session.user = null;
-
-    res.redirect('index');
+    res.redirect('../index');
 });
 
 router.get('/view-reviews', async (req, res) => {
@@ -159,11 +205,6 @@ async function getStoreProducts(req, res) {
             user_id: req.session.user.id
         }
     })
-
-    // products.map(product => {
-    //     const productImage = product.imageData.toString('base64')
-    //     product['imageData'] = productImage
-    // })
 
     const store = await models.Store.findOne({
         where: {
