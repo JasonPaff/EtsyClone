@@ -12,6 +12,15 @@ function calculateSalePrices(products) {
     return products;
 }
 
+// returns a single product
+async function getProduct(productId) {
+    return await models.Product.findOne({
+        where: {
+            id: productId
+        }
+    })
+}
+
 // returns all the products
 async function getAllProducts() {
     return await models.Product.findAll({});
@@ -41,6 +50,24 @@ async function getAllProductsByCategory(category) {
     });
 }
 
+// returns all the products in a cart
+async function getAllCartProducts(cart) {
+    const ids = cart.dataValues.product_id;
+    const quantities = cart.dataValues.quantity;
+
+    let products = [];
+
+    // add products based on matching quantities
+    for (let c = 0; c < ids.length; c++) {
+        for (let d = 0; d < quantities[c]; d++) {
+            const product = await getProduct(ids[c]);
+            if (product !== null) products.push(product);
+        }
+    }
+
+    return products;
+}
+
 // returns all the products on sale
 async function getAllSaleProducts() {
     const products = await getAllProducts();
@@ -61,15 +88,28 @@ async function getUserStore(userId) {
     });
 }
 
+// returns the number of items in the cart
+async function getCartCount(user) {
+    const cart = await getUserCart(user);
+    const quantities = cart.dataValues.quantity;
+
+    if (quantities === null || quantities.length === 0) return 0;
+
+    let count = 0;
+    for (let c = 0; c < quantities.length; c++) {
+        count += quantities[c];
+    }
+
+    return count;
+}
+
 // returns the user shopping cart
 async function getUserCart(user) {
     const cart = await models.Cart.findOrCreate({
         where: {
             user_id: user.id
         }, defaults: {
-            user_id: user.id,
-            product_id: [],
-            quantity: []
+            user_id: user.id, product_id: [], quantity: []
         }
     });
 
@@ -98,7 +138,7 @@ async function addProductToCart(productId, quantity, user) {
     }
 
     // update cart
-    models.Cart.update({
+    await models.Cart.update({
         product_id: ids,
         quantity: quantities
     }, {
@@ -112,8 +152,40 @@ async function addProductToCart(productId, quantity, user) {
 }
 
 // remove a product from a logged in users shopping cart
-async function removeProductFromCart(productId) {
+async function removeProductFromCart(productId, user) {
+    // get the cart
+    const cart = await require('../utils/dbUtils').getUserCart(user);
 
+    // get the ids and quantities
+    let ids = cart.dataValues.product_id;
+    let quantities = cart.dataValues.quantity;
+
+    // check for product in the ids array, returns -1 for no match
+    const existingProductIndex = ids.findIndex(id => id == productId)
+
+    // no matching product
+    if (existingProductIndex === -1) return;
+
+    // lower quantity by one
+    quantities[existingProductIndex] -= 1;
+
+    // if it's the last of that product remove it entirely
+    if (quantities[existingProductIndex] <= 0) {
+        ids.splice(existingProductIndex, 1);
+        quantities.splice(existingProductIndex, 1);
+    }
+
+    // update cart
+    models.Cart.update({
+        product_id: ids, quantity: quantities
+    }, {
+        where: {
+            user_id: user.id
+        }
+    });
+
+    // update database
+    await cart.save().catch(console.error);
 }
 
 // returns the list of categories
@@ -135,10 +207,14 @@ module.exports.calculateSalePrices = calculateSalePrices;
 module.exports.getAllProducts = getAllProducts;
 module.exports.getAllUserProducts = getAllUserProducts;
 module.exports.getAllSaleProducts = getAllSaleProducts;
+module.exports.getAllCartProducts = getAllCartProducts;
 module.exports.getAllStockedProducts = getAllStockedProducts;
 module.exports.getAllProductsByCategory = getAllProductsByCategory;
 module.exports.getAllStores = getAllStores;
 module.exports.getUserStore = getUserStore;
+module.exports.getUserCart = getUserCart;
+module.exports.getCartCount = getCartCount;
 module.exports.getCategoriesList = getCategoriesList;
 module.exports.addProductToCart = addProductToCart;
 module.exports.removeProductFromCart = removeProductFromCart;
+module.exports.getCategoriesList = getCategoriesList;

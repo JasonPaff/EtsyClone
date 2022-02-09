@@ -1,19 +1,26 @@
 ﻿const express = require("express");
-const models = require("../models");
 const router = express.Router();
 
 router.get('/', function (req, res) {
+    // create no account cart if not created
+    if (!req.session.cart) req.session.cart = {
+        product_id: [], quantity: []
+    };
+
+    // create cart count if not created
+    if (!req.session.cartCount) req.session.cartCount = 0;
+
     getAllProducts(req, res).catch(console.error);
 });
 
 async function getAllProducts(req, res) {
-    // TODO: only find products that have a quantity over 1
-    const products = await models.Product.findAll({});
-
-    // create sale percents and flag anything that is on sale
+    const products = await require('../utils/dbUtils').getAllProducts();
     const adjustedProducts = require('../utils/dbUtils').calculateSalePrices(products);
-
-    res.render('index', {title: 'Etsy Clone', loggedIn: req.session.loggedIn, products: adjustedProducts});
+    res.render('index', {
+        title: 'Etsy Clone',
+        session: req.session,
+        products: adjustedProducts
+    });
 }
 
 module.exports = router;

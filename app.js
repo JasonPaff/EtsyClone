@@ -4,7 +4,7 @@ const logger = require('morgan');
 const path = require("path");
 const debug = require('debug')('etsyclone:server');
 const http = require('http');
-const port = process.env.PORT || '3000';
+const port = process.env.PORT || 3000;
 const app = express();
 const server = http.createServer(app);
 
@@ -40,15 +40,13 @@ app.use("/product", require('./routes/product.js'));
 app.use("/products", require('./routes/products.js'));
 app.use("/register", require('./routes/register.js'));
 app.use("/store", require('./routes/store.js'));
-app.use("/stores", require('./routes/stores.js'));
+app.use("/store", require('./routes/store.js'));
 app.use("/sales", require('./routes/sales.js'));
 app.use("/dashboard", authenticator, require('./routes/dashboard.js'));
 app.use("/search", require('./routes/search.js'));
 app.use("/category", require('./routes/category.js'));
-app.use("/categories", require('./routes/categories.js'));
 app.use("/wishlist", authenticator, require('./routes/wishlist.js'));
 app.use("/googleLogin", require('./routes/googleLogin.js'));
-app.use("/addToCart", require('./routes/addToCart.js'));
 
 // error handler
 function onError(error) {

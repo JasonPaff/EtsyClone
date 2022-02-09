@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', function (req, res) {
     if (req.session.loggedIn) res.redirect('index'); else {
         res.render('login', {
-            title: 'Login/Register', client_id: process.env.GOOGLE_CLIENT_ID
+            title: 'Login/Register', client_id: process.env.GOOGLE_CLIENT_ID, login_uri: process.env.LOGIN_URI
         });
     }
 });
@@ -51,6 +51,9 @@ async function handleLogin(req, res) {
     // flag login
     req.session.loggedIn = true;
     req.session.user = account[0];
+
+    // cart size for ui
+    req.session.cartCount = require('../utils/dbUtils').getCartCount(account[0]);
 
     // return if we redirected here to log in
     if (req.session.redirect) {
