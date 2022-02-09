@@ -50,3 +50,14 @@ function productAddedToCartAlert(name) {
     }, 1000);
     productWin.appendChild(addedDiv);
 }
+
+// add to cart alert
+function noProductAddedToCartAlert(name) {
+    let addedDiv = document.createElement("div");
+    let productWin = document.getElementById(name);
+    addedDiv.innerHTML = "Login/Register to use the cart";
+    setTimeout(function () {
+        productWin.removeChild(addedDiv);
+    }, 1000);
+    productWin.appendChild(addedDiv);
+}
