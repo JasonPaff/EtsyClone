@@ -16,10 +16,8 @@ app.use(session({
     secret: 'tacocat', saveUninitialized: true, resave: true
 }));
 
-console.log('started');
-
 app.set('port', port);
-server.listen(port);
+server.listen(port,() => console.log(`Example app listening on port ${port}!`));
 server.on('error', onError);
 server.on('listening', onListening);
 
