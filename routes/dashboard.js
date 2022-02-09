@@ -125,11 +125,9 @@ router.post('/add-product', upload.single('productImage'), (req, res) => {
 })
 
 router.post('/edit-product', (req, res) => {
-    const productId = req.body.id
-    console.log(productId)
     models.Product.findOne({
         where: {
-            id: parseInt(req.body.productId)
+            id: req.body.productId
         }
     }).then(product => {
         const productData = product.dataValues

@@ -8,11 +8,11 @@
 
     {{>navbar}}
     <h1>Add Product</h1>
-
+    {{#productData}}
     <form method="POST" action="/dashboard/edit-product/{{id}}" enctype="multipart/form-data">
         <input type="text" value="{{name}}" name="productName" required />
         <div>
-            <textarea value="{{description}}" name="productDescription" rows="6" cols="50" required></textarea>
+            <textarea name="productDescription" rows="6" cols="50" required>{{description}}</textarea>
         </div>
         <div>
             <label for="price">$</label>
@@ -30,6 +30,8 @@
             <button>Update Product</button>
         </div>
     </form>
+    {{/productData}}
+
     {{>footer}}
 </body>
 
