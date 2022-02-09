@@ -16,6 +16,8 @@ app.use(session({
     secret: 'tacocat', saveUninitialized: true, resave: true
 }));
 
+console.log('started');
+
 app.set('port', port);
 server.listen(port);
 server.on('error', onError);
