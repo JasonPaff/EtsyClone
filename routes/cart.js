@@ -40,17 +40,15 @@ async function getCart(req, res) {
     }
 
     let subTotal = 0;
-    let shipping = 0;
 
     if (products !== null) {
         products.forEach(product => {
             subTotal += parseFloat(product.dataValues.price);
         });
-        shipping += products.length * 2;
     }
 
     const tax = subTotal * 0.05;
-    const total = subTotal + tax + shipping;
+    const total = subTotal + tax;
     let canCheckout = false;
     if (subTotal > 0) canCheckout = true;
 
@@ -59,7 +57,6 @@ async function getCart(req, res) {
         session: req.session,
         products: products,
         subTotal: subTotal.toFixed(2),
-        shipping: shipping.toFixed(2),
         tax: tax.toFixed(2),
         total: total.toFixed(2),
         canCheckout: canCheckout
