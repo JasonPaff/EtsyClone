@@ -36,7 +36,6 @@ app.use("/index", require('./routes/index.js'));
 app.use("/cart", require('./routes/cart.js'));
 app.use("/checkout", authenticator, require('./routes/checkout.js'));
 app.use("/login", require('./routes/login.js'));
-app.use("/product", require('./routes/product.js'));
 app.use("/products", require('./routes/products.js'));
 app.use("/register", require('./routes/register.js'));
 app.use("/store", require('./routes/store.js'));
