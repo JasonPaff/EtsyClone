@@ -23,12 +23,7 @@ async function getProduct(productId) {
 
 // returns all the products
 async function getAllProducts() {
-    const products = await models.Product.findAll({});
-    products.map(product => {
-        product['imageData'] = product.imageData.toString('base64')
-    });
-
-    return products;
+    return await models.Product.findAll({});
 }
 
 // returns all the products
@@ -131,13 +126,13 @@ async function addProductToCart(productId, quantity, user) {
     let quantities = cart.dataValues.quantity;
 
     // check for existing product in the ids array, returns -1 for no match
-    const existingProductIndex= ids.findIndex(id => id == productId)
+    const existingProductIndex = ids.findIndex(id => id == productId)
 
     // match found, update quantity
-    if (existingProductIndex !== -1){
+    if (existingProductIndex !== -1) {
         quantities[existingProductIndex] += quantity;
     }
-    else{ // no match, add new
+    else { // no match, add new
         ids.push(productId);
         quantities.push(quantity);
     }
