@@ -50,6 +50,17 @@ async function getAllProductsByCategory(category) {
     });
 }
 
+// returns all the products from a certain category
+async function getAllProductsByKeyword(keyword) {
+    const sequelize = require('sequelize');
+
+    return await models.Product.findAll({
+        where: {
+            description: sequelize.where(sequelize.fn('LOWER', sequelize.col('description')), 'LIKE', '%' + keyword.toLowerCase() + '%')
+        }
+    })
+}
+
 // returns all the products in a cart
 async function getAllCartProducts(cart) {
     const ids = cart.dataValues.product_id;
@@ -210,6 +221,7 @@ module.exports.getAllSaleProducts = getAllSaleProducts;
 module.exports.getAllCartProducts = getAllCartProducts;
 module.exports.getAllStockedProducts = getAllStockedProducts;
 module.exports.getAllProductsByCategory = getAllProductsByCategory;
+module.exports.getAllProductsByKeyword = getAllProductsByKeyword;
 module.exports.getAllStores = getAllStores;
 module.exports.getUserStore = getUserStore;
 module.exports.getUserCart = getUserCart;
