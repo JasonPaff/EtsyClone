@@ -24,6 +24,15 @@ router.get('/', (req, res) => {
 
 
 router.get('/add-store', (req, res) => {
+    // models.Store.findOne({
+    //     where: {
+    //         user_id: req.session.user.id
+    //     }
+    // }).then(store => {
+    //     if (store.dataValues.user_id == req.session.user.id) {
+    //         res.render('dashboard/dashboard', { errorMessage: "You already have a store. Please click Edit Store to update your store's information." })
+    //     }
+    // })
     res.render('dashboard/add-store', { title: 'Etsy Clone', session: req.session });
 });
 
@@ -53,13 +62,34 @@ router.get('/edit-store', (req, res) => {
         }
     }).then(store => {
         const storeData = store.dataValues
-        console.log(storeData)
         res.render('dashboard/edit-store', { data: { title: 'Etsy Clone', session: req.session }, storeData });
     })
 });
 
-router.post('/edit-store/:id', (req, res) => {
-
+router.post('/edit-store/:id', upload.single('storeImage'), (req, res) => {
+    const id = req.params.id
+    const updatedStore = {
+        store_name: req.body.storeName,
+        store_description: req.body.storeDescription
+    }
+    if (req.file) {
+        const imageType = req.file.mimetype
+        const image = req.file.originalname
+        const imageData = req.file.buffer.toString('base64')
+        updatedStore.imageType = imageType
+        updatedStore.image = image
+        updatedStore.imageData = imageData
+    }
+    models.Store.update(updatedStore, {
+        where: {
+            id: id
+        }
+    })
+        .then(() => {
+            res.redirect('/dashboard')
+        }).catch(error => {
+            res.render('dashboard/add-product', { errorMessage: 'Error, unable to save store!' })
+        })
 })
 
 router.get('/add-product', (req, res) => {
