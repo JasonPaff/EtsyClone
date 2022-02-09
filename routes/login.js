@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', function (req, res) {
     if (req.session.loggedIn) res.redirect('index'); else {
         res.render('login', {
-            title: 'Login/Register', client_id: process.env.GOOGLE_CLIENT_ID
+            title: 'Login/Register', client_id: process.env.GOOGLE_CLIENT_ID, login_uri: process.env.LOGIN_URI
         });
     }
 });
