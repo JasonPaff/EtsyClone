@@ -8,7 +8,7 @@
     {{>navbar}}
     <h1>Edit Store</h1>
     {{#storeData}}
-    <form method="POST" action="/dashboard/edit-store">
+    <form method="POST" action="/dashboard/edit-store/{{id}}">
         <input type="text" value="{{store_name}}" name="storeName" required />
         <div>
             <textarea name="storeDescription" rows="6" cols="50" required>{{store_description}}</textarea>

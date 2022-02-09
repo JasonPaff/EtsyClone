@@ -10,24 +10,37 @@ const multer = require('multer')
 const upload = multer({ dest: './uploads/', storage: multer.memoryStorage() })
 
 router.get('/', (req, res) => {
+    //getting store + image
+
+    // models.Store.findOne({
+    //     where: {
+    //         user_id: req.session.user.id
+    //     }
+    // }).then(store => {
+    //     console.log(store)
+    //     const storeImage = store.dataValues.imageData.toString('base64')
+    //     store['imageData'] = storeImage
+
     res.render('dashboard/dashboard', { title: 'Etsy Clone', loggedIn: req.session.loggedIn });
+    // })
 });
+
 
 router.get('/add-store', (req, res) => {
     res.render('dashboard/add-store', { title: 'Etsy Clone', loggedIn: req.session.loggedIn });
 });
 
-router.post('/add-store', (req, res) => {
+router.post('/add-store', upload.single('storeImage'), (req, res) => {
     const name = req.body.storeName
     const description = req.body.storeDescription
-    const image = req.body.storeImage
     let store = models.Store.build({
         user_id: req.session.user.id,
         store_name: name,
         store_description: description,
-        image: image
+        imageType: (typeof req.files !== undefined) ? req.file.mimetype : null,
+        image: (typeof req.files !== undefined) ? req.file.originalname : null,
+        imageData: (typeof req.files !== undefined) ? req.file.buffer.toString('base64') : null
     })
-    console.log(store)
     store.save().then(savedStore => {
         res.redirect('/dashboard')
     }).catch(error => {
@@ -43,12 +56,11 @@ router.get('/edit-store', (req, res) => {
         }
     }).then(store => {
         const storeData = store.dataValues
-        console.log(storeData)
         res.render('dashboard/edit-store', { data: { title: 'Etsy Clone', loggedIn: req.session.loggedIn }, storeData });
     })
 });
 
-router.post('/edit-store', (req, res) => {
+router.post('/edit-store/:id', (req, res) => {
 
 })
 
@@ -76,7 +88,7 @@ router.post('/add-product', upload.single('productImage'), (req, res) => {
             sale_price: salePrice,
             imageType: (typeof req.files !== undefined) ? req.file.mimetype : null,
             imageName: (typeof req.files !== undefined) ? req.file.originalname : null,
-            imageData: (typeof req.files !== undefined) ? req.file.buffer : null
+            imageData: (typeof req.files !== undefined) ? req.file.buffer.toString('base64') : null
         })
         product.save().then(savedProduct => {
             res.redirect('/dashboard')
@@ -85,6 +97,7 @@ router.post('/add-product', upload.single('productImage'), (req, res) => {
         })
     }
 })
+
 router.get('/update-password', (req, res) => {
     res.render('dashboard/update-password', { title: 'Etsy Clone', loggedIn: req.session.loggedIn });
 });
@@ -124,10 +137,10 @@ async function getStoreProducts(req, res) {
         }
     })
 
-    products.map(product => {
-        const productImage = product.imageData.toString('base64')
-        product['imageData'] = productImage
-    })
+    // products.map(product => {
+    //     const productImage = product.imageData.toString('base64')
+    //     product['imageData'] = productImage
+    // })
 
     const store = await models.Store.findOne({
         where: {
