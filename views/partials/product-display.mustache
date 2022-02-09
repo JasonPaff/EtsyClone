@@ -29,8 +29,14 @@
 
             <!-- ADD TO CART -->
             <form method="post" action="/cart/addToCart">
+                {{#session.loggedIn}}
                 <button class="inline-block py-4 px-8 mb-10 bg-blue-300 hover:bg-blue-400 rounded-md"
                         onclick="productAddedToCartAlert({{id}})">
+                {{/session.loggedIn}}
+                {{^session.loggedIn}}
+                <button class="inline-block py-4 px-8 mb-10 bg-blue-300 hover:bg-blue-400 rounded-md"
+                        onclick="noProductAddedToCartAlert({{id}})">
+                {{/session.loggedIn}}
                     <svg width="12" height="12" viewbox="0 0 12 12" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
                         <rect x="5" width="2" height="12" fill="white"></rect>
