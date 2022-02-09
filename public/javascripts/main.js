@@ -39,3 +39,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+// add to cart alert
+function productAddedToCartAlert(name) {
+    let addedDiv = document.createElement("div");
+    let productWin = document.getElementById(name);
+    addedDiv.innerHTML = "Added to Cart";
+    setTimeout(function () {
+        productWin.removeChild(addedDiv);
+    }, 1000);
+    productWin.appendChild(addedDiv);
+}
