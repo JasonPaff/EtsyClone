@@ -4,7 +4,7 @@ const logger = require('morgan');
 const path = require("path");
 const debug = require('debug')('etsyclone:server');
 const http = require('http');
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 const app = express();
 const server = http.createServer(app);
 
@@ -17,7 +17,7 @@ app.use(session({
 }));
 
 app.set('port', port);
-server.listen(port,() => console.log(`Example app listening on port ${port}!`));
+server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
