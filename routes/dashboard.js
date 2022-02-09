@@ -129,7 +129,7 @@ router.post('/edit-product', (req, res) => {
     console.log(productId)
     models.Product.findOne({
         where: {
-            id: parseInt(req.body.id)
+            id: parseInt(req.body.productId)
         }
     }).then(product => {
         const productData = product.dataValues
