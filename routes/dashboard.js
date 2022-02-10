@@ -208,9 +208,16 @@ router.post('/view-all-products', function (req, res) {
 });
 
 router.get('/order-history', async function (req, res) {
-    const orders = require('../utils/dbUtils').getOrders(req.session.user);
+    // get the users orders
+    const orders = await require('../utils/dbUtils').getOrders(req.session.user);
+
+    // build product list from orders
+    for (let c = 0; c < orders.length; c++) {
+        orders[c].products = await require('../utils/dbUtils').getAllOrderProducts(orders[c]);
+    }
+
     res.render('dashboard/order-history', { title: 'Etsy Clone', session: req.session, orders: orders })
-})
+});
 
 async function getStoreProducts(req, res) {
     const products = await models.Product.findAll({
