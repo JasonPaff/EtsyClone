@@ -166,6 +166,16 @@ router.post('/edit-product/:id', upload.single('productImage'), (req, res) => {
         })
 })
 
+router.post('/delete-product', (req, res) => {
+    models.Product.destroy({
+        where: {
+            id: req.body.productId
+        }
+    }).then(() => {
+        res.render('dashboard/dashboard', { title: 'Etsy Clone', loggedIn: req.session });
+    })
+})
+
 router.get('/update-password', (req, res) => {
     res.render('dashboard/update-password', { title: 'Etsy Clone', session: req.session });
 });
