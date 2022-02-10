@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{{>header}}
+
+<body class="antialiased bg-body text-body font-body">
+
+    {{>navbar}}
+
+    <section class="py-20 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="px-4 py-16 md:py-28 lg:px-20 bg-white">
+                <h2 class="mb-8 text-5xl font-bold font-heading">Thanks for ordering</h2>
+                <p class="mb-16 text-gray-500">Your payment went through</p>
+                <div class="flex flex-wrap mb-8 pb-4 border-b">
+                    <div class="mr-20">
+                        <h3 class="text-gray-600">Order Number</h3>
+                        <p class="text-blue-300 font-bold font-heading">{{orderNumber}}</p>
+                    </div>
+                    <div class="mr-20">
+                        <h3 class="text-gray-600">Total</h3>
+                        <p class="text-blue-300 font-bold font-heading">${{orderTotal}}</p>
+                    </div>
+                    <div class="mr-auto">
+                        <h3 class="text-gray-600">Date</h3>
+                        <p class="text-blue-300 font-bold font-heading">{{orderDate}}</p>
+                    </div>
+                </div>
+
+                <div class="relative container mx-auto px-4">
+                    <h2 class="mb-16 md:mb-24 text-4xl md:text-5xl font-bold login-error font-heading">{{store_name}}</h2>
+                    {{>product-summary}}
+                </div>
+
+                <div class="text-right">
+                    <a class="inline-block w-full md:w-auto text-center px-8 py-4 bg-orange-300 hover:bg-orange-400 text-white font-bold font-heading uppercase rounded-md transition duration-200"
+                       href="/index">Go back Shopping</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{{>footer}}
+
+</body>
+</html>

@@ -51,6 +51,17 @@ function productAddedToCartAlert(name) {
     productWin.appendChild(addedDiv);
 }
 
+// add to cart alert
+function productAddedToWishlistAlert(name) {
+    let addedDiv = document.createElement("div");
+    let productWin = document.getElementById(name);
+    addedDiv.innerHTML = "Added to Wishlist";
+    setTimeout(function () {
+        productWin.removeChild(addedDiv);
+    }, 1000);
+    productWin.appendChild(addedDiv);
+}
+
 // not logged in add to cart alert
 function noProductAddedToCartAlert(name) {
     let addedDiv = document.createElement("div");
@@ -62,12 +73,18 @@ function noProductAddedToCartAlert(name) {
     productWin.appendChild(addedDiv);
 }
 
+// redirect to user store
+function storeRedirect(id) {
+    document.getElementById('storeId').value = id;
+    document.getElementById("storeRedirect").submit();
+}
+
 // submit search bar enter key press
 document.getElementById('searchBar')
     .addEventListener('keyup', function(event) {
         if (event.code === 'Enter')
         {
             event.preventDefault();
-            document.querySelector('searchBar').submit();
+            document.querySelector('searchBar').requestSubmit();
         }
     });
