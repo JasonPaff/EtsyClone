@@ -94,7 +94,6 @@ function authenticator(req, res, next) {
 }
 
 function checkIsActive(req, res, next) {
-    console.log(req)
     if (req.session.user.isActive) {
         next()
     } else if (req.session.user.isActive == false && req.originalUrl === "/dashboard/") {

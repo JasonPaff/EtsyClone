@@ -231,8 +231,7 @@ router.post('/deactivate-account', (req, res) => {
                     id: req.session.user.id
                 }
             }).then(() => {
-                req.session.loggedIn = false;
-                req.session.user = null;
+                req.session.user.isActive = false
                 res.redirect('../index');
             })
         } else {
@@ -242,8 +241,8 @@ router.post('/deactivate-account', (req, res) => {
                 where: {
                     id: req.session.user.id
                 }
-            }).then((updatedUser) => {
-                console.log(updatedUser)
+            }).then(() => {
+                req.session.user.isActive = true
                 res.redirect('../index');
             })
         }
