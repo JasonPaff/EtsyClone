@@ -39,15 +39,13 @@ app.use("/login", require('./routes/login.js'));
 app.use("/products", require('./routes/products.js'));
 app.use("/register", require('./routes/register.js'));
 app.use("/store", require('./routes/store.js'));
-app.use("/store", require('./routes/store.js'));
 app.use("/sales", require('./routes/sales.js'));
 app.use("/dashboard", authenticator, require('./routes/dashboard.js'));
 app.use("/search", require('./routes/search.js'));
 app.use("/category", require('./routes/category.js'));
 app.use("/wishlist", authenticator, require('./routes/wishlist.js'));
 app.use("/googleLogin", require('./routes/googleLogin.js'));
-app.use("/success", require('./routes/index'));
-app.use("/cancel", require('./routes/index'));
+app.use("/summary", require('./routes/summary.js'));
 
 // error handler
 function onError(error) {

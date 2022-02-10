@@ -25,6 +25,31 @@ function addSizeColorFlags(products) {
     return products;
 }
 
+// clears the users cart
+async function clearUserCart(user) {
+    const cart = await getUserCart(user);
+
+    // get the ids and quantities
+    let ids;
+    let quantities;
+
+    // reset
+    ids = [];
+    quantities = [];
+
+    // update cart
+    models.Cart.update({
+        product_id: ids, quantity: quantities
+    }, {
+        where: {
+            user_id: user.id
+        }
+    });
+
+    // update database
+    await cart.save().catch(console.error);
+}
+
 // returns a single product
 async function getProduct(productId) {
     return await models.Product.findOne({
@@ -268,3 +293,4 @@ module.exports.addProductToCart = addProductToCart;
 module.exports.removeProductFromCart = removeProductFromCart;
 module.exports.getCategoriesList = getCategoriesList;
 module.exports.addSizeColorFlags = addSizeColorFlags;
+module.exports.clearUserCart = clearUserCart;
