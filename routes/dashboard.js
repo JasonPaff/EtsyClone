@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
     //     console.log(store)
     //     const storeImage = store.dataValues.imageData.toString('base64')
     //     store['imageData'] = storeImage
-    res.render('dashboard/dashboard', { title: 'Etsy Clone', loggedIn: req.session });
+    res.render('dashboard/dashboard', { title: 'Etsy Clone', session: req.session });
     // })
 });
 
