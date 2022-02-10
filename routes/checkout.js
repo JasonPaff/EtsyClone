@@ -16,7 +16,6 @@ router.get('/stripe', function (req, res) {
 
 // process stripe checkout
 async function checkout(req, res) {
-    console.log('here');
     const lineItems = await createLineItems(req.session.user);
 
     const session = await stripe.checkout.sessions.create({
@@ -43,7 +42,7 @@ async function createLineItems(user) {
                 price_data: {
                     currency: 'usd', product_data: {
                         name: product.name,
-                    }, unit_amount_decimal: product.price * 100,
+                    }, unit_amount_decimal: (product.price * 100).toFixed(8),
                 }, quantity: 1,
             });
         });
