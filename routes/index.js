@@ -16,11 +16,13 @@ router.get('/', function (req, res) {
 async function getAllProducts(req, res) {
     const products = await require('../utils/dbUtils').getAllProducts();
     const priceAdjustedProducts = require('../utils/dbUtils').calculateSalePrices(products);
-    const adjustedProducts = require('../utils/dbUtils').addSizeColorFlags(priceAdjustedProducts);
+    const colorSizeAdjustedProducts = require('../utils/dbUtils').addSizeColorFlags(priceAdjustedProducts);
+    const sortedProducts = require('../utils/dbUtils').sortProductsByViewCount(colorSizeAdjustedProducts);
+
     res.render('index', {
         title: 'Etsy Clone',
         session: req.session,
-        products: adjustedProducts
+        products: sortedProducts
     });
 }
 

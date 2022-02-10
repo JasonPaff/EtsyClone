@@ -10,42 +10,20 @@ router.post('/removeFromCart', function (req, res) {
     removeFromCart(req, res).catch(console.error);
 });
 
-router.get('/success', function (req, res) {
-    res.redirect('index');
-});
-
-router.get('/cancel', function (req, res) {
-    res.redirect('index');
-});
-
 router.get('/stripe', function (req, res) {
     checkout(req, res).catch(console.error);
 });
 
 // process stripe checkout
 async function checkout(req, res) {
-    console.log('here');
     const lineItems = await createLineItems(req.session.user);
 
     const session = await stripe.checkout.sessions.create({
         line_items: lineItems,
         mode: 'payment',
-        success_url: 'http://localhost:3000/success',
+        success_url: 'http://localhost:3000/summary',
         cancel_url: 'http://localhost:3000/checkout',
     });
-
-    // const session = await stripe.checkout.sessions.create({
-    //     line_items: [{
-    //         price_data: {
-    //             currency: 'usd', product_data: {
-    //                 name: 'T-shirt',
-    //             }, unit_amount: 2000,
-    //         }, quantity: 1,
-    //     },],
-    //     mode: 'payment',
-    //     success_url: 'http://localhost:3000/success',
-    //     cancel_url: 'http://localhost:3000/checkout',
-    // });
 
     res.redirect(303, session.url);
 }
@@ -64,7 +42,7 @@ async function createLineItems(user) {
                 price_data: {
                     currency: 'usd', product_data: {
                         name: product.name,
-                    }, unit_amount_decimal: product.price * 100,
+                    }, unit_amount_decimal: (product.price * 100).toFixed(8),
                 }, quantity: 1,
             });
         });

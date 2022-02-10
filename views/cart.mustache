@@ -29,12 +29,22 @@
                                          alt="">
                                 </div>
                                 <!-- PRODUCT TEXT -->
-                                <div class="w-full md:w-auto md:pl-4 md:pl-8">
-                                    <h3 class="mb-2 text-xl font-bold font-heading">{{dataValues.name}}</h3>
-                                    <p class="mb-1 text-blue-300"><a href="#">link to shop that sells it</a></p>
-                                    <p class="text-gray-500">In Stock</p>
-                                    <span class="text-lg font-bold font-heading text-blue-300">${{dataValues.price}}</span>
-                                </div>
+                                <form id="storeRedirect" method="post" action="/store/redirect">
+                                    <input type="hidden" id="storeId" name="storeId" value="{{dataValues.user_id}}"/>
+                                    <div class="w-full md:w-auto md:pl-4 md:pl-8">
+                                        <h3 class="mb-2 text-xl font-bold font-heading">{{dataValues.name}}</h3>
+                                        <p class="mb-1 text-blue-300"><a href="#"
+                                                                         onclick="storeRedirect({{dataValues.user_id}})">{{dataValues.storeName}}</a>
+                                        </p>
+                                        <p class="text-gray-500">In Stock</p>
+                                        {{#onSale}}
+                                            <span class="text-lg font-bold font-heading text-blue-300">${{dataValues.sale_price}}</span>
+                                        {{/onSale}}
+                                        {{^onSale}}
+                                            <span class="text-lg font-bold font-heading text-blue-300">${{dataValues.price}}</span>
+                                        {{/onSale}}
+                                    </div>
+                                </form>
                             </div>
                             <div class="w-full lg:w-auto flex flex-wrap -mx-4 items-center">
                                 <!-- QUANTITY ADJUSTER -->
