@@ -8,7 +8,9 @@ const bcrypt = require("bcryptjs");
 
 
 router.get('/', (req, res) => {
-    res.render('dashboard/dashboard', { title: 'Etsy Clone - Dashboard', session: req.session });
+    if (req.session.user.isActive) {
+        res.render('dashboard/dashboard', { title: 'Etsy Clone - Dashboard', session: req.session });
+    }
 });
 
 router.get('/add-store', (req, res) => {
@@ -202,7 +204,7 @@ router.post('/update-password', (req, res) => {
 router.get('/sign-out', (req, res) => {
     req.session.loggedIn = false;
     req.session.user = null;
-    res.redirect('../index');
+    res.redirect('./index');
 });
 
 router.get('/view-reviews', async (req, res) => {
@@ -214,8 +216,8 @@ router.get('/view-reviews', async (req, res) => {
     res.render('dashboard/view-reviews', { title: 'Etsy Clone - View Your Reviews', session: req.session, allReviews: reviews });
 });
 
-router.post('/delete-account', (req, res) => {
-    //models.User.destory + cascade products, cart, reviews
+router.post('/deactivate-account', (req, res) => {
+    deactivateReactivateAccount(req, res).catch(console.error);
 });
 
 router.get('/wishlist', (req, res) => {
@@ -265,5 +267,33 @@ async function getReviews(req, res) {
 
 }
 
+async function deactivateReactivateAccount(req, res) {
+    const user = await models.User.findOne({
+        where: {
+            id: req.session.user.id
+        }
+    })
+    if (user.dataValues.isActive) {
+        await models.User.update({
+            isActive: false
+        }, {
+            where: {
+                id: req.session.user.id
+            }
+        })
+        req.session.user.isActive = false
+        res.redirect('../index');
+    } else {
+        await models.User.update({
+            isActive: true
+        }, {
+            where: {
+                id: req.session.user.id
+            }
+        })
+        req.session.user.isActive = true
+        res.redirect('../index');
+    }
+}
 
 module.exports = router;
