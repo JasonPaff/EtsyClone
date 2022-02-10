@@ -15,11 +15,14 @@ module.exports = (sequelize, DataTypes) => {
       models.User.hasOne(models.Store, { as: 'store', foreignKey: 'id' })
       models.User.hasMany(models.Review, { as: 'reviews', foreignKey: 'id' })
       models.User.hasOne(models.Cart, { as: 'cart', foreignKey: 'id' })
+      models.User.hasOne(models.Wishlist, { as: 'wishlist', foreignKey: 'id' })
+      models.User.hasMany(models.Order, { as: 'orders', foreignKey: 'id' })
     }
   }
   User.init({
     email: DataTypes.STRING,
-    password: DataTypes.STRING
+    password: DataTypes.STRING,
+    isActive: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'User',

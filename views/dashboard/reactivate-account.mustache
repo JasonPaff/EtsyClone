@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{{>header}}
+
+<body class="main-bg bg-body text-body font-body">
+
+    {{>navbar}}
+
+    <section class="relative py-24 lg:pt-32 bg-blue-800 overflow-x-hidden ml-16">
+        <img class="hidden md:block absolute top-0 left-0" src="assets/elements/orange-line.svg" alt="">
+        <img class="absolute bottom-0 right-0 w-72" src="assets/elements/violet-line.svg" alt="">
+        <h1 class="mb-16 pt-20 text-5xl md:text-5xl text-white font-bold font-heading">Dashboard</h1>
+        <form method="POST" action="/dashboard/deactivate-account">
+            <button
+                class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 p-6 nav-bg">Activate
+                Account</button>
+        </form>
+    </section>
+
+    {{>footer}}
+</body>
+
+</html>

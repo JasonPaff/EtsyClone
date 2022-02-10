@@ -27,7 +27,7 @@ app.set('view engine', 'mustache');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ROUTES
@@ -40,7 +40,7 @@ app.use("/products", require('./routes/products.js'));
 app.use("/register", require('./routes/register.js'));
 app.use("/store", require('./routes/store.js'));
 app.use("/sales", require('./routes/sales.js'));
-app.use("/dashboard", authenticator, require('./routes/dashboard.js'));
+app.use("/dashboard", authenticator, checkIsActive, require('./routes/dashboard.js'));
 app.use("/search", require('./routes/search.js'));
 app.use("/category", require('./routes/category.js'));
 app.use("/wishlist", authenticator, require('./routes/wishlist.js'));
@@ -90,5 +90,18 @@ function authenticator(req, res, next) {
         if (req.baseUrl === 'undefined') req.session.redirectUrl = '/wishlist';
 
         res.redirect('/login');
+    }
+}
+
+function checkIsActive(req, res, next) {
+    console.log(req)
+    if (req.session.user.isActive) {
+        next()
+    } else if (req.session.user.isActive == false && req.originalUrl === "/dashboard/") {
+        res.render('dashboard/reactivate-account')
+    } else if (req.originalUrl === "/dashboard/deactivate-account") {
+        next()
+    } else {
+        res.render('index')
     }
 }
