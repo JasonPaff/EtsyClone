@@ -1,0 +1,75 @@
+
+
+#login {
+    display: block;
+}
+
+#register {
+    display: none;
+}
+
+#btn{
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 110px;
+    height: 100%;
+    border-radius: 30px;
+    transition: .5s;
+    background: linear-gradient(to bottom, #33ccff 0%, #66ff33 100%);
+}
+
+.button-box{
+    width: 220px;
+    margin: 35px auto;
+    position: relative;
+    box-shadow: 0 0 20px 9px #33ffcc1f;
+    border-radius: 30px;
+}
+
+.toggle-btn{
+    padding: 10px 30px;
+    cursor: pointer;
+    background: transparent;
+    border:0;
+    outline: none;
+    position: relative;
+}
+
+.form-box{
+    width: 380px;
+    height: 480px;
+    position: relative;
+    margin: 6% auto;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.nav-bg {
+    background-color: #25292f;
+    color: white;
+}
+
+.nav-border-bg {
+    border-color: #363b46;
+    color: white;
+}
+
+.picture-bg {
+    background-color: #121212;
+    color: white;
+}
+
+.search-bar {
+    background-color: #121212;
+    color: white;
+}
+
+.main-bg {
+    background-color: #081132;
+}
+
+.cart {
+    color: white;
+    background-color: #121212;
+}
