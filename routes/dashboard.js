@@ -207,6 +207,11 @@ router.post('/view-all-products', function (req, res) {
     getStoreProducts(req, res).catch(console.error);
 });
 
+router.get('/order-history', async function (req, res) {
+    const orders = require('../utils/dbUtils').getOrders(req.session.user);
+    res.render('dashboard/order-history', { title: 'Etsy Clone', session: req.session, orders: orders })
+})
+
 async function getStoreProducts(req, res) {
     const products = await models.Product.findAll({
         where: {

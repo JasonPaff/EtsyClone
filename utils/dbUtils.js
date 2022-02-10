@@ -431,6 +431,19 @@ function getCategoriesList() {
     }];
 }
 
+// get user orders
+async function getOrders(user) {
+    const orders = await models.Order.findAll({
+        where : {
+            user_id: user.id
+        }
+    });
+
+    console.log(orders);
+
+    return orders;
+}
+
 // save order to database
 async function saveOrder(user, products, total, invoice) {
     const theProducts = [];
@@ -484,3 +497,4 @@ module.exports.sortProductsByViewCount = sortProductsByViewCount;
 module.exports.clearUserCart = clearUserCart;
 module.exports.getStoreNamesFromProducts = getStoreNamesFromProducts;
 module.exports.saveOrder = saveOrder;
+module.exports.getOrders = getOrders;
