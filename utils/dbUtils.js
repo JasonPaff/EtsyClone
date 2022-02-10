@@ -25,6 +25,25 @@ function addSizeColorFlags(products) {
     return products;
 }
 
+// sort products by view count
+function sortProductsByViewCount(products) {
+
+    function compareViews(a, b) {
+        if (a.dataValues.view_count > b.dataValues.view_count)
+            return -1;
+        if (a.dataValues.view_count < b.dataValues.view_count)
+            return 1;
+        return 0;
+    }
+
+    products.sort(compareViews);
+
+    console.log(products);
+    return products;
+}
+
+
+
 // clears the users cart
 async function clearUserCart(user) {
     const cart = await getUserCart(user);
@@ -212,7 +231,25 @@ async function addProductToCart(productId, quantity, user) {
         }
     });
 
+    // get product
+    const product = await getProduct(productId);
+
+    // update view count
+    if (product.dataValues.view_count === null)
+        product.dataValues.view_count = 1;
+    else
+        product.dataValues.view_count += 1;
+
     // update database
+    await models.Product.update({
+        view_count: product.dataValues.view_count
+    }, {
+        where: {
+            id: productId
+        }
+    });
+
+    // update database, maybe unnecessary?
     await cart.save().catch(console.error);
 }
 
@@ -293,4 +330,5 @@ module.exports.addProductToCart = addProductToCart;
 module.exports.removeProductFromCart = removeProductFromCart;
 module.exports.getCategoriesList = getCategoriesList;
 module.exports.addSizeColorFlags = addSizeColorFlags;
+module.exports.sortProductsByViewCount = sortProductsByViewCount;
 module.exports.clearUserCart = clearUserCart;
