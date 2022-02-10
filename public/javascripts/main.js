@@ -51,6 +51,17 @@ function productAddedToCartAlert(name) {
     productWin.appendChild(addedDiv);
 }
 
+// add to cart alert
+function productAddedToWishlistAlert(name) {
+    let addedDiv = document.createElement("div");
+    let productWin = document.getElementById(name);
+    addedDiv.innerHTML = "Added to Wishlist";
+    setTimeout(function () {
+        productWin.removeChild(addedDiv);
+    }, 1000);
+    productWin.appendChild(addedDiv);
+}
+
 // not logged in add to cart alert
 function noProductAddedToCartAlert(name) {
     let addedDiv = document.createElement("div");

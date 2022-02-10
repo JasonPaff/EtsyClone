@@ -55,8 +55,6 @@ async function getCart(req, res) {
         products[c].dataValues.storeName = storeNames[c];
     }
 
-    console.log(products[0]);
-
     const tax = subTotal * 0.05;
     const total = subTotal + tax;
     let canCheckout = false;
