@@ -46,6 +46,7 @@ app.use("/category", require('./routes/category.js'));
 app.use("/wishlist", authenticator, require('./routes/wishlist.js'));
 app.use("/googleLogin", require('./routes/googleLogin.js'));
 app.use("/summary", require('./routes/summary.js'));
+app.use("/review", require('./routes/review.js'));
 
 // error handler
 function onError(error) {
@@ -79,7 +80,8 @@ function onListening() {
 
 // authenticate login status
 function authenticator(req, res, next) {
-    if (req.session.loggedIn) next(); else {
+    if (req.session.loggedIn) next();
+    else {
         req.session.redirect = true;
         req.session.redirectUrl = req.baseUrl;
 

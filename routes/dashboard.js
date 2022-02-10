@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const models = require('../models')
-const { Op } = require('sequelize')
+const {Op} = require('sequelize')
 // TODO: change page title for each page instead of just the default?
 
 const multer = require('multer')
-const upload = multer({ dest: './uploads/', storage: multer.memoryStorage() })
+const upload = multer({dest: './uploads/', storage: multer.memoryStorage()})
 
 router.get('/', (req, res) => {
     //getting store + image
@@ -18,10 +18,9 @@ router.get('/', (req, res) => {
     //     console.log(store)
     //     const storeImage = store.dataValues.imageData.toString('base64')
     //     store['imageData'] = storeImage
-    res.render('dashboard/dashboard', { title: 'Etsy Clone', session: req.session });
+    res.render('dashboard/dashboard', {title: 'Etsy Clone', session: req.session});
     // })
 });
-
 
 router.get('/add-store', (req, res) => {
     // models.Store.findOne({
@@ -33,7 +32,7 @@ router.get('/add-store', (req, res) => {
     //         res.render('dashboard/dashboard', { errorMessage: "You already have a store. Please click Edit Store to update your store's information." })
     //     }
     // })
-    res.render('dashboard/add-store', { title: 'Etsy Clone', session: req.session });
+    res.render('dashboard/add-store', {title: 'Etsy Clone', session: req.session});
 });
 
 router.post('/add-store', upload.single('storeImage'), (req, res) => {
@@ -54,8 +53,8 @@ router.post('/add-store', upload.single('storeImage'), (req, res) => {
         .then(() => {
             res.redirect('/dashboard')
         }).catch(error => {
-            res.render('dashboard/add-store', { errorMessage: 'Unable to save store!' })
-        })
+        res.render('dashboard/add-store', {errorMessage: 'Unable to save store!'})
+    })
 })
 
 router.get('/edit-store', (req, res) => {
@@ -65,7 +64,7 @@ router.get('/edit-store', (req, res) => {
         }
     }).then(store => {
         const storeData = store.dataValues
-        res.render('dashboard/edit-store', { data: { title: 'Etsy Clone', session: req.session }, storeData });
+        res.render('dashboard/edit-store', {data: {title: 'Etsy Clone', session: req.session}, storeData});
     })
 })
 
@@ -89,12 +88,17 @@ router.post('/edit-store/:id', upload.single('storeImage'), (req, res) => {
     }).then(() => {
         res.redirect('/dashboard')
     }).catch(error => {
-        res.render('dashboard/add-product', { errorMessage: 'Error, unable to save store!' })
+        res.render('dashboard/add-product', {errorMessage: 'Error, unable to save store!'})
     })
 })
 
 router.get('/add-product', (req, res) => {
-    res.render('dashboard/add-product', { title: 'Etsy Clone', session: req.session });
+    res.render('dashboard/add-product', {title: 'Etsy Clone', session: req.session});
+});
+
+router.post('/review', function (req, res) {
+    console.log(req.body.id);
+    res.redirect('order-history');
 });
 
 router.post('/add-product', upload.single('productImage'), (req, res) => {
@@ -120,8 +124,8 @@ router.post('/add-product', upload.single('productImage'), (req, res) => {
         .then(() => {
             res.redirect('/dashboard')
         }).catch(error => {
-            res.render('dashboard/add-product', { errorMessage: 'Error, unable to save product!' })
-        })
+        res.render('dashboard/add-product', {errorMessage: 'Error, unable to save product!'})
+    })
 })
 
 router.post('/edit-product', (req, res) => {
@@ -132,7 +136,7 @@ router.post('/edit-product', (req, res) => {
     }).then(product => {
         const productData = product.dataValues
         console.log(productData)
-        res.render('dashboard/edit-product', { data: { title: 'Etsy Clone', session: req.session }, productData });
+        res.render('dashboard/edit-product', {data: {title: 'Etsy Clone', session: req.session}, productData});
     })
 })
 
@@ -162,8 +166,8 @@ router.post('/edit-product/:id', upload.single('productImage'), (req, res) => {
         .then(() => {
             res.redirect('/dashboard')
         }).catch(error => {
-            res.render('dashboard/add-product', { errorMessage: 'Error, unable to save product!' })
-        })
+        res.render('dashboard/add-product', {errorMessage: 'Error, unable to save product!'})
+    })
 })
 
 router.post('/delete-product', (req, res) => {
@@ -172,12 +176,12 @@ router.post('/delete-product', (req, res) => {
             id: req.body.productId
         }
     }).then(() => {
-        res.render('dashboard/dashboard', { title: 'Etsy Clone', loggedIn: req.session });
+        res.render('dashboard/dashboard', {title: 'Etsy Clone', loggedIn: req.session});
     })
 })
 
 router.get('/update-password', (req, res) => {
-    res.render('dashboard/update-password', { title: 'Etsy Clone', session: req.session });
+    res.render('dashboard/update-password', {title: 'Etsy Clone', session: req.session});
 });
 
 router.get('/sign-out', (req, res) => {
@@ -192,7 +196,7 @@ router.get('/view-reviews', async (req, res) => {
             user_id: req.session.user.id
         }
     })
-    res.render('dashboard/view-reviews', { title: 'Etsy Clone', session: req.session, allReviews: reviews });
+    res.render('dashboard/view-reviews', {title: 'Etsy Clone', session: req.session, allReviews: reviews});
 });
 
 router.post('/delete-account', (req, res) => {
@@ -200,7 +204,7 @@ router.post('/delete-account', (req, res) => {
 });
 
 router.get('/favorites', (req, res) => {
-    res.render('dashboard/favorites', { title: 'Etsy Clone', session: req.session });
+    res.render('dashboard/favorites', {title: 'Etsy Clone', session: req.session});
 });
 
 router.post('/view-all-products', function (req, res) {
@@ -216,7 +220,68 @@ router.get('/order-history', async function (req, res) {
         orders[c].products = await require('../utils/dbUtils').getAllOrderProducts(orders[c]);
     }
 
-    res.render('dashboard/order-history', { title: 'Etsy Clone', session: req.session, orders: orders })
+    res.render('dashboard/order-history', {title: 'Etsy Clone', session: req.session, orders: orders})
+});
+
+router.get('/customer-chat', function (req, res) {
+    const ws = new require('ws');
+    const wss = new ws.Server({noServer: true});
+    const http = require('http');
+    const fs = require('fs');
+    const clients = new Set();
+
+    http.createServer((req, res) => {
+        wss.handleUpgrade(req, req.socket, Buffer.alloc(0), onSocketConnect);
+    });
+
+    function accept(req, res) {
+
+        if (req.url === '/ws' && req.headers.upgrade &&
+            req.headers.upgrade.toLowerCase() === 'websocket' &&
+            // can be Connection: keep-alive, Upgrade
+            req.headers.connection.match(/\bupgrade\b/i)) {
+            wss.handleUpgrade(req, req.socket, Buffer.alloc(0), onSocketConnect);
+        } else if (req.url === '/') { // index.html
+            fs.createReadStream('./index.html').pipe(res);
+        } else { // page not found
+            res.writeHead(404);
+            res.end();
+        }
+    }
+
+    function onSocketConnect(ws) {
+        clients.add(ws);
+        log(`new connection`);
+
+        ws.on('message', function(message) {
+            log(`message received: ${message}`);
+
+            message = message.slice(0, 50); // max message length will be 50
+
+            for(let client of clients) {
+                client.send(message);
+            }
+        });
+
+        ws.on('close', function() {
+            log(`connection closed`);
+            clients.delete(ws);
+        });
+    }
+
+    let log;
+    if (!module.parent) {
+        log = console.log;
+        http.createServer(accept).listen(8080);
+    } else {
+        // to embed into javascript.info
+        log = function () {
+        };
+        // log = console.log;
+        exports.accept = accept;
+    }
+
+    res.render('dashboard/customer-chat', {session: req.session})
 });
 
 async function getStoreProducts(req, res) {

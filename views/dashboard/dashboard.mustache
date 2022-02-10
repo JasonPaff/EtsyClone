@@ -48,15 +48,23 @@
                 Password</button>
         </form>
         <form method="GET" action="/dashboard/sign-out">
-            <button
-                class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">Sign
-                Out</button>
+            <button class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">
+                Sign Out
+            </button>
         </form>
         <form method="POST" action="/dashboard/delete-account">
-            <button
-                class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 p-6 nav-bg">Delete
-                Account</button>
+            <button class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 p-6 nav-bg">
+                Delete Account
+            </button>
         </form>
+
+        {{#session.isAdmin}}
+            <form method="GET" action="/dashboard/customer-chat">
+                <button class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">
+                    Customer Chat
+                </button>
+            </form>
+        {{/session.isAdmin}}
     </section>
 
 {{>footer}}

@@ -18,6 +18,9 @@ async function login(req, res) {
     req.session.loggedIn = true;
     req.session.user = user[0];
 
+    if (req.session.user.email === "jasonpaff@gmail.com")
+        req.session.isAdmin = true;
+
     // cart size for ui
     req.session.cartCount = await require('../utils/dbUtils').getCartCount(user[0]);
 
