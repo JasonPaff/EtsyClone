@@ -217,36 +217,7 @@ router.get('/view-reviews', async (req, res) => {
 });
 
 router.post('/deactivate-account', (req, res) => {
-    models.User.findOne({
-        where: {
-            id: req.session.user.id
-        }
-    }).then(user => {
-        console.log(user, user.dataValues.isActive)
-        if (user.dataValues.isActive == true) {
-            models.User.update({
-                isActive: false
-            }, {
-                where: {
-                    id: req.session.user.id
-                }
-            }).then(() => {
-                req.session.user.isActive = false
-                res.redirect('../index');
-            })
-        } else {
-            models.User.update({
-                isActive: true
-            }, {
-                where: {
-                    id: req.session.user.id
-                }
-            }).then(() => {
-                req.session.user.isActive = true
-                res.redirect('../index');
-            })
-        }
-    })
+    deactivateReactivateAccount(req, res).catch(console.error);
 });
 
 router.get('/wishlist', (req, res) => {
@@ -284,5 +255,33 @@ async function getReviews(req, res) {
 
 }
 
+async function deactivateReactivateAccount(req, res) {
+    const user = await models.User.findOne({
+        where: {
+            id: req.session.user.id
+        }
+    })
+    if (user.dataValues.isActive) {
+        await models.User.update({
+            isActive: false
+        }, {
+            where: {
+                id: req.session.user.id
+            }
+        })
+        req.session.user.isActive = false
+        res.redirect('../index');
+    } else {
+        await models.User.update({
+            isActive: true
+        }, {
+            where: {
+                id: req.session.user.id
+            }
+        })
+        req.session.user.isActive = true
+        res.redirect('../index');
+    }
+}
 
 module.exports = router;
