@@ -28,6 +28,7 @@ async function checkout(req, res) {
     res.redirect(303, session.url);
 }
 
+// create line items for stripe checkout
 async function createLineItems(user) {
     let products = null;
 
