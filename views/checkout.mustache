@@ -95,53 +95,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex mb-10 items-center">
-                            <span class="inline-flex mr-8 items-center justify-center w-12 h-12 rounded-full bg-pink-300 text-white">4</span>
-                            <h3 class="text-2xl font-bold font-heading">Payment</h3>
-                        </div>
-                        <div>
-                            <div class="flex flex-wrap -mx-4 mb-10">
-                                <label class="flex px-4 w-full sm:w-auto items-center" for="">
-                                    <input type="radio" name="paymentType" value="" checked>
-                                    <span class="ml-5 text-sm">Credit card</span>
-                                </label>
-                                <label class="flex px-4 w-full sm:w-auto items-center" for="">
-                                    <input type="radio" name="paymentType" value="">
-                                    <span class="ml-5 text-sm">Cash on Delivery</span>
-                                </label>
-                                <label class="flex px-4 w-full sm:w-auto items-center" for="">
-                                    <input type="radio" name="paymentType" value="">
-                                    <span class="ml-5 text-sm">PayPal</span>
-                                </label>
-                            </div>
-                            <div class="mb-10">
-                                <label class="font-bold font-heading text-gray-600" for="">Name on Card</label>
-                                <input class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                                       type="text">
-                            </div>
-                            <div class="mb-10">
-                                <label class="font-bold font-heading text-gray-600" for="">Credit Card Type</label>
-                                <input class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                                       type="text">
-                            </div>
-                            <div class="flex flex-wrap -mx-4">
-                                <div class="w-full md:w-2/3 px-4">
-                                    <div class="mb-10">
-                                        <label class="font-bold font-heading text-gray-600" for="">Credit Card
-                                            Number</label>
-                                        <input class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                                               type="text">
-                                    </div>
-                                </div>
-                                <div class="w-full md:w-1/3 px-4">
-                                    <div class="mb-10">
-                                        <label class="font-bold font-heading text-gray-600" for="">CVV</label>
-                                        <input class="block w-full mt-4 py-4 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                                               type="text">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -189,34 +142,32 @@
                     {{/products}}
                 </div>
 
-                <div class="mb-12">
-                    <div class="mb-10">
-                        <div class="py-3 px-10 bg-blue-50 rounded-full">
-                            <div class="flex justify-between">
-                                <span class="font-medium">Subtotal</span>
-                                <span class="font-bold font-heading">$89.67</span>
-                            </div>
-                        </div>
-                        <div class="py-3 px-10 rounded-full">
-                            <div class="flex justify-between">
-                                <span class="font-medium">Shipping</span>
-                                <span class="font-bold font-heading">$11.00</span>
-                            </div>
-                        </div>
-                        <div class="py-3 px-10 bg-blue-50 rounded-full">
-                            <div class="flex justify-between">
-                                <span class="font-medium">Tax</span>
-                                <span class="font-bold font-heading">$0.00</span>
-                            </div>
-                        </div>
-                        <div class="py-3 px-10 rounded-full">
-                            <div class="flex justify-between">
-                                <span class="text-base md:text-xl font-bold font-heading">Total</span>
-                                <span class="font-bold font-heading">$100.67</span>
-                            </div>
+                <!-- SUMMARY -->
+                <div class="mb-10">
+                    <div class="py-3 px-10 bg-gray-800 rounded-full">
+                        <div class="flex justify-between">
+                            <span class="font-medium">SubTotal</span>
+                            <span class="font-bold font-heading">${{subTotal}}</span>
                         </div>
                     </div>
-                </div>
+                    <div class="py-3 px-10 rounded-full">
+                        <div class="flex justify-between">
+                            <span class="font-medium">Shipping</span>
+                            <span class="font-bold font-heading">${{shipping}}</span>
+                        </div>
+                    </div>
+                    <div class="py-3 px-10 bg-gray-800 rounded-full">
+                        <div class="flex justify-between">
+                            <span class="font-medium">Tax</span>
+                            <span class="font-bold font-heading">${{tax}}</span>
+                        </div>
+                    </div>
+                    <div class="py-3 px-10 rounded-full">
+                        <div class="flex justify-between">
+                            <span class="text-base md:text-xl font-bold font-heading">Order Total</span>
+                            <span class="font-bold font-heading">${{total}}</span>
+                        </div>
+                    </div>
                 <div class="mb-6 md:mb-10">
                     <span class="inline-block mb-4 font-medium">Apply discount code:</span>
                     <div class="flex mb-12 flex-wrap lg:flex-nowrap items-center">
@@ -227,7 +178,7 @@
                     </div>
                 </div>
                 <a class="block w-full py-4 bg-orange-300 hover:bg-orange-400 text-center text-white font-bold font-heading uppercase rounded-md transition duration-200"
-                   href="#">Confirm Order</a>
+                   href="/checkout/stripe">Confirm Order</a>
             </div>
         </div>
     </section>
