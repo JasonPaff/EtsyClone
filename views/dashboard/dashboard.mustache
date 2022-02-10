@@ -5,39 +5,36 @@
 
 <body class="main-bg bg-body text-body font-body">
 
-    {{>navbar}}
+{{>navbar}}
 
-    <section class="relative py-20 lg:pt-32 bg-blue-800 overflow-x-hidden">
-        <img class="hidden md:block absolute top-0 left-0" src="assets/elements/white-line.svg" alt="">
-        <img class="absolute top-50 left-0 mt-64" src="assets/elements/orange-line.svg" alt="">
-        <img class="absolute bottom-0 right-0 w-72" src="assets/elements/violet-line.svg" alt="">
-        <form method="GET" action="/dashboard/add-store">
-            <button class="mb-16 text-3xl md:text-3xl text-white font-bold font-heading">Add Store</button>
-        </form>
-        <form method="GET" action="/dashboard/edit-store">
-            <button class="mb-16 text-3xl md:text-3xl text-white font-bold font-heading">Edit Store</button>
-        </form>
-        <form method="GET" action="/dashboard/add-product">
-            <button class="mb-16 text-4xl md:text-3xl text-white font-bold font-heading">Add Product</button>
-        </form>
-        <form method="POST" action="/dashboard/view-all-products">
-            <button class="mb-16 text-4xl md:text-3xl text-white font-bold font-heading">View Your Products</button>
-        </form>
-        <form method="GET" action="/dashboard/view-reviews">
-            <button class="mb-16 text-4xl md:text-3xl text-white font-bold font-heading">View Your Reviews</button>
-        </form>
-        <form method="GET" action="/dashboard/update-password">
-            <button class="mb-16 text-4xl md:text-3xl text-white font-bold font-heading">Update Password</button>
-        </form>
-        <form method="GET" action="/dashboard/sign-out">
-            <button class="mb-16 text-4xl md:text-3xl text-white font-bold font-heading">Sign Out</button>
-        </form>
-        <form method="POST" action="/dashboard/delete-account">
-            <button class="mb-16 text-4xl md:text-3xl text-white font-bold font-heading">Delete Account</button>
-        </form>
-    </section>
+<section class="relative py-20 lg:pt-32 bg-blue-800 overflow-x-hidden">
+    <form method="GET" action="/dashboard/add-store">
+        <button class="mb-16 text-3xl md:text-3xl text-white font-bold font-heading">Add Store</button>
+    </form>
+    <form method="GET" action="/dashboard/edit-store">
+        <button class="mb-16 text-3xl md:text-3xl text-white font-bold font-heading">Edit Store</button>
+    </form>
+    <form method="GET" action="/dashboard/add-product">
+        <button class="mb-16 text-4xl md:text-3xl text-white font-bold font-heading">Add Product</button>
+    </form>
+    <form method="POST" action="/dashboard/view-all-products">
+        <button class="mb-16 text-4xl md:text-3xl text-white font-bold font-heading">View Your Products</button>
+    </form>
+    <form method="GET" action="/dashboard/view-reviews">
+        <button class="mb-16 text-4xl md:text-3xl text-white font-bold font-heading">View Your Reviews</button>
+    </form>
+    <form method="GET" action="/dashboard/update-password">
+        <button class="mb-16 text-4xl md:text-3xl text-white font-bold font-heading">Update Password</button>
+    </form>
+    <form method="GET" action="/dashboard/sign-out">
+        <button class="mb-16 text-4xl md:text-3xl text-white font-bold font-heading">Sign Out</button>
+    </form>
+    <form method="POST" action="/dashboard/delete-account">
+        <button class="mb-16 text-4xl md:text-3xl text-white font-bold font-heading">Delete Account</button>
+    </form>
+</section>
 
-    {{>footer}}
+{{>footer}}
 </body>
 
 </html>

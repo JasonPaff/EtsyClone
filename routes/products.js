@@ -7,8 +7,8 @@ router.get('/', function (req, res) {
 
 async function getAllProducts(req, res) {
     const products = await require('../utils/dbUtils').getAllProducts();
-    console.log(products)
-    const adjustedProducts = require('../utils/dbUtils').calculateSalePrices(products);
+    const priceAdjustedProducts = require('../utils/dbUtils').calculateSalePrices(products);
+    const adjustedProducts = require('../utils/dbUtils').addSizeColorFlags(priceAdjustedProducts);
     res.render('products', { title: 'Etsy Clone', session: req.session, products: adjustedProducts });
 }
 

@@ -13,7 +13,8 @@ router.post('/', function (req, res) {
 
 async function getAllCategoryProducts(req, res) {
     const products = await require('../utils/dbUtils').getAllProductsByCategory(req.body.category);
-    const adjustedProducts = require('../utils/dbUtils').calculateSalePrices(products);
+    const priceAdjustedProducts = require('../utils/dbUtils').calculateSalePrices(products);
+    const adjustedProducts = require('../utils/dbUtils').addSizeColorFlags(priceAdjustedProducts);
     res.render('products', {title: 'Etsy Clone', session: req.session, products: adjustedProducts});
 }
 
