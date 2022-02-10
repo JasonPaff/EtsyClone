@@ -51,7 +51,7 @@ function productAddedToCartAlert(name) {
     productWin.appendChild(addedDiv);
 }
 
-// add to cart alert
+// not logged in add to cart alert
 function noProductAddedToCartAlert(name) {
     let addedDiv = document.createElement("div");
     let productWin = document.getElementById(name);
@@ -61,3 +61,13 @@ function noProductAddedToCartAlert(name) {
     }, 1000);
     productWin.appendChild(addedDiv);
 }
+
+// submit search bar enter key press
+document.getElementById('searchBar')
+    .addEventListener('keyup', function(event) {
+        if (event.code === 'Enter')
+        {
+            event.preventDefault();
+            document.querySelector('searchBar').submit();
+        }
+    });

@@ -1,4 +1,5 @@
 const models = require("../models");
+const sequelize = require("sequelize");
 
 // calculates any sale price percentages and flag the producat as on sale
 function calculateSalePrices(products) {
@@ -6,6 +7,18 @@ function calculateSalePrices(products) {
         if (product.sale_price > 0) {
             product.onSale = true;
             product.salePercent = ((1 - (product.sale_price / product.price)) * 100).toFixed(2);
+        }
+    });
+
+    return products;
+}
+
+// add hasColor and hasSize flags
+function addSizeColorFlags(products) {
+    products.forEach(product => {
+        if (product.category === 'Clothing') {
+            product.hasSize = true;
+            product.hasColor = true;
         }
     });
 
@@ -37,7 +50,6 @@ async function getAllUserProducts(userId) {
 
 // returns all the products with a stock quantity >= 1
 async function getAllStockedProducts() {
-    // TODO: quantity >= 1
     return await models.Product.findAll({});
 }
 
@@ -48,6 +60,34 @@ async function getAllProductsByCategory(category) {
             category: category
         }
     });
+}
+
+// returns all the products from a certain category
+async function getAllProductsByKeyword(keyword) {
+
+    // description search
+    const description = await models.Product.findAll({
+        where: {
+            description: sequelize.where(sequelize.fn('LOWER', sequelize.col('description')), 'LIKE', '%' + keyword.toLowerCase() + '%')
+        }
+    })
+
+    // category search
+    const category = await models.Product.findAll({
+        where: {
+            category: sequelize.where(sequelize.fn('LOWER', sequelize.col('category')), 'LIKE', '%' + keyword.toLowerCase() + '%')
+        }
+    })
+
+    // name search
+    const name = await models.Product.findAll({
+        where: {
+            name: sequelize.where(sequelize.fn('LOWER', sequelize.col('name')), 'LIKE', '%' + keyword.toLowerCase() + '%')
+        }
+    })
+
+    // combine into one array and return
+    return [...description, ...name, ...category];
 }
 
 // returns all the products in a cart
@@ -192,14 +232,22 @@ async function removeProductFromCart(productId, user) {
 function getCategoriesList() {
     return [{
         name: 'Toys',
+        image: "assets/images/toys.jpg"
     }, {
         name: 'Books',
+        image: "assets/images/books.jpg"
     }, {
         name: 'Clothing',
+        image: "assets/images/cloths.jpg"
     }, {
         name: 'Electronics',
+        image: "assets/images/electronics.jpg"
     }, {
-        name: 'Something',
+        name: 'Food',
+        image: "assets/images/food.jpg"
+    }, {
+        name: 'Misc',
+        image: "assets/images/miscc.jpg"
     }];
 }
 
@@ -210,6 +258,7 @@ module.exports.getAllSaleProducts = getAllSaleProducts;
 module.exports.getAllCartProducts = getAllCartProducts;
 module.exports.getAllStockedProducts = getAllStockedProducts;
 module.exports.getAllProductsByCategory = getAllProductsByCategory;
+module.exports.getAllProductsByKeyword = getAllProductsByKeyword;
 module.exports.getAllStores = getAllStores;
 module.exports.getUserStore = getUserStore;
 module.exports.getUserCart = getUserCart;
@@ -218,3 +267,4 @@ module.exports.getCategoriesList = getCategoriesList;
 module.exports.addProductToCart = addProductToCart;
 module.exports.removeProductFromCart = removeProductFromCart;
 module.exports.getCategoriesList = getCategoriesList;
+module.exports.addSizeColorFlags = addSizeColorFlags;
