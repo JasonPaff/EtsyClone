@@ -33,10 +33,12 @@ async function removeFromCart(req, res) {
 // renders the cart contents to the cart page
 async function getCart(req, res) {
     let products = null;
+    let adjustedProducts = null;
 
     if (req.session.loggedIn) {
         const cart = await require('../utils/dbUtils').getUserCart(req.session.user);
-        products = await require('../utils/dbUtils').getAllCartProducts(cart);
+        adjustedProducts = await require('../utils/dbUtils').getAllCartProducts(cart);
+        products = require('../utils/dbUtils').calculateSalePrices(adjustedProducts);
     }
 
     let subTotal = 0;
@@ -46,6 +48,14 @@ async function getCart(req, res) {
             subTotal += parseFloat(product.dataValues.price);
         });
     }
+
+    const storeNames = await require('../utils/dbUtils').getStoreNamesFromProducts(products);
+
+    for (let c = 0; c < products.length; c++) {
+        products[c].dataValues.storeName = storeNames[c];
+    }
+
+    console.log(products[0]);
 
     const tax = subTotal * 0.05;
     const total = subTotal + tax;
