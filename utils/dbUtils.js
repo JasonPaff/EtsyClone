@@ -169,6 +169,24 @@ async function getAllCartProducts(cart) {
     return products;
 }
 
+// returns all the products in a cart
+async function getAllOrderProducts(order) {
+    const ids = order.dataValues.product_id;
+    const quantities = order.dataValues.quantity;
+
+    let products = [];
+
+    // add products based on matching quantities
+    for (let c = 0; c < ids.length; c++) {
+        for (let d = 0; d < quantities[c]; d++) {
+            const product = await getProduct(ids[c]);
+            if (product !== null) products.push(product);
+        }
+    }
+
+    return products;
+}
+
 // returns all the products in a wish list
 async function getAllWishlistProducts(wishlist) {
     const ids = wishlist.dataValues.product_id;
@@ -498,3 +516,4 @@ module.exports.clearUserCart = clearUserCart;
 module.exports.getStoreNamesFromProducts = getStoreNamesFromProducts;
 module.exports.saveOrder = saveOrder;
 module.exports.getOrders = getOrders;
+module.exports.getAllOrderProducts = getAllOrderProducts;

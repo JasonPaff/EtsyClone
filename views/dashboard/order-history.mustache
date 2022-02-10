@@ -17,41 +17,19 @@
                 <div class="flex flex-wrap mb-8 pb-4 border-b">
                     <div class="mr-20">
                         <h3 class="text-gray-600">Order Number</h3>
-                        <p class="text-blue-300 font-bold font-heading">{{orderNumber}}</p>
+                        <p class="text-blue-300 font-bold font-heading">{{order_number}}</p>
                     </div>
+                    <div class="mr-20">
+                    <h3 class="text-gray-600">Order Total</h3>
+                    <p class="text-blue-300 font-bold font-heading">{{order_total}}</p>
+                </div>
                     <div class="mr-auto">
                         <h3 class="text-gray-600">Date</h3>
-                        <p class="text-blue-300 font-bold font-heading">{{date}}</p>
+                        <p class="text-blue-300 font-bold font-heading">{{createdAt}}</p>
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-4 mb-8">
-                    {{#products}}
-                        <div class="w-full lg:w-1/6 px-4 mb-8 lg:mb-0">
-                            <div class="flex items-center justify-center h-72 bg-gray-100"><img
-                                    class="w-full h-96 object-cover"
-                                    src="data:{{imageType}};base64, {{imageData}}"
-                                    onerror="this.src='/dashboard/assets/images/default-product-image.png';this.onerror='';"
-                                    alt="">
-                            </div>
-                        </div>
-                        <div class="w-full lg:w-5/6 px-4">
-                            <div class="flex mb-16">
-                                <div class="mr-auto">
-                                    <h3 class="text-xl font-bold font-heading">{{name}}</h3>
-                                    <p class="text-gray-500">{{description}}</p>
-                                </div>
-                                <p class="text-xl font-bold font-heading text-white">
-                                    {{#onSale}}
-                                        <span>${{sale_price}}</span>
-                                        <span class="text-xs text-gray-500 font-semibold font-heading line-through">${{price}}</span>
-                                    {{/onSale}}
-                                    {{^onSale}}
-                                        <span>${{price}}</span>
-                                    {{/onSale}}
-                                </p>
-                            </div>
-                        </div>
-                    {{/products}}
+                    {{>product-summary-display}}
                 </div>
             </div>
         {{/orders}}
