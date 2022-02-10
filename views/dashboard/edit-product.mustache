@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+
+{{>header}}
+
+<body class="main-bg bg-body text-body font-body">
+
+    {{>navbar}}
+    <h1>Add Product</h1>
+    {{#productData}}
+    <form method="POST" action="/dashboard/edit-product/{{id}}" enctype="multipart/form-data">
+        <input type="text" value="{{name}}" name="productName" required />
+        <div>
+            <textarea name="productDescription" rows="6" cols="50" required>{{description}}</textarea>
+        </div>
+        <div>
+            <label for="price">$</label>
+            <input type="text" id="price" value="{{price}}" name="productPrice" required />
+            <label for="price">$</label>
+            <input type="text" id="price" value="{{sale_price}}" name="salePrice" />
+        </div>
+        <input type="text" name="productColor" value="{{color}}" />
+        <input type="text" name="productSize" value="{{size}}" />
+        <input type="text" name="productCategory" value="{{category}}" required />
+        <div>
+            <input type="file" name="productImage" accept="image/*" />
+        </div>
+        <div>
+            <button>Update Product</button>
+        </div>
+    </form>
+    {{/productData}}
+
+    {{>footer}}
+</body>
+
+</html>
