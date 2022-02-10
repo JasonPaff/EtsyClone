@@ -27,7 +27,7 @@ function addSizeColorFlags(products) {
 
 // sort products by view count
 function sortProductsByViewCount(products) {
-
+    // sort helper
     function compareViews(a, b) {
         if (a.dataValues.view_count > b.dataValues.view_count)
             return -1;
@@ -35,14 +35,30 @@ function sortProductsByViewCount(products) {
             return 1;
         return 0;
     }
-
     products.sort(compareViews);
 
-    console.log(products);
     return products;
 }
 
+// gets the store names for the products
+async function getStoreNamesFromProducts(products) {
+    let storeNames = [];
+    // user_id from products need to match user_id on store for store name
 
+    for (let c = 0; c < products.length; c++){
+        let store = await models.Store.findOne({
+            where : {
+                user_id : products[c].dataValues.user_id
+            }
+        });
+
+        if (store !== null){
+            storeNames.push(store.dataValues.store_name);
+        }
+    }
+
+    return storeNames;
+}
 
 // clears the users cart
 async function clearUserCart(user) {
@@ -332,3 +348,4 @@ module.exports.getCategoriesList = getCategoriesList;
 module.exports.addSizeColorFlags = addSizeColorFlags;
 module.exports.sortProductsByViewCount = sortProductsByViewCount;
 module.exports.clearUserCart = clearUserCart;
+module.exports.getStoreNamesFromProducts = getStoreNamesFromProducts;

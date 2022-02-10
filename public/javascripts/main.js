@@ -62,12 +62,18 @@ function noProductAddedToCartAlert(name) {
     productWin.appendChild(addedDiv);
 }
 
+// redirect to user store
+function storeRedirect(id) {
+    document.getElementById('storeId').value = id;
+    document.getElementById("storeRedirect").submit();
+}
+
 // submit search bar enter key press
 document.getElementById('searchBar')
     .addEventListener('keyup', function(event) {
         if (event.code === 'Enter')
         {
             event.preventDefault();
-            document.querySelector('searchBar').submit();
+            document.querySelector('searchBar').requestSubmit();
         }
     });
