@@ -8,9 +8,6 @@ const port = process.env.PORT || 3000;
 const app = express();
 const server = http.createServer(app);
 
-// TODO: do we need to hide the secret key in the .env file? probably should to be safe
-// TODO: middleware to auto login on visit based off a cookie from previous visit?
-
 const session = require('express-session')
 app.use(session({
     secret: 'tacocat', saveUninitialized: true, resave: true
@@ -34,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use("/", require('./routes/index.js'));
 app.use("/index", require('./routes/index.js'));
 app.use("/cart", require('./routes/cart.js'));
+app.use("/chat", require('./routes/chat.js'));
 app.use("/checkout", authenticator, require('./routes/checkout.js'));
 app.use("/login", require('./routes/login.js'));
 app.use("/products", require('./routes/products.js'));

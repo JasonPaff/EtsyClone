@@ -452,12 +452,15 @@ function getCategoriesList() {
 // get user orders
 async function getOrders(user) {
     const orders = await models.Order.findAll({
-        where : {
+        where: {
             user_id: user.id
         }
     });
 
-    console.log(orders);
+    for (let c = 0; c < orders.length; c++) {
+        const price = parseFloat(orders[c].dataValues.order_total);
+        orders[c].dataValues.order_total = price.toFixed(2);
+    }
 
     return orders;
 }
