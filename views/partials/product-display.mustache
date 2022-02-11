@@ -67,21 +67,20 @@
                     </button>
                 </button>
             </form>
-                <form method="post" action="/wishlist/addToWishlist">
-                    {{#session.loggedIn}}
-                        <button class="inline-block py-4 px-8 ml-2 mb-10 bg-blue-300 hover:bg-blue-400 rounded-md"
-                                onclick="productAddedToWishlistAlert({{id}})">
-                            <svg width="20" height="16" viewbox="0 0 23 20" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M11.4998 19.2061L2.70115 9.92527C1.92859 9.14433 1.41864 8.1374 1.24355 7.04712C1.06847 5.95684 1.23713 4.8385 1.72563 3.85053V3.85053C2.09464 3.10462 2.63366 2.45803 3.29828 1.96406C3.9629 1.47008 4.73408 1.14284 5.5483 1.00931C6.36252 0.875782 7.19647 0.939779 7.98144 1.19603C8.7664 1.45228 9.47991 1.89345 10.0632 2.48319L11.4998 3.93577L12.9364 2.48319C13.5197 1.89345 14.2332 1.45228 15.0182 1.19603C15.8031 0.939779 16.6371 0.875782 17.4513 1.00931C18.2655 1.14284 19.0367 1.47008 19.7013 1.96406C20.3659 2.45803 20.905 3.10462 21.274 3.85053V3.85053C21.7625 4.8385 21.9311 5.95684 21.756 7.04712C21.581 8.1374 21.071 9.14433 20.2984 9.92527L11.4998 19.2061Z"
-                                      stroke="white" stroke-width="1.5" stroke-linecap="round"
-                                      stroke-linejoin="round"></path>
-                            </svg>
-                            <input type="hidden" value="{{id}}" name="productId"/>
-                        </button>
-                    {{/session.loggedIn}}
-                </form>
-            </div>
+
+            <form method="post" action="/wishlist/addToWishlist">
+                {{#session.loggedIn}}
+                <button class="inline-block py-4 px-8 ml-2 mb-10 bg-blue-300 hover:bg-blue-400 rounded-md"
+                    onclick="productAddedToWishlistAlert({{id}})">
+                    <svg width="20" height="16" viewbox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M11.4998 19.2061L2.70115 9.92527C1.92859 9.14433 1.41864 8.1374 1.24355 7.04712C1.06847 5.95684 1.23713 4.8385 1.72563 3.85053V3.85053C2.09464 3.10462 2.63366 2.45803 3.29828 1.96406C3.9629 1.47008 4.73408 1.14284 5.5483 1.00931C6.36252 0.875782 7.19647 0.939779 7.98144 1.19603C8.7664 1.45228 9.47991 1.89345 10.0632 2.48319L11.4998 3.93577L12.9364 2.48319C13.5197 1.89345 14.2332 1.45228 15.0182 1.19603C15.8031 0.939779 16.6371 0.875782 17.4513 1.00931C18.2655 1.14284 19.0367 1.47008 19.7013 1.96406C20.3659 2.45803 20.905 3.10462 21.274 3.85053V3.85053C21.7625 4.8385 21.9311 5.95684 21.756 7.04712C21.581 8.1374 21.071 9.14433 20.2984 9.92527L11.4998 19.2061Z"
+                            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                    <input type="hidden" value="{{id}}" name="productId" />
+                </button>
+                {{/session.loggedIn}}
+            </form>
         </div>
     </div>
     {{/products}}
