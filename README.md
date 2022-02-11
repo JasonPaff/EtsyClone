@@ -32,7 +32,7 @@ From your dashboard you can add/edit your store, add/edit/delete your store's pr
 ![landing page](msedge_XMngM4N5sb.png)
 
 ### Technology Stack:
-HTML, CSS, Tailwind, Javascript, Node.js, Mustache, Express, Google Auth Library, Socket.IO, Multer, Stripe API
+HTML, CSS, Tailwind, Javascript, Node.js, Mustache, Express, Google Auth Library, Multer, Stripe API
 
 ### Database:
 
