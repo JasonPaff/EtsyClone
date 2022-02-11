@@ -21,8 +21,8 @@ async function checkout(req, res) {
     const session = await stripe.checkout.sessions.create({
         line_items: lineItems,
         mode: 'payment',
-        success_url: 'https://our-etsy.herokuapp.com/:3000/summary',
-        cancel_url: 'https://our-etsy.herokuapp.com/:3000/checkout',
+        success_url: 'https://our-etsy.herokuapp.com/summary',
+        cancel_url: 'https://our-etsy.herokuapp.com/checkout',
     });
 
     res.redirect(303, session.url);
