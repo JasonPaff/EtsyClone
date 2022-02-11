@@ -232,12 +232,19 @@ router.get('/order-history', async function (req, res) {
     // get the users orders
     const orders = await require('../utils/dbUtils').getOrders(req.session.user);
 
+    console.log(orders);
+
+    for (let c = 0; c < orders.length; c++){
+        const total = parseFloat(orders[c].dataValues.order_total);
+        orders[c].dataValues.order_total = total.toFixed(2);
+    }
+
     // build product list from orders
     for (let c = 0; c < orders.length; c++) {
         orders[c].products = await require('../utils/dbUtils').getAllOrderProducts(orders[c]);
     }
 
-    res.render('dashboard/order-history', { title: 'Etsy Clone', session: req.session, orders: orders })
+    res.render('dashboard/order-history', {title: 'Etsy Clone', session: req.session, orders: orders})
 });
 
 async function getStoreProducts(req, res) {
