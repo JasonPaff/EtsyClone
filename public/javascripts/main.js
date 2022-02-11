@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function productAddedToCartAlert(name) {
     let addedDiv = document.createElement("div");
     let productWin = document.getElementById(name);
+    addedDiv.style.color = 'white';
     addedDiv.innerHTML = "Added to Cart";
     setTimeout(function () {
         productWin.removeChild(addedDiv);
@@ -54,6 +55,7 @@ function productAddedToCartAlert(name) {
 function productAddedToWishlistAlert(name) {
     let addedDiv = document.createElement("div");
     let productWin = document.getElementById(name);
+    addedDiv.style.color = 'white';
     addedDiv.innerHTML = "Added to Wishlist";
     setTimeout(function () {
         productWin.removeChild(addedDiv);
@@ -66,6 +68,7 @@ function noProductAddedToCartAlert(name) {
     let addedDiv = document.createElement("div");
     let productWin = document.getElementById(name);
     addedDiv.innerHTML = "Login/Register to use the cart";
+    addedDiv.style.color = 'white';
     setTimeout(function () {
         productWin.removeChild(addedDiv);
     }, 1000);
