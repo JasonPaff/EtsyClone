@@ -29,31 +29,30 @@
             </div>
         </div>
 
-        <div class="flex flex-wrap">
-            <!-- ADD TO CART -->
-            <form method="post" action="/cart/addToCart">
-                {{#hasSize}}
-                <select class="pl-10" name="sizeSelect">
-                    <option>Size</option>
-                    <option>Small</option>
-                    <option>Medium</option>
-                    <option>Large</option>
-                </select>
-                {{/hasSize}}
-                {{#hasColor}}
-                <select class="pl-10" name="colorSelect">
-                    <option>Color</option>
-                    <option>White</option>
-                    <option>Black</option>
-                    <option>Red</option>
-                    <option>Blue</option>
-                    <option>Green</option>
-                    <option>Yellow</option>
-                </select>
-                {{/hasColor}}
-                {{#session.loggedIn}}
-                <button class="inline-block py-4 px-8 mb-10 bg-blue-300 hover:bg-blue-400 rounded-md"
-                    onclick="productAddedToCartAlert({{id}})">
+            <div class="flex flex-wrap">
+                <!-- ADD TO CART -->
+                <form method="post" action="/cart/addToCart">
+                    {{#hasSize}}
+                        <select class="pl-10" name="sizeSelect">
+                            <option>Small</option>
+                            <option>Medium</option>
+                            <option>Large</option>
+                        </select>
+                    {{/hasSize}}
+                    {{#hasColor}}
+                        <select class="pl-10" name="colorSelect">
+                            <option>White</option>
+                            <option>Black</option>
+                            <option>Red</option>
+                            <option>Blue</option>
+                            <option>Green</option>
+                            <option>Yellow</option>
+                        </select>
+                    {{/hasColor}}
+                    {{#session.loggedIn}}
+                    <button class="inline-block py-4 px-8 mb-10 bg-blue-300 hover:bg-blue-400 rounded-md"
+                            onclick="productAddedToCartAlert({{id}})">
+
                     {{/session.loggedIn}}
                     {{^session.loggedIn}}
                     <button class="inline-block py-4 px-8 mb-10 bg-blue-300 hover:bg-blue-400 rounded-md"
