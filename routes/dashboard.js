@@ -54,7 +54,9 @@ router.get('/edit-store', (req, res) => {
             user_id: req.session.user.id
         }
     }).then(store => {
-        const storeData = store.dataValues
+        let storeData;
+        if (store !== null || store.dataValues !== null)
+            storeData = store.dataValues;
         res.render('dashboard/edit-store', { data: { title: 'Etsy Clone - Edit Store', session: req.session }, storeData });
     })
 })
