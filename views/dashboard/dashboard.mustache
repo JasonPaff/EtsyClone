@@ -5,61 +5,82 @@
 
 <body class="main-bg bg-body text-body font-body">
 
-    {{>navbar}}
+{{>navbar}}
 
-    <section class="relative py-24 lg:pt-32 bg-blue-800 overflow-x-hidden ml-16">
-        <img class="hidden md:block absolute top-0 left-0" src="assets/elements/orange-line.svg" alt="">
-        <img class="absolute bottom-0 right-0 w-72" src="assets/elements/violet-line.svg" alt="">
+<section class="relative py-24 lg:pt-32 bg-blue-800 overflow-x-hidden ml-16">
+
+    {{>swirls}}
+
+    <div class="relative container mx-auto px-4">
         <h1 class="mb-16 pt-20 text-5xl md:text-5xl text-white font-bold font-heading">Dashboard</h1>
         <form method="GET" action="/dashboard/add-store">
             <button
-                class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">Add
-                Store</button>
+                    class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">
+                Add
+                Store
+            </button>
         </form>
         <form method="GET" action="/dashboard/edit-store">
             <button
-                class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">Edit
-                Store</button>
+                    class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">
+                Edit
+                Store
+            </button>
         </form>
         <form method="GET" action="/dashboard/add-product">
             <button
-                class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">Add
-                Product</button>
+                    class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">
+                Add
+                Product
+            </button>
         </form>
         <form method="POST" action="/dashboard/view-all-products">
             <button
-                class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">Update/Delete
+                    class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">
+                Update/Delete
                 Your
-                Products</button>
+                Products
+            </button>
         </form>
         <form method="GET" action="/dashboard/view-reviews">
             <button
-                class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">View
-                Your Reviews</button>
+                    class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">
+                View
+                Your Reviews
+            </button>
         </form>
         <form method="GET" action="/dashboard/order-history">
             <button
-                    class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">View
-                Order History</button>
+                    class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">
+                View
+                Order History
+            </button>
         </form>
         <form method="GET" action="/dashboard/update-password">
             <button
-                class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">Update
-                Password</button>
+                    class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">
+                Update
+                Password
+            </button>
         </form>
         <form method="GET" action="/dashboard/sign-out">
             <button
-                class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">Sign
-                Out</button>
+                    class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 object-contain p-6 nav-bg">
+                Sign
+                Out
+            </button>
         </form>
         <form method="POST" action="/dashboard/deactivate-account">
             <button onclick="return confirm('Are you sure you want to deactivate your account?')"
-                class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 p-6 nav-bg">Deactivate
-                Account</button>
+                    class="mb-10 text-3xl md:text-3xl text-white font-bold font-heading mb-5 mx-auto h-20 w-2\/5 p-6 nav-bg">
+                Deactivate
+                Account
+            </button>
         </form>
-    </section>
+    </div>
+</section>
 
-    {{>footer}}
+{{>footer}}
 </body>
 
 </html>
