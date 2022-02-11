@@ -3,41 +3,46 @@
 
 {{>header}}
 
-<body class="antialiased bg-body text-body font-body">
-<div>
+<body class="main-bg bg-body text-body font-body">
+    <div>
 
-    {{>navbar}}
+        {{>navbar}}
 
-    <section class="relative py-20 lg:pt-32 bg-blue-800 overflow-x-hidden">
-        <!-- BACKGROUND SWIRLS -->
-        {{>swirls}}
+        <section class="relative py-20 lg:pt-32 bg-blue-800 overflow-x-hidden">
+            <!-- BACKGROUND SWIRLS -->
+            {{>swirls}}
 
-        <div class="relative container mx-auto px-4">
-            <div class="p-8 lg:p-20 nav-bg">
-                {{#products}}
+            <div class="relative container mx-auto px-4">
+                <div class="p-8 lg:p-20 nav-bg">
+                    <h2 class="mb-16 md:mb-24 text-4xl md:text-5xl font-bold login-error font-heading"
+                        style="color: white">
+                        Wishlist</h2>
+                    {{#products}}
                     <div class="flex mb-8 flex-wrap items-center justify-between">
                         <!-- PRODUCT -->
                         <div class="w-full lg:w-auto mb-8 xl:mb-0 flex flex-wrap items-center">
                             <!-- PRODUCT IMAGE -->
                             <div class="flex items-center justify-center h-32 mb-4 lg:mb-0 bg-gray-100">
                                 <img class="h-full object-contain" src="data:{{imageType}};base64, {{imageData}}"
-                                     onerror="this.src='/dashboard/assets/images/default-product-image.png';this.onerror='';"
-                                     alt="">
+                                    onerror="this.src='/dashboard/assets/images/default-product-image.png';this.onerror='';"
+                                    alt="">
                             </div>
                             <!-- PRODUCT TEXT -->
                             <form id="storeRedirect" method="post" action="/store/redirect">
-                                <input type="hidden" id="storeId" name="storeId" value="{{dataValues.user_id}}"/>
+                                <input type="hidden" id="storeId" name="storeId" value="{{dataValues.user_id}}" />
                                 <div class="w-full md:w-auto md:pl-4 md:pl-8">
                                     <h3 class="mb-2 text-xl font-bold font-heading">{{dataValues.name}}</h3>
                                     <p class="mb-1 text-blue-300"><a href="#"
-                                                                     onclick="storeRedirect({{dataValues.user_id}})">{{dataValues.storeName}}</a>
+                                            onclick="storeRedirect({{dataValues.user_id}})">{{dataValues.storeName}}</a>
                                     </p>
                                     <p class="text-gray-500">In Stock</p>
                                     {{#onSale}}
-                                        <span class="text-lg font-bold font-heading text-blue-300">${{dataValues.sale_price}}</span>
+                                    <span
+                                        class="text-lg font-bold font-heading text-blue-300">${{dataValues.sale_price}}</span>
                                     {{/onSale}}
                                     {{^onSale}}
-                                        <span class="text-lg font-bold font-heading text-blue-300">${{dataValues.price}}</span>
+                                    <span
+                                        class="text-lg font-bold font-heading text-blue-300">${{dataValues.price}}</span>
                                     {{/onSale}}
                                 </div>
                             </form>
@@ -47,21 +52,21 @@
                             <div class="order-2 md:order-1 w-full md:w-1/3 px-4">
                                 <form method="post" action="/wishlist/removeFromWishlist">
                                     <button
-                                            class="inline-block mr-16 px-8 py-4 text-white font-bold font-heading uppercase bg-red-300 hover:bg-red-400 rounded-md">
+                                        class="inline-block mr-16 px-8 py-4 text-white font-bold font-heading uppercase bg-red-300 hover:bg-red-400 rounded-md">
                                         Remove
                                     </button>
-                                    <input type="hidden" value="{{id}}" name="productId"/>
+                                    <input type="hidden" value="{{id}}" name="productId" />
                                 </form>
                             </div>
                         </div>
                     </div>
-                {{/products}}
+                    {{/products}}
+                </div>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
 
-{{>footer}}
+    {{>footer}}
 
 </body>
 

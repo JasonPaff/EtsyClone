@@ -14,15 +14,6 @@ router.get('/', (req, res) => {
 });
 
 router.get('/add-store', (req, res) => {
-    // models.Store.findOne({
-    //     where: {
-    //         user_id: req.session.user.id
-    //     }
-    // }).then(store => {
-    //     if (store.dataValues.user_id == req.session.user.id) {
-    //         res.render('dashboard/dashboard', { errorMessage: "You already have a store. Please click Edit Store to update your store's information." })
-    //     }
-    // })
     res.render('dashboard/add-store', { title: 'Etsy Clone - Add Store', session: req.session });
 });
 
@@ -48,17 +39,20 @@ router.post('/add-store', upload.single('storeImage'), (req, res) => {
         })
 })
 
-router.get('/edit-store', (req, res) => {
-    models.Store.findOne({
+router.get('/edit-store', async (req, res) => {
+    const store = await models.Store.findOne({
         where: {
             user_id: req.session.user.id
         }
-    }).then(store => {
+    })
+    if (store === null) {
+        res.redirect('/dashboard')
+    } else {
         let storeData;
         if (store !== null || store.dataValues !== null)
             storeData = store.dataValues;
         res.render('dashboard/edit-store', { data: { title: 'Etsy Clone - Edit Store', session: req.session }, storeData });
-    })
+    }
 })
 
 router.post('/edit-store/:id', upload.single('storeImage'), (req, res) => {
@@ -222,10 +216,6 @@ router.post('/deactivate-account', (req, res) => {
     deactivateReactivateAccount(req, res).catch(console.error);
 });
 
-router.get('/wishlist', (req, res) => {
-    res.render('../wishlist', { title: 'Etsy Clone - Wishlist', session: req.session });
-});
-
 router.post('/view-all-products', function (req, res) {
     getStoreProducts(req, res).catch(console.error);
 });
@@ -234,7 +224,7 @@ router.get('/order-history', async function (req, res) {
     // get the users orders
     const orders = await require('../utils/dbUtils').getOrders(req.session.user);
 
-    for (let c = 0; c < orders.length; c++){
+    for (let c = 0; c < orders.length; c++) {
         const total = parseFloat(orders[c].dataValues.order_total);
         orders[c].dataValues.order_total = total.toFixed(2);
     }
@@ -244,7 +234,7 @@ router.get('/order-history', async function (req, res) {
         orders[c].products = await require('../utils/dbUtils').getAllOrderProducts(orders[c]);
     }
 
-    res.render('dashboard/order-history', {title: 'Etsy Clone', session: req.session, orders: orders})
+    res.render('dashboard/order-history', { title: 'Etsy Clone', session: req.session, orders: orders })
 });
 
 async function getStoreProducts(req, res) {
@@ -253,21 +243,25 @@ async function getStoreProducts(req, res) {
             user_id: req.session.user.id
         }
     })
+    if (products == []) {
+        res.redirect('/dashboard')
+    } else {
 
-    const store = await models.Store.findOne({
-        where: {
-            user_id: req.session.user.id
-        }
-    })
-    products.forEach(product => {
-        if (product.sale_price > 0) {
-            product.onSale = true;
-            product.salePercent = ((1 - (product.sale_price / product.price)) * 100).toFixed(2);
-        }
-    })
-    res.render('dashboard/view-all-products', {
-        title: 'Etsy Clone - Your Products', session: req.session, products: products, store_name: store.store_name
-    });
+        const store = await models.Store.findOne({
+            where: {
+                user_id: req.session.user.id
+            }
+        })
+        products.forEach(product => {
+            if (product.sale_price > 0) {
+                product.onSale = true;
+                product.salePercent = ((1 - (product.sale_price / product.price)) * 100).toFixed(2);
+            }
+        })
+        res.render('dashboard/view-all-products', {
+            title: 'Etsy Clone - Your Products', session: req.session, products: products, store_name: store.store_name
+        });
+    }
 }
 
 async function getReviews(req, res) {
