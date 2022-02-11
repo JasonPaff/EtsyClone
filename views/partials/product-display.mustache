@@ -1,75 +1,72 @@
 <div class="flex flex-wrap -mx-3">
     {{#products}}
-        <div class="w-full lg:w-1/3 px-3 mb-16 lg:mb-0">
-            <!-- SALE STICKER -->
-            <div class="relative">
-                <!-- DISCOUNT TAG -->
-                {{#onSale}}
-                    <span class="absolute bottom-10 left-0 ml-6 mt-6 px-2 py-1 text-xs font-bold font-heading bg-gray-300 border-2 border-red-500 rounded-full text-red-500">-{{salePercent}}
-                        %</span>
-                {{/onSale}}
-                <img class="w-full h-96 object-cover"
-                     src="data:{{imageType}};base64, {{imageData}}"
-                     onerror="this.src='/dashboard/assets/images/default-product-image.png';this.onerror='';" alt="">
+    <div class="w-full lg:w-1/3 px-3 mb-16 lg:mb-0">
+        <!-- SALE STICKER -->
+        <div class="relative">
+            <!-- DISCOUNT TAG -->
+            {{#onSale}}
+            <span
+                class="absolute bottom-10 left-0 ml-6 mt-6 px-2 py-1 text-xs font-bold font-heading bg-gray-300 border-2 border-red-500 rounded-full text-red-500">-{{salePercent}}
+                %</span>
+            {{/onSale}}
+            <img class="w-full h-96 object-cover" src="data:{{imageType}};base64, {{imageData}}"
+                onerror="this.src='/dashboard/assets/images/default-product-image.png';this.onerror='';" alt="">
+        </div>
+        <div class="mt-12" id="{{id}}">
+            <!-- PRODUCT INFO -->
+            <div class="mb-2">
+                <h3 class="mb-3 text-3xl text-white font-bold font-heading">{{name}}</h3>
+                <p class="text-xl font-bold font-heading text-white">{{description}}</p>
+                <p class="text-xl font-bold font-heading text-white">
+                    {{#onSale}}
+                    <span>${{sale_price}}</span>
+                    <span class="text-xs text-gray-500 font-semibold font-heading line-through">${{price}}</span>
+                    {{/onSale}}
+                    {{^onSale}}
+                    <span>${{price}}</span>
+                    {{/onSale}}
+                </p>
             </div>
-            <div class="mt-12" id="{{id}}">
-                <!-- PRODUCT INFO -->
-                <div class="mb-2">
-                    <h3 class="mb-3 text-3xl text-white font-bold font-heading">{{name}}</h3>
-                    <p class="text-xl font-bold font-heading text-white">{{description}}</p>
-                    <p class="text-xl font-bold font-heading text-white">
-                        {{#onSale}}
-                            <span>${{sale_price}}</span>
-                            <span class="text-xs text-gray-500 font-semibold font-heading line-through">${{price}}</span>
-                        {{/onSale}}
-                        {{^onSale}}
-                            <span>${{price}}</span>
-                        {{/onSale}}
-                    </p>
-                </div>
-            </div>
+        </div>
 
-            <div class="flex flex-wrap">
-                <!-- ADD TO CART -->
-                <form method="post" action="/cart/addToCart">
-                    {{#hasSize}}
-                        <select class="pl-10" name="sizeSelect">
-                            <option>Size</option>
-                            <option>Small</option>
-                            <option>Medium</option>
-                            <option>Large</option>
-                        </select>
-                    {{/hasSize}}
-                    {{#hasColor}}
-                        <select class="pl-10" name="colorSelect">
-                            <option>Color</option>
-                            <option>White</option>
-                            <option>Black</option>
-                            <option>Red</option>
-                            <option>Blue</option>
-                            <option>Green</option>
-                            <option>Yellow</option>
-                        </select>
-                    {{/hasColor}}
-                    {{#session.loggedIn}}
-                    <button class="inline-block py-4 px-8 mb-10 bg-blue-300 hover:bg-blue-400 rounded-md"
-                            onclick="productAddedToCartAlert({{id}})">
+        <div class="flex flex-wrap">
+            <!-- ADD TO CART -->
+            <form method="post" action="/cart/addToCart">
+                {{#hasSize}}
+                <select class="pl-10" name="sizeSelect">
+                    <option>Size</option>
+                    <option>Small</option>
+                    <option>Medium</option>
+                    <option>Large</option>
+                </select>
+                {{/hasSize}}
+                {{#hasColor}}
+                <select class="pl-10" name="colorSelect">
+                    <option>Color</option>
+                    <option>White</option>
+                    <option>Black</option>
+                    <option>Red</option>
+                    <option>Blue</option>
+                    <option>Green</option>
+                    <option>Yellow</option>
+                </select>
+                {{/hasColor}}
+                {{#session.loggedIn}}
+                <button class="inline-block py-4 px-8 mb-10 bg-blue-300 hover:bg-blue-400 rounded-md"
+                    onclick="productAddedToCartAlert({{id}})">
                     {{/session.loggedIn}}
                     {{^session.loggedIn}}
                     <button class="inline-block py-4 px-8 mb-10 bg-blue-300 hover:bg-blue-400 rounded-md"
-                            onclick="noProductAddedToCartAlert({{id}})">
-                    {{/session.loggedIn}}
-                    <svg width="12" height="15" viewbox="0 0 12 12" fill="none"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <rect x="5" width="2" height="12" fill="white"></rect>
-                        <rect x="12" y="5" width="2" height="12" transform="rotate(90 12 5)"
-                              fill="white"></rect>
-                    </svg>
-                    <input type="hidden" value="{{id}}" name="productId"/>
+                        onclick="noProductAddedToCartAlert({{id}})">
+                        {{/session.loggedIn}}
+                        <svg width="12" height="15" viewbox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="5" width="2" height="12" fill="white"></rect>
+                            <rect x="12" y="5" width="2" height="12" transform="rotate(90 12 5)" fill="white"></rect>
+                        </svg>
+                        <input type="hidden" value="{{id}}" name="productId" />
+                    </button>
                 </button>
-                </button>
-                </form>
-
+            </form>
                 <form method="post" action="/wishlist/addToWishlist">
                     {{#session.loggedIn}}
                         <button class="inline-block py-4 px-8 ml-2 mb-10 bg-blue-300 hover:bg-blue-400 rounded-md"
@@ -77,7 +74,7 @@
                             <svg width="20" height="16" viewbox="0 0 23 20" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path d="M11.4998 19.2061L2.70115 9.92527C1.92859 9.14433 1.41864 8.1374 1.24355 7.04712C1.06847 5.95684 1.23713 4.8385 1.72563 3.85053V3.85053C2.09464 3.10462 2.63366 2.45803 3.29828 1.96406C3.9629 1.47008 4.73408 1.14284 5.5483 1.00931C6.36252 0.875782 7.19647 0.939779 7.98144 1.19603C8.7664 1.45228 9.47991 1.89345 10.0632 2.48319L11.4998 3.93577L12.9364 2.48319C13.5197 1.89345 14.2332 1.45228 15.0182 1.19603C15.8031 0.939779 16.6371 0.875782 17.4513 1.00931C18.2655 1.14284 19.0367 1.47008 19.7013 1.96406C20.3659 2.45803 20.905 3.10462 21.274 3.85053V3.85053C21.7625 4.8385 21.9311 5.95684 21.756 7.04712C21.581 8.1374 21.071 9.14433 20.2984 9.92527L11.4998 19.2061Z"
-                                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                      stroke="white" stroke-width="1.5" stroke-linecap="round"
                                       stroke-linejoin="round"></path>
                             </svg>
                             <input type="hidden" value="{{id}}" name="productId"/>
@@ -86,5 +83,6 @@
                 </form>
             </div>
         </div>
+    </div>
     {{/products}}
 </div>
