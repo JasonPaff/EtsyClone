@@ -93,7 +93,7 @@ function authenticator(req, res, next) {
 function checkIsActive(req, res, next) {
     if (req.session.user.isActive) {
         next()
-    } else if (req.session.user.isActive == false && req.originalUrl === "/dashboard/") {
+    } else if (req.session.user.isActive === false && req.originalUrl === "/dashboard/") {
         res.render('dashboard/reactivate-account')
     } else if (req.originalUrl === "/dashboard/deactivate-account") {
         next()

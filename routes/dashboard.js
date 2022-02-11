@@ -50,7 +50,7 @@ router.get('/edit-store', async (req, res) => {
         let storeData;
         if (store !== null || store.dataValues !== null)
             storeData = store.dataValues;
-        res.render('dashboard/edit-store', { data: { title: 'Etsy Clone - Edit Store', session: req.session }, storeData });
+        res.render('dashboard/edit-store', { title: 'Etsy Clone - Edit Store', session: req.session , storeData });
     }
 })
 
