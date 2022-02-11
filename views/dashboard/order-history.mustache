@@ -5,17 +5,17 @@
 
 <body class="main-bg bg-body text-body font-body">
 
-{{>navbar}}
+    {{>navbar}}
 
-<section class="relative py-20 lg:pt-32 bg-blue-800 overflow-y-hidden">
-    {{>swirls}}
+    <section class="relative py-20 lg:pt-32 bg-blue-800 overflow-y-hidden">
+        {{>swirls}}
 
-    <div class="relative container mx-auto px-4">
-        <h2 class="mb-8 text-5xl font-bold font-heading">Order History</h2>
-        <p class="mb-14 text-lg text-gray-500">Recent Orders</p>
+        <div class="relative container mx-auto px-4">
+            <h2 class="mb-8 text-5xl font-bold font-heading" style="color: white;">Order History</h2>
+            <p class="mb-14 text-lg text-gray-500">Recent Orders</p>
 
-        {{#orders}}
-            <div class="mb-12 py-8 px-8 md:px-20 bg-white">
+            {{#orders}}
+            <div class="mb-12 py-8 px-8 md:px-20 nav-bg">
                 <div class="flex flex-wrap mb-8 pb-4 border-b">
                     <div class="mr-20">
                         <h3 class="text-gray-600">Order Number</h3>
@@ -34,12 +34,13 @@
                     {{>product-summary-display}}
                 </div>
             </div>
-        {{/orders}}
+            {{/orders}}
 
-    </div>
-</section>
+        </div>
+    </section>
 
-{{>footer}}
+    {{>footer}}
 
 </body>
+
 </html>
