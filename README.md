@@ -8,7 +8,7 @@
 
 ### Landing Page
 
-![landing page](/images/main.png)
+![landing page](msedge_XMngM4N5sb.png)
 
 ### Technology Stack
 
