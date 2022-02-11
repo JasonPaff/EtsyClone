@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{{>header}}
+
+<body class="antialiased bg-body text-body font-body">
+
+{{>navbar}}
+
+<section class="py-20 bg-gray-100">
+    <div class="container mx-auto px-4">
+        <h2 class="mb-8 text-5xl font-bold font-heading">Order History</h2>
+        <p class="mb-14 text-lg text-gray-500">Recent Orders</p>
+
+        {{#orders}}
+            <div class="mb-12 py-8 px-8 md:px-20 bg-white">
+                <div class="flex flex-wrap mb-8 pb-4 border-b">
+                    <div class="mr-20">
+                        <h3 class="text-gray-600">Order Number</h3>
+                        <p class="text-blue-300 font-bold font-heading">#{{order_number}}</p>
+                    </div>
+                    <div class="mr-20">
+                        <h3 class="text-gray-600">Order Total</h3>
+                        <p class="text-blue-300 font-bold font-heading">${{order_total}}</p>
+                    </div>
+                    <div class="mr-auto">
+                        <h3 class="text-gray-600">Date</h3>
+                        <p class="text-blue-300 font-bold font-heading">{{createdAt}}</p>
+                    </div>
+                </div>
+                <div class="flex flex-wrap -mx-4 mb-8">
+                    {{>product-summary-display}}
+                </div>
+            </div>
+        {{/orders}}
+
+    </div>
+</section>
+
+{{>footer}}
+
+</body>
+</html>

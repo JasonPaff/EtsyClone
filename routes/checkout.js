@@ -21,13 +21,14 @@ async function checkout(req, res) {
     const session = await stripe.checkout.sessions.create({
         line_items: lineItems,
         mode: 'payment',
-        success_url: 'http://localhost:3000/summary',
-        cancel_url: 'http://localhost:3000/checkout',
+        success_url: 'https://our-etsy.herokuapp.com/summary',
+        cancel_url: 'https://our-etsy.herokuapp.com/checkout',
     });
 
     res.redirect(303, session.url);
 }
 
+// create line items for stripe checkout
 async function createLineItems(user) {
     let products = null;
 

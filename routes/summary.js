@@ -20,14 +20,18 @@ router.get('/', async function (req, res) {
     const tax = subTotal * 0.05;
     const total = subTotal + tax;
 
+    const orderNumber = generateRandomNumber();
+
     res.render('summary', {
         title: 'Order Summary',
         session: req.session,
         products: products,
         orderDate: today.toLocaleDateString(),
-        orderNumber: generateRandomNumber(),
+        orderNumber: orderNumber,
         orderTotal: total.toFixed(2)
     });
+
+    await require('../utils/dbUtils').saveOrder(req.session.user, products, total, orderNumber);
 
     await require('../utils/dbUtils').clearUserCart(req.session.user);
 

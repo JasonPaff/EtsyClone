@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // ROUTES
 app.use("/", require('./routes/index.js'));
 app.use("/index", require('./routes/index.js'));
-app.use("/cart", require('./routes/cart.js'));
+app.use("/cart", authenticator, require('./routes/cart.js'));
 app.use("/checkout", authenticator, require('./routes/checkout.js'));
 app.use("/login", require('./routes/login.js'));
 app.use("/products", require('./routes/products.js'));

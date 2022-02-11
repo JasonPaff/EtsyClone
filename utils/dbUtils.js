@@ -35,6 +35,7 @@ function sortProductsByViewCount(products) {
             return 1;
         return 0;
     }
+
     products.sort(compareViews);
 
     return products;
@@ -45,14 +46,14 @@ async function getStoreNamesFromProducts(products) {
     let storeNames = [];
     // user_id from products need to match user_id on store for store name
 
-    for (let c = 0; c < products.length; c++){
+    for (let c = 0; c < products.length; c++) {
         let store = await models.Store.findOne({
-            where : {
-                user_id : products[c].dataValues.user_id
+            where: {
+                user_id: products[c].dataValues.user_id
             }
         });
 
-        if (store !== null){
+        if (store !== null) {
             storeNames.push(store.dataValues.store_name);
         }
     }
@@ -168,6 +169,24 @@ async function getAllCartProducts(cart) {
     return products;
 }
 
+// returns all the products in a cart
+async function getAllOrderProducts(order) {
+    const ids = order.dataValues.product_id;
+    const quantities = order.dataValues.quantity;
+
+    let products = [];
+
+    // add products based on matching quantities
+    for (let c = 0; c < ids.length; c++) {
+        for (let d = 0; d < quantities[c]; d++) {
+            const product = await getProduct(ids[c]);
+            if (product !== null) products.push(product);
+        }
+    }
+
+    return products;
+}
+
 // returns all the products in a wish list
 async function getAllWishlistProducts(wishlist) {
     const ids = wishlist.dataValues.product_id;
@@ -262,8 +281,7 @@ async function addProductToCart(productId, quantity, user) {
     // match found, update quantity
     if (existingProductIndex !== -1) {
         quantities[existingProductIndex] += quantity;
-    }
-    else { // no match, add new
+    } else { // no match, add new
         ids.push(productId);
         quantities.push(quantity);
     }
@@ -315,8 +333,7 @@ async function addProductToWishlist(productId, quantity, user) {
     // match found, update quantity
     if (existingProductIndex !== -1) {
         quantities[existingProductIndex] += quantity;
-    }
-    else { // no match, add new
+    } else { // no match, add new
         ids.push(productId);
         quantities.push(quantity);
     }
@@ -432,6 +449,47 @@ function getCategoriesList() {
     }];
 }
 
+// get user orders
+async function getOrders(user) {
+    const orders = await models.Order.findAll({
+        where : {
+            user_id: user.id
+        }
+    });
+
+    console.log(orders);
+
+    return orders;
+}
+
+// save order to database
+async function saveOrder(user, products, total, invoice) {
+    const theProducts = [];
+    const theQuantities = [];
+
+    for (let c = 0; c < products.length; c++) {
+        // check for product in the ids array, returns -1 for no match
+        const existingProductIndex = theProducts.findIndex(id => id == products[c].dataValues.id);
+
+        // add product/quantity or update quantity
+        if (existingProductIndex === -1) {
+            theProducts.push(products[c].dataValues.id);
+            theQuantities.push(1);
+        } else
+            theQuantities[existingProductIndex] += 1;
+    }
+
+    const order = {
+        user_id: user.id,
+        product_id: theProducts,
+        quantity: theQuantities,
+        order_total: total,
+        order_number: invoice
+    }
+
+    models.Order.create(order).catch(console.error);
+}
+
 module.exports.calculateSalePrices = calculateSalePrices;
 module.exports.getAllProducts = getAllProducts;
 module.exports.getAllUserProducts = getAllUserProducts;
@@ -456,3 +514,6 @@ module.exports.addSizeColorFlags = addSizeColorFlags;
 module.exports.sortProductsByViewCount = sortProductsByViewCount;
 module.exports.clearUserCart = clearUserCart;
 module.exports.getStoreNamesFromProducts = getStoreNamesFromProducts;
+module.exports.saveOrder = saveOrder;
+module.exports.getOrders = getOrders;
+module.exports.getAllOrderProducts = getAllOrderProducts;
