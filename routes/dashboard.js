@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const models = require('../models')
-const { Op } = require('sequelize')
 const multer = require('multer')
 const upload = multer({ dest: './uploads/', storage: multer.memoryStorage() })
 const bcrypt = require("bcryptjs");
@@ -210,12 +209,30 @@ router.get('/sign-out', (req, res) => {
 });
 
 router.get('/view-reviews', async (req, res) => {
-    const reviews = await models.Review.findAll({
+    let reviews;
+
+    reviews = await models.Review.findAll({
         where: {
             user_id: req.session.user.id
         }
-    })
-    res.render('dashboard/view-reviews', { title: 'Etsy Clone - View Your Reviews', session: req.session, allReviews: reviews });
+    });
+
+    let products = [];
+
+    for (let c = 0; c < reviews.length; c++) {
+        const product = await models.Product.findOne({
+            where: {
+                id: reviews[c].dataValues.product_id
+            }
+        });
+
+        product.dataValues.rating = reviews[c].dataValues.rating;
+        product.dataValues.review = reviews[c].dataValues.review_text;
+
+        products.push(product);
+    }
+
+    res.render('dashboard/view-reviews', { title: 'Etsy Clone - View Your Reviews', session: req.session, products: products });
 });
 
 router.post('/deactivate-account', (req, res) => {
