@@ -76,6 +76,12 @@ async function createLineItems(user) {
             });
         }
 
+        const storeNames = await require('../utils/dbUtils').getStoreNamesFromProducts(products);
+
+        for (let c = 0; c < products.length; c++) {
+            products[c].dataValues.storeName = storeNames[c];
+        }
+
         const tax = subTotal * 0.05;
         const total = subTotal + tax;
 
