@@ -12,7 +12,8 @@
 
 ### Technology Stack
 
-Html, CSS, JavaScript
+ JavaScript, Express, Sequelize ORM, Mustache, Html, CSS,
+ Google Auth, Stripe Api, Websockets
 
 ### Developed By
 
