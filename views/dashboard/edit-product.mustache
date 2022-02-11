@@ -5,33 +5,58 @@
 {{>header}}
 
 <body class="main-bg bg-body text-body font-body">
-
     {{>navbar}}
-    <h1>Add Product</h1>
-    {{#productData}}
-    <form method="POST" action="/dashboard/edit-product/{{id}}" enctype="multipart/form-data">
-        <input type="text" value="{{name}}" name="productName" required />
-        <div>
-            <textarea name="productDescription" rows="6" cols="50" required>{{description}}</textarea>
+    <section class="relative py-20 lg:pt-32 bg-blue-800 overflow-y-hidden">
+        <!-- BACKGROUND SWIRLS -->
+        <img class="hidden md:block absolute top-0 left-0" src="assets/elements/white-line.svg" alt="">
+        <img class="absolute top-50 left-0 mt-64" src="assets/elements/orange-line.svg" alt="">
+        <img class="absolute bottom-0 right-0 w-72" src="assets/elements/violet-line.svg" alt="">
+        <div class="relative container mx-auto px-4">
+            <h2 class="mb-16 md:mb-24 text-4xl md:text-5xl font-bold login-error font-heading" style="color: white">
+                Update Product</h2>
+            <div class="flex flex-wrap -mx-3 mb-24 relative nav-bg p-6 mt-8">
+                {{#productData}}
+                <form method="POST" action="/dashboard/edit-product/{{id}}" enctype="multipart/form-data">
+                    <input type="text"
+                        class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 cart nav-bg nav-border-bg focus:border-blue-300 rounded-md"
+                        value="{{name}}" name="productName" required />
+                    <div>
+                        <textarea
+                            class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 cart nav-bg nav-border-bg focus:border-blue-300 rounded-md"
+                            name="productDescription" rows="6" cols="50" required>{{description}}</textarea>
+                    </div>
+                    <div>
+                        <input type="text"
+                            class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 cart nav-bg nav-border-bg focus:border-blue-300 rounded-md"
+                            id="price" value="{{price}}" name="productPrice" required />
+                        <input type="text"
+                            class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 cart nav-bg nav-border-bg focus:border-blue-300 rounded-md"
+                            id="price" value="{{sale_price}}" name="salePrice" placeholder="Sale Price (optional)" />
+                    </div>
+                    <input type="text"
+                        class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 cart nav-bg nav-border-bg focus:border-blue-300 rounded-md"
+                        name="productColor" value="{{color}}" />
+                    <input type="text"
+                        class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 cart nav-bg nav-border-bg focus:border-blue-300 rounded-md"
+                        name="productSize" value="{{size}}" />
+                    <input type="text"
+                        class="w-full mb-4 px-12 py-6 border border-gray-200 focus:ring-blue-300 cart nav-bg nav-border-bg focus:border-blue-300 rounded-md"
+                        name="productCategory" value="{{category}}" required />
+                    <h2 class="mb-4 text-base font-bold login-error font-heading" style="color: white">
+                        Update Product Image:</h2>
+                    <div>
+                        <input type="file" name="productImage" accept="image/*" />
+                    </div>
+                    <div>
+                        <button
+                            class="mt-12 md:mt-16 bg-orange-300 hover:bg-orange-400 text-white font-bold font-heading py-5 px-8 rounded-md uppercase">Update
+                            Product</button>
+                    </div>
+                </form>
+                {{/productData}}
+            </div>
         </div>
-        <div>
-            <label for="price">$</label>
-            <input type="text" id="price" value="{{price}}" name="productPrice" required />
-            <label for="price">$</label>
-            <input type="text" id="price" value="{{sale_price}}" name="salePrice" />
-        </div>
-        <input type="text" name="productColor" value="{{color}}" />
-        <input type="text" name="productSize" value="{{size}}" />
-        <input type="text" name="productCategory" value="{{category}}" required />
-        <div>
-            <input type="file" name="productImage" accept="image/*" />
-        </div>
-        <div>
-            <button>Update Product</button>
-        </div>
-    </form>
-    {{/productData}}
-
+    </section>
     {{>footer}}
 </body>
 
