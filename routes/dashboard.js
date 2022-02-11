@@ -232,8 +232,6 @@ router.get('/order-history', async function (req, res) {
     // get the users orders
     const orders = await require('../utils/dbUtils').getOrders(req.session.user);
 
-    console.log(orders);
-
     for (let c = 0; c < orders.length; c++){
         const total = parseFloat(orders[c].dataValues.order_total);
         orders[c].dataValues.order_total = total.toFixed(2);
