@@ -1,27 +1,5 @@
 # Etsy Clone
 
-- **Purpose:** An e-commerce platform that enables people with no e-commerce experience to easily create an online store and sell their home made products. Users are able to create an online store, add products with descriptions, prices, sale prices, and photos. Customers are able to come shop from multiple stores across many different types of prodcuts and only have to check out once.
-
-### Live Link:
-
-<https://our-etsy.herokuapp.com/>
-
-### Landing Page:
-
-![landing page](msedge_XMngM4N5sb.png)
-
-### Technology Stack:
-HTML, CSS, Tailwind, Javascript, Node.js, Mustache, Express, Google Auth Library, Socket.IO, Multer, Stripe API
-
-### Database:
-
-PostgreSQL using Sequelize ORM
-
-### Built by:
-
-[Jason Paff](https://github.com/JasonPaff), [Phil Slater](https://github.com/Phil-Slater), [Cristobal Martinez](https://github.com/Cristobalmtz16)
-
-
 # Purpose of the app:
 
 Creates an online shopping marketplace for goods sold by small business owners. Based off of the popular marketplace [Etsy](https://www.etsy.com/).
@@ -44,3 +22,22 @@ While viewing your cart, click on Go To Checkout to pay and submit your order.
 To create your own online store and products, navigate to your user dashboard. Either click on Dashboard in the navbar or if on mobile, pull up the navbar menu and select Dashoboard.
 
 From your dashboard you can add/edit your store, add/edit/delete your store's products, view reviews and your order history. You can also update your password, sign out, or deactivate your account if you wish to stop selling your products.
+
+### Live Link:
+
+<https://our-etsy.herokuapp.com/>
+
+### Landing Page:
+
+![landing page](msedge_XMngM4N5sb.png)
+
+### Technology Stack:
+HTML, CSS, Tailwind, Javascript, Node.js, Mustache, Express, Google Auth Library, Socket.IO, Multer, Stripe API
+
+### Database:
+
+PostgreSQL using Sequelize ORM
+
+### Built by:
+
+[Jason Paff](https://github.com/JasonPaff), [Phil Slater](https://github.com/Phil-Slater), [Cristobal Martinez](https://github.com/Cristobalmtz16)
