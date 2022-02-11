@@ -8,7 +8,7 @@ Creates an online shopping marketplace for goods sold by small business owners. 
 
 The website is best used when signed into an account. Create an account on the login/register page or easily sign into EtsyClone with your Google account. 
 
-From the navbar, you may search for products on the store or display them in predifned groups:
+From the navbar, you may search for products on the store or display them in predefined groups:
 
 1. Products displays all products
 2. Categories display products from a specific category
@@ -19,7 +19,7 @@ In the product container, click the plus sign under the product image to add it 
 
 While viewing your cart, click on Go To Checkout to pay and submit your order.
 
-To create your own online store and products, navigate to your user dashboard. Either click on Dashboard in the navbar or if on mobile, pull up the navbar menu and select Dashoboard.
+To create your own online store and products, navigate to your user dashboard. Either click on Dashboard in the navbar or if on mobile, pull up the navbar menu and select Dashboard.
 
 From your dashboard you can add/edit your store, add/edit/delete your store's products, view reviews and your order history. You can also update your password, sign out, or deactivate your account if you wish to stop selling your products.
 
