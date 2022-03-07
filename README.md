@@ -1,5 +1,9 @@
 # Etsy Clone
 
+### Landing Page:
+
+![landing page](msedge_XMngM4N5sb.png)
+
 # Purpose of the app:
 
 Creates an online shopping marketplace for goods sold by small business owners. Based off of the popular marketplace [Etsy](https://www.etsy.com/).
@@ -26,10 +30,6 @@ From your dashboard you can add/edit your store, add/edit/delete your store's pr
 ### Live Link:
 
 <https://our-etsy.herokuapp.com/>
-
-### Landing Page:
-
-![landing page](msedge_XMngM4N5sb.png)
 
 ### Technology Stack:
 HTML, CSS, Tailwind, Javascript, Node.js, Mustache, Express, Google Auth Library, Multer, Stripe API
